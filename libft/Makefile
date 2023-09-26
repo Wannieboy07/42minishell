@@ -59,7 +59,7 @@ OBJS_PREFIXED = $(addprefix $(OBJS_DIR), $(notdir $(OBJS)))
 
 CC = cc
 
-CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror -g
 
 $(OBJS_DIR)%.o : */%.c libft.h get_next_line.h
 	@mkdir -p $(dir $@)
