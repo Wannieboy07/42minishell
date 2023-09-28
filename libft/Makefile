@@ -61,10 +61,14 @@ CC = cc
 
 CC_FLAGS = -Wall -Wextra -Werror -g
 
+CUT = \033[K
+UP = \033[A
+
 $(OBJS_DIR)%.o : */%.c libft.h get_next_line.h
 	@mkdir -p $(dir $@)
-	@echo "Compiling: $(notdir $<)"
+	@echo "\033[38;5;226mCompiling: $(notdir $<)\033[0;39m"
 	@$(CC) $(CC_FLAGS) -c $< -o $@
+	@printf "$(UP)$(CUT)"
 
 $(NAME): $(OBJS_PREFIXED)
 	@ar rcs $(NAME) $(OBJS_PREFIXED)
