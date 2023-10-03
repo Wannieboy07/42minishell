@@ -6,26 +6,27 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/09/29 01:58:15 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/10/04 00:27:23 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #program name
 NAME = minishell
 
+#project specific flags
+PFLAGS = -lreadline
+
 #compiler
 CC = cc
-
-#remove
-RM = rm -rf
 
 #flags
 CFLAGS = -g -Wall -Wextra -Werror
 
-PFLAGS = -lreadline
-
 #redirect output to /dev/null to silence it
 OUT = > /dev/null
+
+#remove
+RM = rm -rf
 
 #find sources
 SRCS = ${shell find . -name "*.c" -not -path "*lib*"}
@@ -69,17 +70,20 @@ HDR_ALL = ${foreach header,${HEADERS},-I ${header}}
 #make other projects that were found
 MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} ;}
 
+#color codes
 WHITE = \033[0;39m
 YELLOW = \033[38;5;226m
 GREEN = \033[0;92m
+RED = \033[0;31m
 
+#key codes
 UP = \033[A
 CLEAR = \033[K
 
 #make object files
 ${OBJ_DIR}%.o: %.c
-	@echo "${YELLOW}Compiling: $<${WHITE}"
 	@${MK_DIR}
+	@echo "${YELLOW}Compiling: $<${WHITE}"
 	@${CC} ${CFLAGS} -c $< -o $@
 	@printf "${UP}${CLEAR}"
 
@@ -88,6 +92,7 @@ all: MK ${NAME}
 
 #make project into program
 ${NAME}: ${objs} ${HEADERS}
+	@echo "${GREEN}Compiling done!${WHITE}"
 	@${CC} ${CFLAGS} ${PFLAGS} ${objs} ${HDR_ALL} ${LIB_ALL} -o ${NAME}
 	@chmod +x ${NAME}
 	@echo "${GREEN}Minishell done!${WHITE}"
@@ -95,16 +100,17 @@ ${NAME}: ${objs} ${HEADERS}
 #make library
 MK:
 	@${MKFL_ALL}
-	@printf "${UP}${CLEAR}"
 
 #clean object files and directories
 clean:
 	@${RM} ${OBJ_DIR}
 	@${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean ${OUT} ;}
+	@echo "${RED}Cleaning unnecessary files${WHITE}"
 
 #clean everything that was made
 fclean: clean
 	@${RM} ${NAME}
+	@echo "${RED}Cleaning executable${WHITE}"
 
 #remake
 re: fclean all

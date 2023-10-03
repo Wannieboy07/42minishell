@@ -1,6 +1,14 @@
-#include "minishell.h"
+#include "../minishell.h"
 
-static void	cmd_sig_handler(int signum)
+void	eof_handler(/*t_main *data*/)
+{
+	printf("exit\n");
+//	kill_free();
+	rl_clear_history();
+	exit (1);
+}
+
+void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -11,7 +19,7 @@ static void	cmd_sig_handler(int signum)
 	}
 }
 
-static void	global_sig_handler(int signum)
+void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
