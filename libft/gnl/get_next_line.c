@@ -6,11 +6,10 @@
 /*   By: wmarien <wmarien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:19:38 by wmarien           #+#    #+#             */
-/*   Updated: 2023/03/30 14:56:02 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/04 21:49:54 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../get_next_line.h"
 #include "../libft.h"
 
 char	*ft_read(int fd, char *og_str)

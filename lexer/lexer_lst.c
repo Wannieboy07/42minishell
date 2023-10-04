@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_lst.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 16:14:17 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/04 16:20:13 by lpeeters         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_token	*new_token(t_tokentype type, char *value)
@@ -35,7 +47,7 @@ void	free_token_lst(t_token **head)
 
 	curr_node = *head;
 	if (!curr_node)
-		return;
+		return ;
 	while (curr_node)
 	{
 		free(curr_node->value);

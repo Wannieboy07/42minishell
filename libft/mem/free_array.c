@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 10:38:26 by wmarien           #+#    #+#             */
-/*   Updated: 2023/03/29 16:51:42 by wmarien          ###   ########.fr       */
+/*   Created: 2023/05/12 17:06:17 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/04 21:41:09 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../libft.h"
 
-# include "libft.h"
+void	free_arr(char **array)
+{
+	int	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-char		*get_next_line(int fd);
-
-#endif
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+	array = NULL;
+}

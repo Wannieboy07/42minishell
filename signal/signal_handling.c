@@ -1,30 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal_handling.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/05 00:26:08 by lpeeters         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	eof_handler(/*t_main *data*/)
-{
-	printf("exit\n");
 //	kill_free();
+
+//end handler
+//			    t_main *data
+void	eof_handler(void)
+{
+	write(1, "exit\n", 5);
 	rl_clear_history();
 	exit (1);
 }
 
+//		set error code 130
+
+//handle ctrl+c to clear the prompt
 void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-//		set error code 130
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 	}
 }
 
+//		set error code 1
+
+//and now it is 12am30, I literally HAVE to go home
+//or my bicycle will get locked away from me
 void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-//		set error code 1
-		write(1,"\n", 1);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

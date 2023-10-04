@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_seperator.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 16:14:12 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/04 16:20:20 by lpeeters         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	add_seperator(t_tokentype type, char **line, t_token **token_lst)
 {
 	t_token	*token;
-	
+
 	token = new_token(type, NULL);
 	if (!token)
 		return (1);

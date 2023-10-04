@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/04 00:27:23 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/10/04 22:07:04 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ LIB_ALL = ${foreach libdir,${LIB_DIRS},-L ${libdir}} \
 HDR_ALL = ${foreach header,${HEADERS},-I ${header}}
 
 #make other projects that were found
-MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} ;}
+MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -sC ${mkfldir} ;}
 
 #color codes
 WHITE = \033[0;39m
@@ -104,7 +104,7 @@ MK:
 #clean object files and directories
 clean:
 	@${RM} ${OBJ_DIR}
-	@${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean ${OUT} ;}
+	@${foreach mkfldir,${MKFL_DIRS}, make -sC ${mkfldir} fclean ;}
 	@echo "${RED}Cleaning unnecessary files${WHITE}"
 
 #clean everything that was made

@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   cpy_arr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/04 23:47:33 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/07/25 22:56:52 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/04 21:41:37 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// perror
+#include <stdio.h>
 
-//print a string to the standard error stream
-int	prnt_err(char *str)
-{
-	ft_putendl_fd(str, 2);
-	return (1);
-}
+#include "../libft.h"
 
-int	lexer_err(t_token **token_lst, char *str, char *err_str)
+char	**cpy_arr(char **arr)
 {
-	if (*token_lst)
-		free_token_lst(token_lst);
-	if (str)
-		free(str);
-	if (err_str)
-		prnt_err(err_str);
-	return (1);
+	int		i;
+	char	**cpy;
+
+	i = 0;
+	while (arr[i] != NULL)
+		i++;
+	cpy = (char **)malloc(sizeof(char *) * (i + 1));
+	if (cpy == NULL)
+		return (NULL);
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		cpy[i] = ft_strdup(arr[i]);
+		if (cpy[i++] == NULL)
+		{
+			free_arr(cpy);
+			return (NULL);
+		}
+	}
+	cpy[i] = NULL;
+	return (cpy);
 }

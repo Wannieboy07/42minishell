@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/04 00:28:39 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/10/04 22:11:12 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ ${OBJ_DIR}%.o: %.c ${SRCS} ${HEADER}
 
 #make project into library file
 ${NAME}: ${OBJS}
+	@echo "${GREEN}Compiling done!${WHITE}"
 	@${MK_DIR}
 	@${LIBC} ${NAME} ${OBJS} ${HEADER}
 	@echo "${GREEN}Libft done!${WHITE}"
@@ -69,6 +70,7 @@ all: ${NAME}
 #clean object files and directories
 clean:
 	@${RM} ${OBJ_DIR}
+	@echo "${RED}Cleaning unnecessary files${WHITE}"
 
 #clean everything that was made
 fclean: clean
