@@ -3,29 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:20 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/04 16:19:57 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/05 20:08:55 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	is_seperator(char c)
+bool	skip_quotes(char *buff, size_t *i)
 {
-	if (c == '|' || c == '<' || c == '>')
+	char	quote;
+
+	quote = buff[*i];
+	while (buff[++(*i)] && buff[*i] != quote)
+		if (!buff[*i + 1])
+			return (false);
+	(*i)++;
+	return (true);
+}
+
+bool	is_seperator(char *c)
+{
+	if (*c == ' ' || *c == '\t' || *c == '|'
+		|| *c == '<' || *c == '>')
 		return (true);
 	return (false);
 }
 
-bool	is_keyword(char *value)
+t_tokentype	is_keyword(char *value)
 {
 	if (!ft_strncmp(value, "echo", 4) || !ft_strncmp(value, "cd", 2)
 		|| !ft_strncmp(value, "pwd", 3) || !ft_strncmp(value, "export", 6)
 		|| !ft_strncmp(value, "unset", 5) || !ft_strncmp(value, "env", 3)
 		|| !ft_strncmp(value, "exit", 4))
-		return (true);
+		return (KEYWORD);
 	else
-		return (false);
+		return (IDENTIFIER);
 }

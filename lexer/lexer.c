@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:15 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/04 16:20:17 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/05 20:16:45 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	lexer(char *line)
 					"\033[0;31mlexer failed\033[0;39m"));
 		while (ft_isspace(*line))
 			(*line)++;
-		if (is_seperator(*line))
+		if (is_seperator(line))
 			err = !handle_seperator(&line, &token_lst);
 		else
 			err = !handle_identifier(&line, &token_lst);

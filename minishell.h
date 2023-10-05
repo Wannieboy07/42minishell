@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/04 23:51:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:15:54 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,27 @@ typedef struct s_token {
 
 /*=== Signal Handling ===*/
 
-void	eof_handler(void);/*t_main *data*/
-void	handle_global_signals(void);
-void	handle_cmd_signals(void);
+void		eof_handler(void);/*t_main *data*/
+void		handle_global_signals(void);
+void		handle_cmd_signals(void);
 
 /*=== Error Handling ===*/
 
-int		prnt_err(char *str);
-int		lexer_err(t_token **token_lst, char *str, char *err_str);
+int			prnt_err(char *str);
+int			lexer_err(t_token **token_lst, char *str, char *err_str);
 
 /*=== Lexer ===*/
 
-int		lexer(char *line);
-int		handle_seperator(char **line, t_token **token_lst);
-int		handle_identifier(char **line, t_token **token_lst);
+int			lexer(char *line);
+int			handle_seperator(char **line, t_token **token_lst);
+int			handle_identifier(char **line, t_token **token_lst);
 
-t_token	*new_token(t_tokentype type, char *value);
-void	token_add_back(t_token **head, t_token *new_node);
-void	free_token_lst(t_token **head);
+t_token		*new_token(t_tokentype type, char *value);
+void		token_add_back(t_token **head, t_token *new_node);
+void		free_token_lst(t_token **head);
 
-bool	is_seperator(char c);
-bool	is_keyword(char *value);
+bool		skip_quotes(char *buff, size_t *i);
+bool		is_seperator(char *c);
+t_tokentype	is_keyword(char *value);
 
 #endif
