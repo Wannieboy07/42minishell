@@ -6,24 +6,26 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/05 23:40:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:55:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	lexer(char *line)
+t_token	*lexer(void)
 {
 	int		err;
+	char	*line;
 	t_token	*token_lst;
 	t_token	*curr;
 
 	err = 0;
+	line = g_minishell.line;
 	token_lst = NULL;
 	while (*line)
 	{
 		if (err)
-			return (lexer_err(&token_lst, NULL, "lexer failed"));
+			return (free_token_lst(&token_lst), NULL);
 		while (*line && ft_isspace(*line))
 			(*line)++;
 		if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
@@ -38,5 +40,8 @@ int	lexer(char *line)
 		printf("Type: %d\nValue: %s\n", curr->type, curr->value);
 		curr = curr->next;
 	}
-	return (0);
+	line = g_minishell.line;
+	free(line);
+	g_minishell.line = NULL;
+	return (token_lst);
 }
