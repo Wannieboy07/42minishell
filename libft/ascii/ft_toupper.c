@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:49:54 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/11 09:57:34 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 22:06:17 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//convert lowercase letters to uppercase
 int	ft_toupper(int c)
 {
 	if (c >= 97 && c <= 122)

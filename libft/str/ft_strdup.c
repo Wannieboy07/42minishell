@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:22:23 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/11 10:28:23 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 23:15:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//duplicate a string
 char	*ft_strdup(const char *s)
 {
 	char			*dup;

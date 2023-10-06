@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:01:41 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/11 09:55:08 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 22:05:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//check if given character is printable
 int	ft_isprint(int c)
 {
 	return (c >= 32 && c <= 126);

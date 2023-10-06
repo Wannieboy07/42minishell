@@ -6,12 +6,13 @@
 /*   By: wmarien <wmarien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:19:38 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/04 21:49:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:24:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//read from a file discriptor untill a newline or the end
 char	*ft_read(int fd, char *og_str)
 {
 	int		ctr;
@@ -40,6 +41,7 @@ char	*ft_read(int fd, char *og_str)
 	return (og_str);
 }
 
+//parse a file descriptor and return the next line
 char	*get_next_line(int fd)
 {
 	static char	*og_str;
