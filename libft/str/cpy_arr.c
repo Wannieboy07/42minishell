@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 22:56:52 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 20:01:25 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:51:08 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // perror
 #include <stdio.h>
 
+//copy a 2d array
 char	**cpy_arr(char **arr)
 {
 	int		i;

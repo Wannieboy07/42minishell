@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:38:36 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/13 14:39:52 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 23:17:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//perform a function on each character within a string
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
 	unsigned int	i;

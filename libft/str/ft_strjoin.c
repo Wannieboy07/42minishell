@@ -6,13 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 09:26:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/03/30 14:53:34 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 23:16:13 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include<stdio.h>
 
+//join two strings together into one
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	s1len;
