@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 00:03:35 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:59:06 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ bool	skip_quotes(char *buff, size_t *i)
 {
 	char	quote;
 
-	quote = buff[*i];
-	while (buff[++(*i)] && buff[*i] != quote)
-		if (!buff[*i + 1])
-			return (false);
-	(*i)++;
-	return (true);
+	quote = buff[(*i)++];
+	if (ft_strchr(buff + *i, quote))
+	{
+		while (buff[*i] != quote)
+			(*i)++;
+		(*i)++;
+		return (true);
+	}
+	return (false);
 }
 
 bool	is_seperator(char *c)
@@ -41,4 +44,10 @@ t_tokentype	is_keyword(char *value)
 		return (KEYWORD);
 	else
 		return (IDENTIFIER);
+}
+
+void	prnt_quote_err(void)
+{
+	ft_putendl_fd("\033[0;31m»\033[0;36m minishell:\033[0;97m unclosed quote", 2);
+	g_minishell.exit_code = 258;
 }

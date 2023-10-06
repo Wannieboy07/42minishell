@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/05 20:15:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:11:00 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 /*   libraries   */
 /*****************/
 
+//printf
+# include <stdio.h>
+
 //free
 # include <stdlib.h>
 
 //boolean
 # include <stdbool.h>
 
-//write
+//write, dup
 # include <unistd.h>
 
 //signal
@@ -42,8 +45,6 @@
 /*    structs    */
 /*****************/
 
-//consider adding a ZERO macro to the beginning
-
 //words chosen by programmer
 //names of built-in commands
 // |
@@ -53,7 +54,9 @@
 // <<
 
 //macro struct
-typedef enum e_tokentype{
+typedef enum e_tokentype
+{
+	ZERO,
 	IDENTIFIER,		
 	KEYWORD,		
 	PIPE,			
@@ -64,12 +67,27 @@ typedef enum e_tokentype{
 }	t_tokentype;
 
 //token data doubly linked list
-typedef struct s_token {
+typedef struct s_token
+{
 	t_tokentype	type;
 	char		*value;
 	void		*prev;
 	void		*next;
 }	t_token;
+
+//minishell data structure
+typedef struct s_minishell
+{
+	char	*line;
+	t_token	*tokens;
+	int		exit_code;
+	int		fdin;
+	int		fdout;
+	char	**envv;
+}	t_minishell;
+
+//make minishell structure able to be accessed globally
+extern t_minishell	g_minishell;
 
 /*****************/
 /*   functions   */
@@ -88,7 +106,7 @@ int			lexer_err(t_token **token_lst, char *str, char *err_str);
 
 /*=== Lexer ===*/
 
-int			lexer(char *line);
+t_token		*lexer(void);
 int			handle_seperator(char **line, t_token **token_lst);
 int			handle_identifier(char **line, t_token **token_lst);
 
@@ -99,5 +117,6 @@ void		free_token_lst(t_token **head);
 bool		skip_quotes(char *buff, size_t *i);
 bool		is_seperator(char *c);
 t_tokentype	is_keyword(char *value);
+void		prnt_quote_err(void);
 
 #endif

@@ -6,16 +6,13 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/05 20:08:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:16:43 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//	kill_free();
-
 //end handler
-//			    t_main *data
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
@@ -23,27 +20,24 @@ void	eof_handler(void)
 	exit (1);
 }
 
-//		set error code 130
-
 //handle ctrl+c to clear the prompt
 void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		g_minishell.exit_code = 130;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 	}
 }
 
-//		set error code 1
-
-//and now it is 12am30, I literally HAVE to go home
-//or my bicycle will get locked away from me
+//
 void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		g_minishell.exit_code = 1;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
