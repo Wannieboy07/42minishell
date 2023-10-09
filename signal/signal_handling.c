@@ -6,13 +6,12 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:16:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:41:26 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//end handler
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
@@ -20,7 +19,6 @@ void	eof_handler(void)
 	exit (1);
 }
 
-//handle ctrl+c to clear the prompt
 void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -32,7 +30,6 @@ void	cmd_sig_handler(int signum)
 	}
 }
 
-//
 void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)

@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:26:58 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 23:16:33 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:37:30 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//append one string to another
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;

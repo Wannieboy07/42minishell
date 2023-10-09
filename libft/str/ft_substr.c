@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:15:16 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 23:19:18 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:23:10 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//replace a string within another string with yet another string
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*subs;	

@@ -1,119 +1,54 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/04 22:07:04 by lpeeters         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+SRCS =	\
+	lexer/handle_identifier.c	\
+	lexer/handle_seperator.c	\
+	lexer/lexer.c			\
+	lexer/lexer_lst.c		\
+	lexer/lexer_utils.c		\
+	\
+	error/error_handling.c		\
+	\
+	signal/signal_handling.c	\
 
-#program name
+LIBFT = libft/libft.a
+
 NAME = minishell
 
-#project specific flags
-PFLAGS = -lreadline
+OBJS_DIR = objs/
+OBJS = $(SRCS:.c=.o)
+OBJS_PREFIXED = $(addprefix $(OBJS_DIR), $(notdir $(OBJS)))
 
-#compiler
 CC = cc
 
-#flags
-CFLAGS = -g -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror -g
 
-#redirect output to /dev/null to silence it
-OUT = > /dev/null
-
-#remove
-RM = rm -rf
-
-#find sources
-SRCS = ${shell find . -name "*.c" -not -path "*lib*"}
-
-#header file
-HEADERS = ${shell find . -name "*.h" -not -path "*lib*"}
-
-#find other makefiles
-MKFL = ${shell find . -mindepth 2 \( -name "Makefile" -o -name "makefile" \)}
-
-#find library files
-LIBS = ${shell find . -name "*.a"}
-
-#fetch object files
-objs = ${SRCS:%.c=${OBJ_DIR}%.o}
-
-#fetch makefile directory
-MKFL_DIRS = ${dir ${MKFL}}
-
-#fetch library directory
-LIB_DIRS = ${dir ${LIBS}}
-
-#object directory
-OBJ_DIR = objs/
-
-#make directories for object files
-MK_DIR = mkdir -p ${@D}
-
-#fetch library filename
-LIB_PNAMES = ${notdir ${LIBS}} #cut off the paths
-LIB_LNAMES = ${LIB_PNAMES:lib%.a=%} #cut off the "lib" prefixes
-LIB_NAMES = ${LIB_LNAMES:.a=} #cut off the ".a" suffixes
-
-#all libraries with their directories, compilation flags and names
-LIB_ALL = ${foreach libdir,${LIB_DIRS},-L ${libdir}} \
-	  ${foreach libname,${LIB_NAMES},-l ${libname}}
-
-#all headers with their compilation flag
-HDR_ALL = ${foreach header,${HEADERS},-I ${header}}
-
-#make other projects that were found
-MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -sC ${mkfldir} ;}
-
-#color codes
-WHITE = \033[0;39m
-YELLOW = \033[38;5;226m
-GREEN = \033[0;92m
-RED = \033[0;31m
-
-#key codes
 UP = \033[A
 CLEAR = \033[K
 
-#make object files
-${OBJ_DIR}%.o: %.c
-	@${MK_DIR}
-	@echo "${YELLOW}Compiling: $<${WHITE}"
-	@${CC} ${CFLAGS} -c $< -o $@
-	@printf "${UP}${CLEAR}"
+$(OBJS_DIR)%.o : */%.c minishell.h
+	@mkdir -p $(dir $@)
+	@echo "\033[38;5;226mCompiling: $(notdir $<)\033[0;39m"
+	@$(CC) $(CC_FLAGS) -c $< -o $@
+	@printf "$(UP) $(CUT)"
 
-#make
-all: MK ${NAME}
+$(NAME): $(OBJS_PREFIXED) $(LIBFT) main.c
+	@echo "\033[0;92mCompiling Done!\033[0;39m"
+	@$(CC) $(CC_FLAGS) main.c $(OBJS_PREFIXED) $(LIBFT) -lreadline -o $(NAME)
+	@echo "\033[0;92mMiniShell Done!\033[0;39m"
 
-#make project into program
-${NAME}: ${objs} ${HEADERS}
-	@echo "${GREEN}Compiling done!${WHITE}"
-	@${CC} ${CFLAGS} ${PFLAGS} ${objs} ${HDR_ALL} ${LIB_ALL} -o ${NAME}
-	@chmod +x ${NAME}
-	@echo "${GREEN}Minishell done!${WHITE}"
 
-#make library
-MK:
-	@${MKFL_ALL}
+$(LIBFT) :
+	@$(MAKE) -C ./libft
 
-#clean object files and directories
+all: $(NAME)
+
 clean:
-	@${RM} ${OBJ_DIR}
-	@${foreach mkfldir,${MKFL_DIRS}, make -sC ${mkfldir} fclean ;}
-	@echo "${RED}Cleaning unnecessary files${WHITE}"
+	rm -rf $(OBJS_DIR)
+	@$(MAKE) fclean -C libft/
 
-#clean everything that was made
 fclean: clean
-	@${RM} ${NAME}
-	@echo "${RED}Cleaning executable${WHITE}"
+	rm -f $(NAME) $(OUT)
 
-#remake
+
 re: fclean all
 
-#targets
-.PHONY: all clean fclean re MK
+.PHONY: all clean fclean re

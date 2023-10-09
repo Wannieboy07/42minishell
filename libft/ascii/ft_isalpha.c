@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:45:19 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:05:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/11 09:51:16 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//check if given character is alphabetical
 int	ft_isalpha(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))

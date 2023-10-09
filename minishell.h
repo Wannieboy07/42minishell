@@ -3,57 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:11:00 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/09 17:38:14 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/*****************/
-/*   libraries   */
-/*****************/
-
-//printf
 # include <stdio.h>
-
-//free
 # include <stdlib.h>
-
-//boolean
 # include <stdbool.h>
-
-//write, dup
 # include <unistd.h>
-
-//signal
 # include <signal.h>
-
-//readline and associated functions
 # include <readline/readline.h>
-
-//add_history
 # include <readline/history.h>
-
-//custom libary
 # include "libft/libft.h"
 
-/*****************/
-/*    structs    */
-/*****************/
-
-//words chosen by programmer
-//names of built-in commands
-// |
-// >
-// >>
-// <
-// <<
-
-//macro struct
 typedef enum e_tokentype
 {
 	ZERO,
@@ -66,7 +34,6 @@ typedef enum e_tokentype
 	D_LESS,			
 }	t_tokentype;
 
-//token data doubly linked list
 typedef struct s_token
 {
 	t_tokentype	type;
@@ -75,7 +42,6 @@ typedef struct s_token
 	void		*next;
 }	t_token;
 
-//minishell data structure
 typedef struct s_minishell
 {
 	char	*line;
@@ -86,16 +52,11 @@ typedef struct s_minishell
 	char	**envv;
 }	t_minishell;
 
-//make minishell structure able to be accessed globally
 extern t_minishell	g_minishell;
-
-/*****************/
-/*   functions   */
-/*****************/
 
 /*=== Signal Handling ===*/
 
-void		eof_handler(void);/*t_main *data*/
+void		eof_handler(void);
 void		handle_global_signals(void);
 void		handle_cmd_signals(void);
 

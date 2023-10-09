@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:10:05 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/09 17:39:19 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/09 17:39:21 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//global variable: minishell data struct
 t_minishell	g_minishell;
 
-	//init_envv()
-
-//initialize minishell data struct variables
 void	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
@@ -26,7 +22,6 @@ void	init_minishell(char **env)
 	g_minishell.fdout = dup(1);
 }
 
-//prompt that takes inputs
 int	minishell_loop(void)
 {
 	while (1)
@@ -42,12 +37,8 @@ int	minishell_loop(void)
 	}
 }
 
-//	t_main	data;
-
 //	init_envv(envp);
-//	init_data(data);
 
-//parse inputs, execute commands, handle redirections
 int	main(int ac, char **av, char **env)
 {
 	(void)av;

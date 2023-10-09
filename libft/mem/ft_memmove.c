@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:04:58 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:47:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/12 10:06:58 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//move a memory area
 void	*ft_memmove(void *dst, const void *src, size_t n)
 {
 	char	*tdst;
