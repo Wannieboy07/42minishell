@@ -1,0 +1,14 @@
+error msg 
+	std layout 
+		minishell: cause of error : error msg
+error codes in return
+0 = succes
+1 = general errors
+127 = cmd not found
+130 = crtl c
+? = no such file
+? =permission denied
+? =ambiguous
+? =to many args
+? =numric requierd
+258 = syntax error
