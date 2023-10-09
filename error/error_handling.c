@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:04 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 18:23:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:37:34 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //print errors
 int	prnt_err(char *str)
 {
-	write(2, "\033[0;31mError\033[0;39m: ", 22);
+	write(2, RED "Error" GREY ": ", 21);
 	ft_putendl_fd(str, 2);
 	return (1);
 }

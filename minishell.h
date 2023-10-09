@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:11:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:35:17 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,24 @@
 # include "libft/libft.h"
 
 /*****************/
-/*    structs    */
+/*     macros    */
 /*****************/
 
-//words chosen by programmer
-//names of built-in commands
-// |
-// >
-// >>
-// <
-// <<
+//colors
+# define GREEN "\033[92m"
+# define BLUE "\033[1;36m"
+# define RED "\033[0;31m"
+# define WHITE "\033[0;97m"
+# define GREY "\033[0;39m"
+# define D_BLUE "\033[0;36m"
+
+//quotes
+# define D_QUOTES 34
+# define S_QUOTES 39
+
+/*****************/
+/*    structs    */
+/*****************/
 
 //macro struct
 typedef enum e_tokentype
@@ -93,26 +101,60 @@ extern t_minishell	g_minishell;
 /*   functions   */
 /*****************/
 
+/*=== Minishell  ===*/
+
+//initialize minishell data struct variables
+void		init_minishell(char **env);
+
+//initialize minishell data struct variables
+void		init_minishell(char **env);
+
+//parse inputs, execute commands, handle redirections
+int			main(int ac, char **av, char **env);
+
 /*=== Signal Handling ===*/
 
-void		eof_handler(void);/*t_main *data*/
+void		eof_handler(void);
 void		handle_global_signals(void);
 void		handle_cmd_signals(void);
 
 /*=== Error Handling ===*/
 
+//print errors
 int			prnt_err(char *str);
 int			lexer_err(t_token **token_lst, char *str, char *err_str);
 
 /*=== Lexer ===*/
 
+//print a linked list and it's data
+void		print_lst(t_token *token_lst);
+
+//pre-parsing by tokenizing the input line
 t_token		*lexer(void);
+
+/*=== ===*/
+
+//store tokens in doubly linked list
+int			add_seperator(t_tokentype type, char **line, t_token **token_lst);
+
+//tokenize input
 int			handle_seperator(char **line, t_token **token_lst);
+
+//parse input, identify token and store data
 int			handle_identifier(char **line, t_token **token_lst);
 
+/*=== ===*/
+
+//create a new entree to a doubly linked list
 t_token		*new_token(t_tokentype type, char *value);
+
+//add an entree to a doubly linked list
 void		token_add_back(t_token **head, t_token *new_node);
+
+//free a doubly linked list
 void		free_token_lst(t_token **head);
+
+/*=== ===*/
 
 bool		skip_quotes(char *buff, size_t *i);
 bool		is_seperator(char *c);
