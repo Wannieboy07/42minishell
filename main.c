@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:10:05 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:41:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	minishell_loop(void)
 {
 	while (1)
 	{
-		g_minishell.line = readline("\033[92m»\033[1;36m minishell$\033[0;97m ");
+		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
 			eof_handler();
 		if (ft_strlen(g_minishell.line) > 0)
@@ -41,11 +41,6 @@ int	minishell_loop(void)
 			continue ;
 	}
 }
-
-//	t_main	data;
-
-//	init_envv(envp);
-//	init_data(data);
 
 //parse inputs, execute commands, handle redirections
 int	main(int ac, char **av, char **env)

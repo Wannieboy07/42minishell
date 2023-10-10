@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 19:16:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:17:23 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	eof_handler(void)
 	exit (1);
 }
 
-//handle ctrl+c to clear the prompt
+//handle interuption signal in the command line
 void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -32,7 +32,7 @@ void	cmd_sig_handler(int signum)
 	}
 }
 
-//
+//handle interuption signal globally
 void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -45,6 +45,7 @@ void	global_sig_handler(int signum)
 	}
 }
 
+//handle signals in the command line
 void	handle_cmd_signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);
@@ -52,6 +53,7 @@ void	handle_cmd_signals(void)
 	signal(SIGINT, cmd_sig_handler);
 }
 
+//handle signals globally
 void	handle_global_signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);
