@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/10 00:35:17 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:05:10 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@
 /*****************/
 
 //colors
-# define GREEN "\033[92m"
-# define BLUE "\033[1;36m"
+# define GREEN "\033[0;92m"
+# define B_CYAN "\033[1;36m"
 # define RED "\033[0;31m"
 # define WHITE "\033[0;97m"
 # define GREY "\033[0;39m"
-# define D_BLUE "\033[0;36m"
+# define CYAN "\033[0;36m"
 
 //quotes
 # define D_QUOTES 34
@@ -101,7 +101,7 @@ extern t_minishell	g_minishell;
 /*   functions   */
 /*****************/
 
-/*=== Minishell  ===*/
+/*=== Minishell ===*/
 
 //initialize minishell data struct variables
 void		init_minishell(char **env);
@@ -114,8 +114,19 @@ int			main(int ac, char **av, char **env);
 
 /*=== Signal Handling ===*/
 
+//end handler
 void		eof_handler(void);
+
+//handle interuption signal in the command line
+void		cmd_sig_handler(int signum);
+
+//handle interuption signal globally
+void		global_sig_handler(int signum);
+
+//handle signals globally
 void		handle_global_signals(void);
+
+//handle signals in the command line
 void		handle_cmd_signals(void);
 
 /*=== Error Handling ===*/
@@ -156,9 +167,16 @@ void		free_token_lst(t_token **head);
 
 /*=== ===*/
 
+//parse buffer till the next quote, skipping other quote type
 bool		skip_quotes(char *buff, size_t *i);
+
+//check if character is any sort seperator
 bool		is_seperator(char *c);
+
+//check if character is any sort keyword
 t_tokentype	is_keyword(char *value);
+
+//print an error specific to unclosed quotation marks
 void		prnt_quote_err(void);
 
 #endif

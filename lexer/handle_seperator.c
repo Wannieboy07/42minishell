@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:30:29 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 00:23:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:15:26 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ int	handle_seperator(char **line, t_token **token_lst)
 		return (add_seperator(D_LESS, line, token_lst));
 	else if (!ft_strncmp(*line, "|", 1))
 		return (add_seperator(PIPE, line, token_lst));
+	else
+		return (0);
 }

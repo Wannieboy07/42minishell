@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/09 22:53:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:41:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	minishell_loop(void)
 {
 	while (1)
 	{
-		g_minishell.line = readline(GREEN "» " BLUE "minishell$ " WHITE);
+		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
 			eof_handler();
 		if (ft_strlen(g_minishell.line) > 0)

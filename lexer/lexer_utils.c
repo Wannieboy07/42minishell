@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 00:07:42 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:17:20 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ t_tokentype	is_keyword(char *value)
 //print an error specific to unclosed quotation marks
 void	prnt_quote_err(void)
 {
-	ft_putendl_fd(RED "» " D_BLUE "minishell: " WHITE "unclosed quote", 2);
+	ft_putendl_fd(RED "» " CYAN "minishell: " WHITE "unclosed quote", 2);
 	g_minishell.exit_code = 258;
 }

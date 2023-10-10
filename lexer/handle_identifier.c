@@ -6,13 +6,11 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:12:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 00:12:19 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:37:22 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// fix quotes handling, almost fixed
 
 //parse input, identify token and store data
 int	handle_identifier(char	**line, t_token **token_lst)
@@ -22,12 +20,18 @@ int	handle_identifier(char	**line, t_token **token_lst)
 	char		*value;
 	t_token		*token;
 
-	i = -1;
+	i = 0;
 	buff = *line;
-	while (buff[++i] && !is_seperator(buff + i))
+	while (buff[i] && !is_seperator(buff + i))
+	{
 		if (buff[i] == S_QUOTES || buff[i] == D_QUOTES)
+		{
 			if (!skip_quotes(buff, &i))
 				return (prnt_quote_err(), 0);
+		}
+		else
+			i++;
+	}
 	value = ft_substr(buff, 0, i);
 	if (!value)
 		return (0);
