@@ -78,10 +78,12 @@ $(NAME): $(OBJS_PREFIXED)
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR)
+	@echo "\033[0;31mClearing object files\033[0;39m"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "\033[0;31mClearing library\033[0;39m"
 
 re: fclean all
 

@@ -22,7 +22,7 @@ CC = cc
 CC_FLAGS = -Wall -Wextra -Werror -g
 
 UP = \033[A
-CLEAR = \033[K
+CUT = \033[K
 
 $(OBJS_DIR)%.o : */%.c minishell.h
 	@mkdir -p $(dir $@)
@@ -42,11 +42,13 @@ $(LIBFT) :
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR)
+	@echo "\033[0;31mClearing object files\033[0;39m"
 	@$(MAKE) fclean -C libft/
 
 fclean: clean
-	rm -f $(NAME) $(OUT)
+	@rm -f $(NAME) $(OUT)
+	@echo "\033[0;31mClearing executable\033[0;39m"
 
 
 re: fclean all
