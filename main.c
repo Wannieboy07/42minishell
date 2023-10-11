@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/10 23:32:32 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:05:55 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 //global variable: minishell data struct
 t_minishell	g_minishell;
-
-	//init_envv()
 
 //initialize minishell data struct variables
 void	init_minishell(char **env)
@@ -38,7 +36,10 @@ int	minishell_loop(void)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
 		if (!g_minishell.tokens)
+		{
 			printf(GREY "Info: no tokens\n" WHITE);
+			continue ;
+		}
 	}
 }
 

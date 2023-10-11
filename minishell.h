@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/11 00:12:59 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/12 00:31:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,32 @@ typedef struct s_minishell
 //make minishell structure able to be accessed globally
 extern t_minishell	g_minishell;
 
-/*****************/
-/*   functions   */
-/*****************/
+/***************************/
+/*                         */
+/*        FUNCTIONS        */
+/*                         */
+/***************************/
 
-/*=== Minishell ===*/
+/*=== ./ ===*/
+
+/******************/
+/*     main.c     */
+/******************/
 
 //initialize minishell data struct variables
 void		init_minishell(char **env);
 
-//initialize minishell data struct variables
-void		init_minishell(char **env);
+//prompt that takes inputs
+int			minishell_loop(void);
 
 //parse inputs, execute commands, handle redirections
 int			main(int ac, char **av, char **env);
 
-/*=== Signal Handling ===*/
+/*=== ./signal/ ===*/
+
+/*********************/
+/* signal_handling.c */
+/*********************/
 
 //handle end of of file signal
 void		eof_handler(void);
@@ -129,12 +139,20 @@ void		global_sig_handler(int signum);
 //handle signals in the command line
 void		handle_global_signals(void);
 
-/*=== Error Handling ===*/
+/*=== ./error/ ===*/
+
+/********************/
+/* error_handling.c */
+/********************/
 
 //print errors
 int			prnt_err(char *str);
 
-/*=== Lexer ===*/
+/*=== ./lexer/ ===*/
+
+/*******************/
+/*     lexer.c     */
+/*******************/
 
 //print a linked list and it's data
 void		print_lst(t_token *token_lst);
@@ -142,7 +160,9 @@ void		print_lst(t_token *token_lst);
 //pre-parsing by tokenizing the input line
 t_token		*lexer(void);
 
-/*=== ===*/
+/**********************/
+/* handle_seperator.c */
+/**********************/
 
 //store tokens in a doubly linked list
 int			add_seperator(t_tokentype type, char **line, t_token **token_lst);
@@ -150,10 +170,16 @@ int			add_seperator(t_tokentype type, char **line, t_token **token_lst);
 //tokenize operators from the input
 int			handle_seperator(char **line, t_token **token_lst);
 
-//parse input, identify token and store data
-int			handle_identifier(char **line, t_token **token_lst);
+/***********************/
+/* handle_identifier.c */
+/***********************/
 
-/*=== ===*/
+//parse input, identify token and store data
+int			handle_identifier(char	**line, t_token **token_lst);
+
+/*******************/
+/*   lexer_lst.c   */
+/*******************/
 
 //create a new entree to a doubly linked list
 t_token		*new_token(t_tokentype type, char *value);
@@ -164,10 +190,15 @@ void		token_add_back(t_token **head, t_token *new_node);
 //free a doubly linked list
 void		free_token_lst(t_token **head);
 
-/*=== ===*/
+/*******************/
+/*  lexer_utils.c  */
+/*******************/
 
 //parse buffer till the next quote, skipping other quote type
 bool		skip_quotes(char *buff, size_t *i);
+
+//skip over any amount of spaces that were found
+void		skip_spaces(char **line);
 
 //check if character is any sort seperator
 bool		is_seperator(char *c);

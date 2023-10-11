@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/11 02:22:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:59:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ bool	skip_quotes(char *buff, size_t *i)
 		return (true);
 	}
 	return (false);
+}
+
+//skip over any amount of spaces that were found
+void	skip_spaces(char **line)
+{
+	while (**line && ft_isspace(**line))
+		(*line)++;
 }
 
 //check if character is any sort seperator
