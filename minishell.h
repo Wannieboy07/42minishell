@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/11 00:12:59 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:59:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ void		free_token_lst(t_token **head);
 
 //parse buffer till the next quote, skipping other quote type
 bool		skip_quotes(char *buff, size_t *i);
+
+//skip over any amount of spaces that were found
+void		skip_spaces(char **line);
 
 //check if character is any sort seperator
 bool		is_seperator(char *c);
