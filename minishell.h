@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/09 17:38:14 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:36:50 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void		free_token_lst(t_token **head);
 bool		skip_quotes(char *buff, size_t *i);
 bool		is_seperator(char *c);
 t_tokentype	is_keyword(char *value);
+void		skip_spaces(char **line);
 void		prnt_quote_err(void);
 
 #endif

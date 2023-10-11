@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 12:08:35 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:36:20 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ t_tokentype	is_keyword(char *value)
 		return (KEYWORD);
 	else
 		return (IDENTIFIER);
+}
+
+void	skip_spaces(char **line)
+{
+	while (**line && ft_isspace(**line))
+		(*line)++;
 }
 
 void	prnt_quote_err(void)
