@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/11 12:36:50 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/11 23:36:49 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+
+# define GREEN "\033[0;92m"
+# define RED "\033[0;31m"
+# define CYAN "\033[0;36m"
+# define B_CYAN "\033[1;36m"
+# define WHITE "\033[0;97m"
+# define GREY "\033[0;39m"
+
+# define D_QUOTES 34
+# define S_QUOTES 39
 
 typedef enum e_tokentype
 {
@@ -63,7 +73,6 @@ void		handle_cmd_signals(void);
 /*=== Error Handling ===*/
 
 int			prnt_err(char *str);
-int			lexer_err(t_token **token_lst, char *str, char *err_str);
 
 /*=== Lexer ===*/
 
@@ -76,9 +85,9 @@ void		token_add_back(t_token **head, t_token *new_node);
 void		free_token_lst(t_token **head);
 
 bool		skip_quotes(char *buff, size_t *i);
+void		skip_spaces(char **line);
 bool		is_seperator(char *c);
 t_tokentype	is_keyword(char *value);
-void		skip_spaces(char **line);
 void		prnt_quote_err(void);
 
 #endif

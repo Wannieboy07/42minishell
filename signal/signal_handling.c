@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 16:27:37 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 16:27:39 by wmarien          ###   ########.fr       */
+/*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/10 22:28:13 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//handle end of of file signal
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
 	rl_clear_history();
-	exit (1);
+	exit (EXIT_SUCCESS);
 }
 
+//handle interuption signal whilst executing commands
 void	cmd_sig_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -30,6 +32,15 @@ void	cmd_sig_handler(int signum)
 	}
 }
 
+//handle signals whilst executing commands
+void	handle_cmd_signals(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, cmd_sig_handler);
+}
+
+//handle interuption signal in the command line
 void	global_sig_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -42,13 +53,7 @@ void	global_sig_handler(int signum)
 	}
 }
 
-void	handle_cmd_signals(void)
-{
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, cmd_sig_handler);
-}
-
+//handle signals in the command line
 void	handle_global_signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);

@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:09:05 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/16 13:24:59 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/06 23:18:45 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+//search for and remove a set of characters at the head and tail of a string
 char	*ft_strtrim(const char *s1, const char *set)
 {
 	size_t	a;

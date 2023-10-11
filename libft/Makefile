@@ -6,6 +6,7 @@ SRCS =	\
 		mem/ft_memmove.c 		\
 		mem/ft_memchr.c			\
 		mem/ft_memcmp.c			\
+		mem/free_array.c		\
 		\
 		ascii/ft_isalpha.c 		\
 		ascii/ft_isdigit.c		\
@@ -30,6 +31,7 @@ SRCS =	\
 		str/ft_split.c			\
 		str/ft_strmapi.c		\
 		str/ft_striteri.c		\
+		str/cpy_arr.c			\
 		\
 		math/ft_atoi.c			\
 		math/ft_itoa.c			\
@@ -65,11 +67,11 @@ CC_FLAGS = -Wall -Wextra -Werror
 UP = \033[A
 CUT = \033[K
 
-$(OBJS_DIR)%.o : */%.c libft.h get_next_line.h
+$(OBJS_DIR)%.o : */%.c libft.h
 	@mkdir -p $(dir $@)
 	@echo "\033[38;5;226mCompiling: $(notdir $<)\033[0;39m"
 	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf "$(UP) $(CUT)"
+	@printf "$(UP)$(CUT)"
 
 $(NAME): $(OBJS_PREFIXED)
 	@ar rcs $(NAME) $(OBJS_PREFIXED)

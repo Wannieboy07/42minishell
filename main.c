@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 17:39:19 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/09 17:39:21 by wmarien          ###   ########.fr       */
+/*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/10/11 23:38:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//global variable: minishell data struct
 t_minishell	g_minishell;
 
+//initialize minishell data struct variables
 void	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
@@ -22,23 +24,26 @@ void	init_minishell(char **env)
 	g_minishell.fdout = dup(1);
 }
 
+//prompt that takes inputs
 int	minishell_loop(void)
 {
 	while (1)
 	{
-		g_minishell.line = readline("\033[92m»\033[1;36m minishell$\033[0;97m ");
+		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
 			eof_handler();
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
 		if (!g_minishell.tokens)
+		{
+			printf(GREY "Info: no tokens\n" WHITE);
 			continue ;
+		}
 	}
 }
 
-//	init_envv(envp);
-
+//parse inputs, execute commands, handle redirections
 int	main(int ac, char **av, char **env)
 {
 	(void)av;

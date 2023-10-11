@@ -6,12 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/11 12:36:20 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/11 22:59:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//parse buffer till the next quote, skipping other quote type
 bool	skip_quotes(char *buff, size_t *i)
 {
 	char	quote;
@@ -27,6 +28,14 @@ bool	skip_quotes(char *buff, size_t *i)
 	return (false);
 }
 
+//skip over any amount of spaces that were found
+void	skip_spaces(char **line)
+{
+	while (**line && ft_isspace(**line))
+		(*line)++;
+}
+
+//check if character is any sort seperator
 bool	is_seperator(char *c)
 {
 	if (*c == ' ' || *c == '\t' || *c == '|'
@@ -35,6 +44,7 @@ bool	is_seperator(char *c)
 	return (false);
 }
 
+//check if character is any sort keyword
 t_tokentype	is_keyword(char *value)
 {
 	if (!ft_strncmp(value, "echo", 4) || !ft_strncmp(value, "cd", 2)
@@ -46,14 +56,9 @@ t_tokentype	is_keyword(char *value)
 		return (IDENTIFIER);
 }
 
-void	skip_spaces(char **line)
-{
-	while (**line && ft_isspace(**line))
-		(*line)++;
-}
-
+//print an error specific to unclosed quotation marks
 void	prnt_quote_err(void)
 {
-	ft_putendl_fd("\033[0;31m»\033[0;36m minishell:\033[0;97m unclosed quote", 2);
+	ft_putendl_fd(RED "» " CYAN "minishell: " WHITE "unclosed quote", 2);
 	g_minishell.exit_code = 258;
 }
