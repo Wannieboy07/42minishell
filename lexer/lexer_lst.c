@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:15:30 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 16:17:01 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/11 01:16:30 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	token_add_back(t_token **head, t_token *new_node)
 		return ;
 	}
 	curr_node = *head;
-	while (curr_node && curr_node -> next)
-		curr_node = curr_node -> next;
+	while (curr_node->next)
+		curr_node = curr_node->next;
 	curr_node->next = new_node;
 	new_node->prev = curr_node;
 }
