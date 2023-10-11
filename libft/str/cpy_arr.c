@@ -6,14 +6,11 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 22:56:52 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 22:51:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:07:49 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-// perror
-#include <stdio.h>
 
 //copy a 2d array
 char	**cpy_arr(char **arr)
