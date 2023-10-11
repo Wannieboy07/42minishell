@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/10 17:05:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/11 00:12:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,17 @@
 
 //colors
 # define GREEN "\033[0;92m"
-# define B_CYAN "\033[1;36m"
 # define RED "\033[0;31m"
+# define CYAN "\033[0;36m"
+# define B_CYAN "\033[1;36m"
 # define WHITE "\033[0;97m"
 # define GREY "\033[0;39m"
-# define CYAN "\033[0;36m"
 
 //quotes
 # define D_QUOTES 34
 # define S_QUOTES 39
 
-/*****************/
-/*    structs    */
-/*****************/
-
-//macro struct
+//enumeration macro
 typedef enum e_tokentype
 {
 	ZERO,
@@ -73,6 +69,10 @@ typedef enum e_tokentype
 	LESS,			
 	D_LESS,			
 }	t_tokentype;
+
+/*****************/
+/*    structs    */
+/*****************/
 
 //token data doubly linked list
 typedef struct s_token
@@ -114,26 +114,25 @@ int			main(int ac, char **av, char **env);
 
 /*=== Signal Handling ===*/
 
-//end handler
+//handle end of of file signal
 void		eof_handler(void);
 
-//handle interuption signal in the command line
+//handle interuption signal whilst executing commands
 void		cmd_sig_handler(int signum);
 
-//handle interuption signal globally
+//handle signals whilst executing commands
+void		handle_cmd_signals(void);
+
+//handle interuption signal in the command line
 void		global_sig_handler(int signum);
 
-//handle signals globally
-void		handle_global_signals(void);
-
 //handle signals in the command line
-void		handle_cmd_signals(void);
+void		handle_global_signals(void);
 
 /*=== Error Handling ===*/
 
 //print errors
 int			prnt_err(char *str);
-int			lexer_err(t_token **token_lst, char *str, char *err_str);
 
 /*=== Lexer ===*/
 
@@ -145,10 +144,10 @@ t_token		*lexer(void);
 
 /*=== ===*/
 
-//store tokens in doubly linked list
+//store tokens in a doubly linked list
 int			add_seperator(t_tokentype type, char **line, t_token **token_lst);
 
-//tokenize input
+//tokenize operators from the input
 int			handle_seperator(char **line, t_token **token_lst);
 
 //parse input, identify token and store data
