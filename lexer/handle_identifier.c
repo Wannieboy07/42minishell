@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:12:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/10 16:37:22 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:12:46 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	handle_identifier(char	**line, t_token **token_lst)
 	buff = *line;
 	while (buff[i] && !is_seperator(buff + i))
 	{
+		printf("Check\n");
 		if (buff[i] == S_QUOTES || buff[i] == D_QUOTES)
 		{
 			if (!skip_quotes(buff, &i))
@@ -38,6 +39,6 @@ int	handle_identifier(char	**line, t_token **token_lst)
 	token = new_token(is_keyword(value), value);
 	if (!token)
 		return (free(value), 0);
-	*line += i + 1;
+	*line += i;
 	return (token_add_back(token_lst, token), 1);
 }
