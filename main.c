@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/12 00:05:55 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:10:58 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int	minishell_loop(void)
 //parse inputs, execute commands, handle redirections
 int	main(int ac, char **av, char **env)
 {
-	(void)av;
 	if (ac != 1)
-		return (prnt_err("run ./minishell without arguments"));
+		return (prnt_err("args", av));
 	init_minishell(env);
 	handle_global_signals();
 	if (minishell_loop() == EXIT_FAILURE)

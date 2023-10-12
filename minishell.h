@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/12 00:31:14 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/12 01:36:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void		handle_global_signals(void);
 /********************/
 
 //print errors
-int			prnt_err(char *str);
+int			prnt_err(char *str, char **av);
 
 /*=== ./lexer/ ===*/
 
