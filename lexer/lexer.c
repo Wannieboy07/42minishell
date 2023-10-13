@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/12 00:27:36 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:19:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*lexer(void)
 			return (free_token_lst(&token_lst), NULL);
 		if (ft_isspace(*line))
 			skip_spaces(&line);
-		if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
+		else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
 			|| !ft_strncmp(line, "|", 1))
 			err = !handle_seperator(&line, &token_lst);
 		else
