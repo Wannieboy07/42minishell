@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/12 01:36:28 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:16:43 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,20 @@ t_tokentype	is_keyword(char *value);
 
 //print an error specific to unclosed quotation marks
 void		prnt_quote_err(void);
+
+/*=== ./executor/ ===*/
+
+/********************/
+/*    executor.c    */
+/********************/
+
+//execute built-in commands
+int			exec_builtin(t_token *lst);
+
+//execute commands if any are found
+int			exec_cmd(void);
+
+//parse linked list and execute commands
+int			executor(void);
 
 #endif
