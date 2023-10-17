@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/11 23:36:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:33:30 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@
 # define D_QUOTES 34
 # define S_QUOTES 39
 
+/*=== Lexer ===*/
+
 typedef enum e_tokentype
 {
-	ZERO,
 	IDENTIFIER,		
-	KEYWORD,		
 	PIPE,			
 	GREAT,			
 	D_GREAT,		
@@ -52,11 +52,64 @@ typedef struct s_token
 	void		*next;
 }	t_token;
 
+/*=== Parser ===*/
+
+typedef enum	e_nodetype
+{
+	P_PIPE,
+	P_CMD
+}	t_nodetype;
+
+typedef enum	e_iotype
+{
+	IN,
+	OUT,
+	HERDOC,
+	APPEND
+}	t_iotype;
+
+typedef enum	e_parse_errtype
+{
+	MEM = 1,
+	SYNTAX
+}	t_parse_errtype;
+
+typedef struct	s_io_node
+{
+	t_iotype	type;
+	char		*value;
+	char		**exp_value;
+	int			here_doc;
+	t_io_node	*prev;
+	t_io_node	*next;
+}	t_io_node;
+
+typedef struct	s_node
+{
+	t_nodetype	type;
+	t_io_node	*io_lst;
+	char		*args;
+	char		**exp_args;
+	t_node	*left;
+	t_node	*right;
+}	t_node;
+
+typedef struct	s_parse_err
+{
+	t_parse_errtype	type;
+	char			*str;
+}	t_parse_err;
+
+/*=== Minishell ===*/
+
 typedef struct s_minishell
 {
 	char	*line;
 	t_token	*tokens;
+	t_token	*curr_token;
+	t_node	*ast;
 	int		exit_code;
+	t_parse_err	parse_err;
 	int		fdin;
 	int		fdout;
 	char	**envv;
