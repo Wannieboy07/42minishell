@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/13 23:16:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/17 23:34:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,36 @@
 //enumeration macro
 typedef enum e_tokentype
 {
-	ZERO,
 	IDENTIFIER,		
-	KEYWORD,		
 	PIPE,			
 	GREAT,			
 	D_GREAT,		
 	LESS,			
 	D_LESS,			
 }	t_tokentype;
+
+//WIP
+typedef enum e_nodetype
+{
+	P_PIPE,
+	P_CMD
+}	t_nodetype;
+
+//WIP
+typedef enum e_iotype
+{
+	IN,
+	OUT,
+	HERDOC,
+	APPEND
+}	t_iotype;
+
+//WIP
+typedef enum e_parse_errtype
+{
+	MEM = 1,
+	SYNTAX
+}	t_parse_errtype;
 
 /*****************/
 /*    structs    */
@@ -83,15 +104,47 @@ typedef struct s_token
 	void		*next;
 }	t_token;
 
+//WIP
+typedef struct s_io_node
+{
+	t_iotype			type;
+	char				*value;
+	char				**exp_value;
+	int					here_doc;
+	struct t_io_node	*prev;
+	struct t_io_node	*next;
+}	t_io_node;
+
+//WIP
+typedef struct s_node
+{
+	t_nodetype		type;
+	t_io_node		*io_lst;
+	char			*args;
+	char			**exp_args;
+	struct t_node	*left;
+	struct t_node	*right;
+}	t_node;
+
+//WIP
+typedef struct s_parse_err
+{
+	t_parse_errtype	type;
+	char			*str;
+}	t_parse_err;
+
 //minishell data structure
 typedef struct s_minishell
 {
-	char	*line;
-	t_token	*tokens;
-	int		exit_code;
-	int		fdin;
-	int		fdout;
-	char	**envv;
+	char		*line;
+	t_token		*tokens;
+	t_token		*curr_token;
+	t_node		*ast;
+	int			exit_code;
+	t_parse_err	parse_err;
+	int			fdin;
+	int			fdout;
+	char		**envv;
 }	t_minishell;
 
 //make minishell structure able to be accessed globally
@@ -202,9 +255,6 @@ void		skip_spaces(char **line);
 
 //check if character is any sort seperator
 bool		is_seperator(char *c);
-
-//check if character is any sort keyword
-t_tokentype	is_keyword(char *value);
 
 //print an error specific to unclosed quotation marks
 void		prnt_quote_err(void);

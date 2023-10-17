@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:31:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/11 22:59:03 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:55:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ bool	is_seperator(char *c)
 		|| *c == '<' || *c == '>')
 		return (true);
 	return (false);
-}
-
-//check if character is any sort keyword
-t_tokentype	is_keyword(char *value)
-{
-	if (!ft_strncmp(value, "echo", 4) || !ft_strncmp(value, "cd", 2)
-		|| !ft_strncmp(value, "pwd", 3) || !ft_strncmp(value, "export", 6)
-		|| !ft_strncmp(value, "unset", 5) || !ft_strncmp(value, "env", 3)
-		|| !ft_strncmp(value, "exit", 4))
-		return (KEYWORD);
-	else
-		return (IDENTIFIER);
 }
 
 //print an error specific to unclosed quotation marks
