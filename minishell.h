@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 19:21:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/19 01:12:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@
 //enumeration macro
 typedef enum e_tokentype
 {
-	IDENTIFIER,		
-	PIPE,			
-	GREAT,			
-	D_GREAT,		
-	LESS,			
-	D_LESS,			
+	IDENTIFIER,
+	PIPE,
+	GREAT,
+	D_GREAT,
+	LESS,
+	D_LESS,
+	NL
 }	t_tokentype;
 
 //WIP
@@ -110,23 +111,23 @@ typedef struct s_token
 //WIP
 typedef struct s_io_node
 {
-	t_iotype			type;
-	char				*value;
-	char				**exp_value;
-	int					here_doc;
-	struct t_io_node	*prev;
-	struct t_io_node	*next;
+	t_iotype	type;
+	char		*value;
+	char		**exp_value;
+	int			here_doc;
+	void		*prev;
+	void		*next;
 }	t_io_node;
 
 //WIP
 typedef struct s_node
 {
-	t_nodetype		type;
-	t_io_node		*io_lst;
-	char			*args;
-	char			**exp_args;
-	struct t_node	*left;
-	struct t_node	*right;
+	t_nodetype	type;
+	t_io_node	*io_lst;
+	char		*args;
+	char		**exp_args;
+	void		*left;
+	void		*right;
 }	t_node;
 
 //WIP
@@ -289,5 +290,8 @@ int			exec_pwd(void);
 
 //exit the shell in a clean way
 void		exec_exit(t_token *lst);
+
+//print out input
+int			exec_echo(t_token *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 23:31:37 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/18 19:14:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:41:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,20 @@ void	exec_exit(t_token *lst)
 	free_token_lst(&lst);
 	rl_clear_history();
 	exit(EXIT_SUCCESS);
+}
+
+//print out input
+int	exec_echo(t_token *lst)
+{
+	if (!lst->next)
+		return (0);
+	lst = lst->next;
+	if (!lst->next || ft_strncmp(lst->value, "-n", 2))
+	{
+		prnt_err("invalid flag for echo", NULL);
+		return (0);
+	}
+	lst = lst->next;
+	printf("%s", lst->value);
+	return (1);
 }

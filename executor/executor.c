@@ -6,21 +6,21 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/18 19:21:24 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:40:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //tester function
-static void	prnt_nxt_in_lst(t_token *lst)
-{
-	if (lst->next)
-	{
-		lst = lst->next;
-		printf("test: %s\n", lst->value);
-	}
-}
+//static void	prnt_nxt_in_lst(t_token *lst)
+//{
+	//if (lst->next)
+	//{
+		//lst = lst->next;
+		//printf("test: %s\n", lst->value);
+	//}
+//}
 
 //execute built-in commands
 int	exec_builtin(t_token *lst)
@@ -29,7 +29,7 @@ int	exec_builtin(t_token *lst)
 
 	ret = 1;
 	if (!ft_strncmp(lst->value, "echo", 4))
-		;
+		ret = exec_echo(lst);
 	else if (!ft_strncmp(lst->value, "cd", 2))
 		;
 	else if (!ft_strncmp(lst->value, "pwd", 3))
@@ -39,14 +39,13 @@ int	exec_builtin(t_token *lst)
 	else if (!ft_strncmp(lst->value, "unset", 5))
 		;
 	else if (!ft_strncmp(lst->value, "env", 3))
-		exec_env();
+		ret = exec_env();
 	else if (!ft_strncmp(lst->value, "exit", 4))
 		exec_exit(lst);
 	else
 		return (1);
 	if (ret == 0)
 		return (0);
-	prnt_nxt_in_lst(lst);
 	return (1);
 }
 
