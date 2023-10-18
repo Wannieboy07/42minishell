@@ -6,17 +6,19 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/10 22:28:13 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:22:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //handle end of of file signal
-void	eof_handler(void)
+void	eof_handler(t_token *lst)
 {
 	write(1, "exit\n", 5);
 	rl_clear_history();
+	if (lst)
+		free_token_lst(&lst);
 	exit (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/17 23:34:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:21:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 
 //signal
 # include <signal.h>
+
+//PATH_MAX
+# include <limits.h>
 
 //readline and associated functions
 # include <readline/readline.h>
@@ -178,7 +181,7 @@ int			main(int ac, char **av, char **env);
 /*********************/
 
 //handle end of of file signal
-void		eof_handler(void);
+void		eof_handler(t_token *lst);
 
 //handle interuption signal whilst executing commands
 void		cmd_sig_handler(int signum);
@@ -273,5 +276,18 @@ int			exec_cmd(void);
 
 //parse linked list and execute commands
 int			executor(void);
+
+/********************/
+/*    builtins.c    */
+/********************/
+
+//print out the environment variable
+int			exec_env(void);
+
+//print out the current working directory
+int			exec_pwd(void);
+
+//exit the shell in a clean way
+void		exec_exit(t_token *lst);
 
 #endif
