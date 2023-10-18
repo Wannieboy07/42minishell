@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:37:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/17 15:40:36 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/18 12:18:59 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_node	*parse_atom(void)
 
 	if (g_minishell.parse_err.type)
 		return (NULL);
-	if (g_minishell.curr_token.type == PIPE)
+	if (g_minishell.curr_token->type == PIPE)
 		return (set_parse_err(SYNTAX), NULL);
 	else
 		return (get_simple_cmd());

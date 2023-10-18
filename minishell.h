@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/17 14:33:30 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/18 14:37:42 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@
 
 typedef enum e_tokentype
 {
-	IDENTIFIER,		
-	PIPE,			
-	GREAT,			
-	D_GREAT,		
-	LESS,			
-	D_LESS,			
+	IDENTIFIER,
+	PIPE,
+	GREAT,
+	D_GREAT,
+	LESS,
+	D_LESS,
+	NL
 }	t_tokentype;
 
 typedef struct s_token
@@ -80,8 +81,8 @@ typedef struct	s_io_node
 	char		*value;
 	char		**exp_value;
 	int			here_doc;
-	t_io_node	*prev;
-	t_io_node	*next;
+	void	*prev;
+	void	*next;
 }	t_io_node;
 
 typedef struct	s_node
@@ -90,8 +91,8 @@ typedef struct	s_node
 	t_io_node	*io_lst;
 	char		*args;
 	char		**exp_args;
-	t_node	*left;
-	t_node	*right;
+	void	*left;
+	void	*right;
 }	t_node;
 
 typedef struct	s_parse_err
