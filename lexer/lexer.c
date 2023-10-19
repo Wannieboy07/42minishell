@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/12 15:27:34 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:16:47 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_token	*lexer(void)
 		else
 			err = !handle_identifier(&line, &token_lst);
 	}
-	print_lst(token_lst);
 	line = g_minishell.line;
 	free(line);
 	g_minishell.line = NULL;

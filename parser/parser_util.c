@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:09:11 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 15:53:20 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:13:57 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ char	*append_args(char *args, char *str)
 
 void	get_next_token(void)
 {
-	g_minishell.curr_token = g_minishell.curr_token -> next;
+	g_minishell.curr_token = g_minishell.curr_token->next;
 }
 
-bool	is_redir(t_token_type type)
+bool	is_redir(t_tokentype type)
 {
-	if (type == T_LESS || type == T_GREAT
-		|| type == T_DLESS || type == T_DGREAT)
+	if (type == GREAT || type == D_GREAT
+		|| type == LESS || type == D_LESS)
 		return (true);
 	return (false);
 }
 
-int	get_prec(t_token_type type)
+int	get_prec(t_tokentype type)
 {
 	if (type == PIPE)
 		return (1);
@@ -58,5 +58,5 @@ int	get_prec(t_token_type type)
 
 int	get_tokens_prec(void)
 {
-	return (ft_prec(g_minishell.curr_token->type));
+	return (get_prec(g_minishell.curr_token->type));
 }

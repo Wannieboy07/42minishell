@@ -6,11 +6,11 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:19:26 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 12:46:53 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:12:01 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minshell"
+#include "../minishell.h"
 
 void	set_parse_err(t_parse_errtype type)
 {

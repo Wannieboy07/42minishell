@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/11 23:38:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:15:04 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ int	minishell_loop(void)
 		{
 			printf(GREY "Info: no tokens\n" WHITE);
 			continue ;
+		}
+		g_minishell.ast = parser();
+		if (g_minishell.parse_err.type)
+		{
+			handle_parse_err();
+			continue;
 		}
 	}
 }

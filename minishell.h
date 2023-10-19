@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 14:37:42 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:15:43 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,28 @@ void		skip_spaces(char **line);
 bool		is_seperator(char *c);
 t_tokentype	is_keyword(char *value);
 void		prnt_quote_err(void);
+
+/*=== Parser ===*/
+
+t_node	*parser(void);
+
+void	set_parse_err(t_parse_errtype type);
+void	handle_parse_err(void);
+
+t_node	*get_simple_cmd(void);
+
+void	get_next_token(void);
+bool	is_redir(t_tokentype type);
+int	get_tokens_prec(void);
+int	get_prec(t_tokentype type);
+char	*append_args(char *args, char *str);
+
+void	append_io_node(t_io_node **head, t_io_node *io_node);
+t_node	*new_node(t_nodetype type);
+t_io_node	*new_io_node(t_tokentype type, char *value);
+t_iotype	get_iotype(t_tokentype type);
+
+void	clear_ast(t_node **ast);
+void	free_cmd_node(t_node *node);
 
 #endif

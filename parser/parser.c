@@ -6,19 +6,19 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:37:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 12:18:59 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:22:38 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*combine_atoms(t_node *left, t_node *right, t_tokentype op)
+t_node	*combine_atoms(t_node *left, t_node *right)
 {
 	t_node	*node;
 
 	if (g_minishell.parse_err.type)
 		return (NULL);
-	node = new_node(get_nodetype(op));
+	node = new_node(P_PIPE);
 	if (!node)
 		return (set_parse_err(MEM), NULL);
 	node->left = left;
@@ -28,8 +28,6 @@ t_node	*combine_atoms(t_node *left, t_node *right, t_tokentype op)
 
 t_node	*parse_atom(void)
 {
-	t_node	*node;
-
 	if (g_minishell.parse_err.type)
 		return (NULL);
 	if (g_minishell.curr_token->type == PIPE)
@@ -44,12 +42,13 @@ t_node	*parse_expr(int min_prec)
 	t_node	*right;
 	t_tokentype	op;
 
-	if (g_minishell.parse_err.type || !g_minshell.curr_token)
+	if (g_minishell.parse_err.type || !g_minishell.curr_token)
 		return (NULL);
 	left = parse_atom();
 	if (!left)
 		return (NULL);
-	while (g_minishell.curr_token->type == PIPE && get_tokens_prec() >= min_prec)
+	while (g_minishell.curr_token && g_minishell.curr_token->type == PIPE
+		&& get_tokens_prec() >= min_prec)
 	{
 		op = g_minishell.curr_token->type;
 		get_next_token();
@@ -58,7 +57,7 @@ t_node	*parse_expr(int min_prec)
 		right = parse_expr(get_prec(op) + 1);
 		if (!right)
 			return (left);
-		left = combine_atoms(left, right, op);
+		left = combine_atoms(left, right);
 		if (!left)
 			return (clear_ast(&left), clear_ast(&right), NULL);
 	}

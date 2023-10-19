@@ -5,6 +5,13 @@ SRCS =	\
 	lexer/lexer_lst.c		\
 	lexer/lexer_utils.c		\
 	\
+	parser/parser.c			\
+	parser/parser_cmd.c		\
+	parser/parser_err.c		\
+	parser/parser_free.c		\
+	parser/parser_nodes.c		\
+	parser/parser_util.c		\
+	\
 	error/error_handling.c		\
 	\
 	signal/signal_handling.c	\

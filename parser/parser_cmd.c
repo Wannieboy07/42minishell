@@ -6,13 +6,35 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:25:36 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 15:08:39 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/19 17:16:06 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	git_io_lst(t_io_node **io_lst)
+bool	get_io_lst(t_io_node **io_lst)
+{
+	t_tokentype	type;
+	t_io_node	*new;
+
+	if (g_minishell.parse_err.type)
+		return (false);
+	while (g_minishell.curr_token && is_redir(g_minishell.curr_token->type))
+	{
+		type = g_minishell.curr_token->type;
+		get_next_token();
+		if (!g_minishell.curr_token)
+			return (set_parse_err(SYNTAX), false);
+		if (g_minishell.curr_token->type != IDENTIFIER)
+			return (set_parse_err(SYNTAX), false);
+		new = new_io_node(type, g_minishell.curr_token->value);
+		if (!new)
+			return (set_parse_err(MEM), false);
+		append_io_node(io_lst, new);
+		get_next_token();
+	}
+	return (true);
+}
 
 bool	join_args(char	**args)
 {
@@ -28,7 +50,7 @@ bool	join_args(char	**args)
 		&& g_minishell.curr_token->type == IDENTIFIER)
 	{
 		to_free = *args;
-		*args = append_arg(*args, g_minishell.curr_token->value);
+		*args = append_args(*args, g_minishell.curr_token->value);
 		if (!*args)
 			return (free(to_free), false);
 		free(to_free);
@@ -53,7 +75,7 @@ t_node	*get_simple_cmd(void)
 		if (g_minishell.curr_token->type == IDENTIFIER)
 		{
 			if (!join_args(&(node->args)))
-				return (clear_cmd_node(node), set_parse_err(MEM), NULL);
+				return (free_cmd_node(node), set_parse_err(MEM), NULL);
 		}
 		else if (is_redir(g_minishell.curr_token->type))
 		{
