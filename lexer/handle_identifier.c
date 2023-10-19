@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:12:57 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/13 21:18:36 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:12:58 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	handle_identifier(char	**line, t_token **token_lst)
 	value = ft_substr(buff, 0, i);
 	if (!value)
 		return (0);
-	token = new_token(is_keyword(value), value);
+	token = new_token(IDENTIFIER, value);
 	if (!token)
 		return (free(value), 0);
 	*line += i;

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/13 22:14:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/19 22:54:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	minishell_loop(void)
 	{
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
-			eof_handler();
+			eof_handler(g_minishell.tokens);
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
@@ -40,6 +40,12 @@ int	minishell_loop(void)
 		if (!g_minishell.tokens)
 		{
 			printf(GREY "info: no tokens\n" WHITE);
+			continue ;
+		}
+		g_minishell.ast = parser();
+		if (g_minishell.parse_err.type)
+		{
+			handle_parse_err();
 			continue ;
 		}
 	}

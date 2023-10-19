@@ -6,13 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/13 21:19:14 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:46:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//print a linked list and it's data
+//print an input linked list and it's data
 void	print_lst(t_token *token_lst)
 {
 	t_token	*curr;
@@ -20,7 +20,7 @@ void	print_lst(t_token *token_lst)
 	curr = token_lst;
 	while (curr)
 	{
-		printf("Type: %d\nValue: %s\n", curr->type, curr->value);
+		printf("Value: %s\n", curr->value);
 		curr = curr->next;
 	}
 }
@@ -47,7 +47,6 @@ t_token	*lexer(void)
 		else
 			err = !handle_identifier(&line, &token_lst);
 	}
-	print_lst(token_lst);
 	line = g_minishell.line;
 	free(line);
 	g_minishell.line = NULL;
