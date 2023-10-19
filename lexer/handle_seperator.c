@@ -6,13 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:30:29 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/12 00:08:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:47:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//store tokens in a doubly linked list
+//store tokens in an input doubly linked list
 int	add_seperator(t_tokentype type, char **line, t_token **token_lst)
 {
 	t_token	*token;

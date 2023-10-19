@@ -6,13 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/18 15:03:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:46:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//print a linked list and it's data
+//print an input linked list and it's data
 void	print_lst(t_token *token_lst)
 {
 	t_token	*curr;

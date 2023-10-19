@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/19 01:12:57 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:57:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define D_QUOTES 34
 # define S_QUOTES 39
 
-//enumeration macro
+//token types enumeration macro
 typedef enum e_tokentype
 {
 	IDENTIFIER,
@@ -72,14 +72,14 @@ typedef enum e_tokentype
 	NL
 }	t_tokentype;
 
-//WIP
+//node types enumeration macro
 typedef enum e_nodetype
 {
 	P_PIPE,
 	P_CMD
 }	t_nodetype;
 
-//WIP
+//input/output type enumeration macro
 typedef enum e_iotype
 {
 	IN,
@@ -88,7 +88,7 @@ typedef enum e_iotype
 	APPEND
 }	t_iotype;
 
-//WIP
+//error type enumeration macro
 typedef enum e_parse_errtype
 {
 	MEM = 1,
@@ -99,7 +99,7 @@ typedef enum e_parse_errtype
 /*    structs    */
 /*****************/
 
-//token data doubly linked list
+//input data doubly linked list
 typedef struct s_token
 {
 	t_tokentype	type;
@@ -108,7 +108,7 @@ typedef struct s_token
 	void		*next;
 }	t_token;
 
-//WIP
+//input/output data doubly linked list
 typedef struct s_io_node
 {
 	t_iotype	type;
@@ -119,7 +119,7 @@ typedef struct s_io_node
 	void		*next;
 }	t_io_node;
 
-//WIP
+//abstract syntax tree data doubly linked list
 typedef struct s_node
 {
 	t_nodetype	type;
@@ -130,7 +130,7 @@ typedef struct s_node
 	void		*right;
 }	t_node;
 
-//WIP
+//parse error data structure
 typedef struct s_parse_err
 {
 	t_parse_errtype	type;
@@ -211,7 +211,7 @@ int			prnt_err(char *str, char **av);
 /*     lexer.c     */
 /*******************/
 
-//print a linked list and it's data
+//print an input linked list and it's data
 void		print_lst(t_token *token_lst);
 
 //pre-parsing by tokenizing the input line
@@ -221,7 +221,7 @@ t_token		*lexer(void);
 /* handle_seperator.c */
 /**********************/
 
-//store tokens in a doubly linked list
+//store tokens in an input doubly linked list
 int			add_seperator(t_tokentype type, char **line, t_token **token_lst);
 
 //tokenize operators from the input
@@ -238,13 +238,13 @@ int			handle_identifier(char	**line, t_token **token_lst);
 /*   lexer_lst.c   */
 /*******************/
 
-//create a new entree to a doubly linked list
+//create a new entree to an input doubly linked list
 t_token		*new_token(t_tokentype type, char *value);
 
-//add an entree to a doubly linked list
+//add an entree to an input doubly linked list
 void		token_add_back(t_token **head, t_token *new_node);
 
-//free a doubly linked list
+//free an input doubly linked list
 void		free_token_lst(t_token **head);
 
 /*******************/
@@ -262,6 +262,98 @@ bool		is_seperator(char *c);
 
 //print an error specific to unclosed quotation marks
 void		prnt_quote_err(void);
+
+/*=== ./parser/ ===*/
+
+/********************/
+/*     parser.c     */
+/********************/
+
+//combine two nodes into one
+t_node		*combine_atoms(t_node *left, t_node *right);
+
+//parse an atomic expression
+t_node		*parse_atom(void);
+
+//parse and combine expressions
+t_node		*parse_expr(int min_prec);
+
+//parse input and create an abstract syntax tree
+t_node		*parser(void);
+
+/********************/
+/*   parser_err.c   */
+/********************/
+
+//set parsing error type
+void		set_parse_err(t_parse_errtype type);
+
+//handle parsing errors and free dynamically allocated memory
+void		handle_parse_err(void);
+
+/********************/
+/*   parser_cmd.c   */
+/********************/
+
+//parse and populate input output doubly linked list
+bool		get_io_lst(t_io_node **io_lst);
+
+//join arguments into a single string
+bool		join_args(char	**args);
+
+//parse a simple command and it's arguments
+t_node		*get_simple_cmd(void);
+
+/*******************/
+/*  parser_util.c  */
+/*******************/
+
+//join two strings into one with a space between them
+char		*append_args(char *args, char *str);
+
+//advance to the next entree of an input doubly linked list
+void		get_next_token(void);
+
+//check if token is of redirection type
+bool		is_redir(t_tokentype type);
+
+//fetch precedence of a token type
+int			get_prec(t_tokentype type);
+
+//fetch precedence of a token
+int			get_tokens_prec(void);
+
+/********************/
+/*  parser_nodes.c  */
+/********************/
+
+//determine input/output type
+t_iotype	get_iotype(t_tokentype type);
+
+//create a new entree to an abstract syntax tree doubly linked list
+t_node		*new_node(t_nodetype type);
+
+//create a new entree to an input/output doubly linked list
+t_io_node	*new_io_node(t_tokentype type, char *value);
+
+//add an entree to an input/output doubly linked list
+void		append_io_node(t_io_node **head, t_io_node *io_node);
+
+/*******************/
+/*  parser_free.c  */
+/*******************/
+
+//free the memory of an input/output doubly linked list
+void		free_io_lst(t_io_node **head);
+
+//free all the memory associated with a command's data
+void		free_cmd_node(t_node *node);
+
+//free the memory of an abstract syntax tree doubly linked list
+void		free_ast_nodes(t_node *node);
+
+//free all the memory associated with an abstract syntax tree
+void		clear_ast(t_node **ast);
 
 /*=== ./executor/ ===*/
 
