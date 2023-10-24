@@ -12,6 +12,8 @@ SRCS =	\
 	parser/parser_nodes.c		\
 	parser/parser_util.c		\
 	\
+	parser/parser_prnt.c		\
+	\
 	error/error_handling.c		\
 	\
 	signal/signal_handling.c	\

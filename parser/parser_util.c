@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:09:11 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/19 17:13:57 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:14:20 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ char	*append_args(char *args, char *str)
 
 	if (!args || !str)
 		return (NULL);
+	if (!ft_strlen(args))
+		return (ft_strdup(str));
+	if (!ft_strlen(str))
+		return (ft_strdup(args));
 	length = ft_strlen(args) + ft_strlen(str) + 2;
 	new = malloc(sizeof(char) * length);
 	if (!new)

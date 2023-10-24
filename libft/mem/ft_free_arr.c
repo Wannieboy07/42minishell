@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_array.c                                       :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 17:06:17 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/06 22:45:57 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/24 16:18:41 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/24 16:18:51 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//free the memory of a 2d array
-void	free_arr(char **array)
+void	free_arr(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-	array = NULL;
+	if (!arr)
+		return ;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+	arr = NULL;
 }

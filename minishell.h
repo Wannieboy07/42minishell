@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/19 17:15:43 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/10/24 15:07:17 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ extern t_minishell	g_minishell;
 void		eof_handler(void);
 void		handle_global_signals(void);
 void		handle_cmd_signals(void);
-
+void		exit_routine(void);
 /*=== Error Handling ===*/
 
 int			prnt_err(char *str);
@@ -145,6 +145,9 @@ t_tokentype	is_keyword(char *value);
 void		prnt_quote_err(void);
 
 /*=== Parser ===*/
+
+//tmp function
+void	prnt_ast(t_node *ast);
 
 t_node	*parser(void);
 
