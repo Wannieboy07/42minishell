@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/10 22:28:13 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/10/24 17:01:03 by wmarien           #+#    #+#             */
+/*   Updated: 2023/10/24 17:01:07 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//handle end of of file signal
+//handle end of of file signal !!!not the same as exit command!!!
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
