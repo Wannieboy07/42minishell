@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/20 00:57:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:01:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,5 +385,20 @@ void		exec_exit(t_token *lst);
 
 //print out input
 int			exec_echo(t_token *lst);
+
+/*=== ./parser/ ===*/
+
+/*********************/
+/*   parser_prnt.c   */
+/*********************/
+
+//TEST FUNCTION
+void		prnt_tabs(int *tabs);
+
+//TEST FUNCTION
+void		prnt_node(t_node *node, int *i);
+
+//TEST FUNCTION
+void		prnt_ast(t_node	*ast);
 
 #endif

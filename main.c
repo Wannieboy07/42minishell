@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/19 22:54:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:52:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	init_minishell(char **env)
 	g_minishell.envv = env;
 	g_minishell.fdin = dup(0);
 	g_minishell.fdout = dup(1);
+}
+
+//WIP
+void	start_exec(void)
+{
+	clear_ast(&g_minishell.ast);
 }
 
 //prompt that takes inputs
@@ -48,6 +54,7 @@ int	minishell_loop(void)
 			handle_parse_err();
 			continue ;
 		}
+		start_exec();
 	}
 }
 

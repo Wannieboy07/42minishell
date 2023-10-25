@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:06:10 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/04 21:56:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:48:27 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
 //free the memory of a 2d array
-void	free_arr(char **array);
+void	free_arr(char **arr);
 
 /***************/
 /*   pointer   */
