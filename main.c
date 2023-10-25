@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/25 11:52:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:00:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	init_minishell(char **env)
 	g_minishell.fdout = dup(1);
 }
 
+// init tree = expanding args and values
+// execute node (rescursive)
+
 //WIP
 void	start_exec(void)
 {
@@ -37,7 +40,7 @@ int	minishell_loop(void)
 	{
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
-			eof_handler(g_minishell.tokens);
+			eof_handler();
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();

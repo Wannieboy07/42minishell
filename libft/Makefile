@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/12 00:10:53 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/10/25 12:42:59 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = libft.a
 LIBC = ar rcs
 
 #compiler
-CC = gcc
+CC = cc
 
 #flags
 CFLAGS = -g -Wall -Wextra -Werror
