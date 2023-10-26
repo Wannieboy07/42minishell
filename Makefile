@@ -12,7 +12,7 @@ SRCS =	\
 	parser/parser_nodes.c		\
 	parser/parser_util.c		\
 	\
-	parser/parser_prnt.c		\
+	parser/tmp_parser_prnt.c	\
 	\
 	error/error_handling.c		\
 	\

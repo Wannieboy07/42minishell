@@ -6,7 +6,7 @@ SRCS =	\
 		mem/ft_memmove.c 		\
 		mem/ft_memchr.c			\
 		mem/ft_memcmp.c			\
-		mem/free_array.c		\
+		mem/ft_free_arr.c		\
 		\
 		ascii/ft_isalpha.c 		\
 		ascii/ft_isdigit.c		\
