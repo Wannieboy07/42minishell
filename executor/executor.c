@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/18 22:40:03 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 21:18:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_builtin(t_token *lst)
 	else if (!ft_strncmp(lst->value, "pwd", 3))
 		ret = exec_pwd();
 	else if (!ft_strncmp(lst->value, "export", 6))
-		;
+		exec_export();
 	else if (!ft_strncmp(lst->value, "unset", 5))
 		;
 	else if (!ft_strncmp(lst->value, "env", 3))

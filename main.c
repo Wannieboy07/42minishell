@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/25 13:00:24 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 21:12:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	minishell_loop(void)
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
-		if (!executor())
-			return (prnt_err("executor", NULL));
 		if (!g_minishell.tokens)
 		{
 			printf(GREY "info: no tokens\n" WHITE);
@@ -57,6 +55,8 @@ int	minishell_loop(void)
 			handle_parse_err();
 			continue ;
 		}
+		if (!executor())
+			return (prnt_err("executor", NULL));
 		start_exec();
 	}
 }

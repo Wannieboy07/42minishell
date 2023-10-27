@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:25:36 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/20 00:56:20 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:38:02 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_node	*get_simple_cmd(void)
 		}
 		else if (is_redir(g_minishell.curr_token->type))
 		{
-			if (get_io_lst(&(node->io_lst)))
+			if (!get_io_lst(&(node->io_lst)))
 				return (free(node->args), free(node), NULL);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/26 14:58:19 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 21:52:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,14 @@ typedef struct s_node
 	void		*right;
 }	t_node;
 
+//export environment doubly linked list
+typedef struct s_exp_env
+{
+	char				*var;
+	struct s_exp_env	*prev;
+	struct s_exp_env	*next;
+}	t_exp_env;
+
 //parse error data structure
 typedef struct s_parse_err
 {
@@ -149,6 +157,7 @@ typedef struct s_minishell
 	int			fdin;
 	int			fdout;
 	char		**envv;
+	char		**exp_env;
 }	t_minishell;
 
 //make minishell structure able to be accessed globally
@@ -385,6 +394,22 @@ void		exec_exit(t_token *lst);
 
 //print out input
 int			exec_echo(t_token *lst);
+
+//print out the export environment variable
+int			exec_export(void);
+
+/*********************/
+/* data_management.c */
+/*********************/
+
+//printing of export environment's doubly linked list
+void		prnt_exp_lst(t_exp_env *lst);
+
+//add an entree to the export environment's doubly linked list
+int			add_val(t_exp_env *lst, char *val);
+
+//initialization of export environment's doubly linked list
+t_exp_env	*init_exp_lst(char *var);
 
 /*=== ./parser/ ===*/
 

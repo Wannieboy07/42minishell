@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 23:31:37 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/18 22:41:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 21:54:33 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,21 @@ int	exec_echo(t_token *lst)
 	}
 	lst = lst->next;
 	printf("%s", lst->value);
+	return (1);
+}
+
+//print out the export environment variable
+int	exec_export(void)
+{
+	t_exp_env	*exp_lst;
+
+	if (!g_minishell.envv)
+		return (0);
+	exp_lst = init_exp_lst(g_minishell.envv[0]);
+	if (!exp_lst)
+		return (0);
+	if (!add_val(exp_lst, g_minishell.envv[1]))
+		return (0);
+	prnt_exp_lst(exp_lst);
 	return (1);
 }
