@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/27 21:52:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/30 23:24:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ typedef struct s_minishell
 	int			fdin;
 	int			fdout;
 	char		**envv;
-	char		**exp_env;
+	t_exp_env	*exp_env;
 }	t_minishell;
 
 //make minishell structure able to be accessed globally
@@ -371,10 +371,10 @@ void		clear_ast(t_node **ast);
 /********************/
 
 //execute built-in commands
-int			exec_builtin(t_token *lst);
+int			exec_builtin(t_node *ast);
 
 //execute commands if any are found
-int			exec_cmd(void);
+int			exec_cmd(t_node *ast);
 
 //parse linked list and execute commands
 int			executor(void);
@@ -390,10 +390,10 @@ int			exec_env(void);
 int			exec_pwd(void);
 
 //exit the shell in a clean way
-void		exec_exit(t_token *lst);
+void		exec_exit(void);
 
 //print out input
-int			exec_echo(t_token *lst);
+int			exec_echo(t_node *ast);
 
 //print out the export environment variable
 int			exec_export(void);
@@ -402,11 +402,14 @@ int			exec_export(void);
 /* data_management.c */
 /*********************/
 
+//free the data of an export list doubly linked list
+void		free_exp_lst(t_exp_env *lst);
+
 //printing of export environment's doubly linked list
 void		prnt_exp_lst(t_exp_env *lst);
 
 //add an entree to the export environment's doubly linked list
-int			add_val(t_exp_env *lst, char *val);
+int			add_val2exp_lst(t_exp_env *lst, char *val);
 
 //initialization of export environment's doubly linked list
 t_exp_env	*init_exp_lst(char *var);

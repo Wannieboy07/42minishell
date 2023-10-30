@@ -6,11 +6,26 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/27 21:53:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/30 23:15:52 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//free the data of an export list doubly linked list
+void	free_exp_lst(t_exp_env *lst)
+{
+	t_exp_env	*next;
+
+	if (!lst)
+		return ;
+	while (lst)
+	{
+		next = lst->next;
+		free(lst);
+		lst = next;
+	}
+}
 
 //printing of export environment's doubly linked list
 void	prnt_exp_lst(t_exp_env *lst)
@@ -19,26 +34,26 @@ void	prnt_exp_lst(t_exp_env *lst)
 
 	if (!lst)
 	{
-		printf("info: empty list\n");
+		printf("Info: empty list\n");
 		return ;
 	}
 	curr = lst;
 	while (curr)
 	{
-		printf("test: %s\n", curr->var);
+		printf("%s\n", curr->var);
 		curr = curr->next;
 	}
 }
 
 //add an entree to the export environment's doubly linked list
-int	add_val(t_exp_env *lst, char *val)
+int	add_val2exp_lst(t_exp_env *lst, char *val)
 {
 	t_exp_env	*curr;
 	t_exp_env	*new_lst;
 
 	if (!lst)
 	{
-		printf("info: empty list\n");
+		printf("Info: empty list\n");
 		return (1);
 	}
 	new_lst = init_exp_lst(val);

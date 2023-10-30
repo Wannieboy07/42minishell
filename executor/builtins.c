@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 23:31:37 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/27 21:54:33 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/30 23:24:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,28 @@ int	exec_pwd(void)
 }
 
 //exit the shell in a clean way
-void	exec_exit(t_token *lst)
+void	exec_exit(void)
 {
-	free_token_lst(&lst);
+	free_token_lst(&g_minishell.tokens);
+	free_exp_lst(g_minishell.exp_env);
+	free_ast_nodes(g_minishell.ast);
 	rl_clear_history();
 	exit(EXIT_SUCCESS);
 }
 
 //print out input
-int	exec_echo(t_token *lst)
+int	exec_echo(t_node *ast)
 {
-	if (!lst->next)
-		return (0);
-	lst = lst->next;
-	if (!lst->next || ft_strncmp(lst->value, "-n", 2))
+	int	i;
+
+	if (strncmp(ast->args, "echo -n ", 8))
 	{
-		prnt_err("invalid flag for echo", NULL);
+		prnt_err("echo: invalid flag", NULL);
 		return (0);
 	}
-	lst = lst->next;
-	printf("%s", lst->value);
+	i = 7;
+	while (ast->args[++i])
+		printf("%c", ast->args[i]);
 	return (1);
 }
 
@@ -67,14 +69,17 @@ int	exec_echo(t_token *lst)
 int	exec_export(void)
 {
 	t_exp_env	*exp_lst;
+	int			i;
 
 	if (!g_minishell.envv)
 		return (0);
 	exp_lst = init_exp_lst(g_minishell.envv[0]);
 	if (!exp_lst)
 		return (0);
-	if (!add_val(exp_lst, g_minishell.envv[1]))
-		return (0);
+	i = 0;
+	while (g_minishell.envv[++i])
+		add_val2exp_lst(exp_lst, g_minishell.envv[i]);
+	g_minishell.exp_env = exp_lst;
 	prnt_exp_lst(exp_lst);
 	return (1);
 }
