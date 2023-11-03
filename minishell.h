@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/01 02:14:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/03 23:13:10 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ extern t_minishell	g_minishell;
 /******************/
 
 //initialize minishell data struct variables
-void		init_minishell(char **env);
+int			init_minishell(char **env);
 
 //prompt that takes inputs
 int			minishell_loop(void);
@@ -413,8 +413,21 @@ int			exec_echo(t_node *ast);
 /*     export.c     */
 /********************/
 
-//print out the export environment variable
+//initialize the export environment
+int			init_exp_env(void);
+
+//command to manage the export environment
 int			exec_export(void);
+
+/*********************/
+/*      unset.c      */
+/*********************/
+
+//check whether a variable exists wihtin the environment
+int			check_var(char *var);
+
+//command to remove exported variables
+int			exec_unset(void);
 
 /*********************/
 /* data_management.c */

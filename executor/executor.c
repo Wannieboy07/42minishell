@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/01 02:15:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/03 22:27:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	exec_builtin(t_node *ast)
 	else if (!ft_strncmp(ast->args, "export", 6))
 		exec_export();
 	else if (!ft_strncmp(ast->args, "unset", 5))
-		;
+		ret = exec_unset();
 	else if (!ft_strncmp(ast->args, "env", 3))
 		ret = exec_env();
 	else if (!ft_strncmp(ast->args, "exit", 4))

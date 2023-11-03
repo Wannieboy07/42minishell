@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/01 01:57:28 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/03 20:46:46 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	prnt_exp_lst(t_exp_env *lst)
 	if (!lst)
 		return ;
 	curr = lst;
-	while (curr->next)
+	while (curr)
 	{
 		printf("%s\n", curr->var);
 		curr = curr->next;

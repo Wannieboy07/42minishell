@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/30 18:43:52 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/03 23:07:20 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 t_minishell	g_minishell;
 
 //initialize minishell data struct variables
-void	init_minishell(char **env)
+int	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
 	g_minishell.envv = env;
 	g_minishell.fdin = dup(0);
 	g_minishell.fdout = dup(1);
+	if (g_minishell.fdin < 0 || g_minishell.fdout < 0)
+		return (0);
+	if (!init_exp_env())
+		return (0);
+	return (1);
 }
 
 // init tree = expanding args and values
@@ -66,7 +71,8 @@ int	main(int ac, char **av, char **env)
 {
 	if (ac != 1)
 		return (prnt_err("args", av));
-	init_minishell(env);
+	if (!init_minishell(env))
+		return (EXIT_FAILURE);
 	handle_global_signals();
 	if (minishell_loop() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
