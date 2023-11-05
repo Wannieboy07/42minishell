@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/03 23:04:24 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:04:35 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ int	init_exp_env(void)
 //command to manage the export environment
 int	exec_export(void)
 {
-	if (ft_strncmp(g_minishell.ast->args, "export ", 7))
+	char	*args;
+
+	if (g_minishell.ast->args[7] == '\0')
 		prnt_exp_lst(g_minishell.exp_env);
-	else if (!ft_strncmp(g_minishell.ast->args, "export -", 8)
-		|| !ft_strchr(g_minishell.ast->args, '='))
+	else if (g_minishell.ast->args[8] == '-')
 		prnt_err("export: invalid usage", NULL);
 	else
-		add_val2exp_lst(g_minishell.exp_env,
-			ft_strdup(g_minishell.ast->args + 7));
+	{
+		args = ft_strdup(g_minishell.ast->args + 7);
+		if (!args)
+			return (0);
+		add_val2exp_lst(g_minishell.exp_env, args);
+		free(args);
+	}
 	return (1);
 }

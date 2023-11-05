@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/03 23:13:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:11:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,22 @@ int			exec_cmd(t_node *ast);
 //parse linked list and execute commands
 int			executor(void);
 
+/*********************/
+/* data_management.c */
+/*********************/
+
+//printing of export environment's doubly linked list
+void		prnt_exp_lst(t_exp_env *lst);
+
+//free the data of an export list doubly linked list
+void		free_exp_lst(t_exp_env *lst);
+
+//add an entree to the export environment's doubly linked list
+int			add_val2exp_lst(t_exp_env *lst, char *val);
+
+//initialization of export environment's doubly linked list
+t_exp_env	*init_exp_lst(char *var);
+
 /*===  ./executor/builtins/ ===*/
 
 /*******************/
@@ -428,22 +444,6 @@ int			check_var(char *var);
 
 //command to remove exported variables
 int			exec_unset(void);
-
-/*********************/
-/* data_management.c */
-/*********************/
-
-//printing of export environment's doubly linked list
-void		prnt_exp_lst(t_exp_env *lst);
-
-//free the data of an export list doubly linked list
-void		free_exp_lst(t_exp_env *lst);
-
-//add an entree to the export environment's doubly linked list
-int			add_val2exp_lst(t_exp_env *lst, char *val);
-
-//initialization of export environment's doubly linked list
-t_exp_env	*init_exp_lst(char *var);
 
 /*=== ./parser/ ===*/
 

@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/03 22:27:29 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:10:41 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,32 @@
 //execute built-in commands
 int	exec_builtin(t_node *ast)
 {
-	int	ret;
-
 	if (!ast->args)
 		return (1);
-	ret = 1;
 	if (!ft_strncmp(ast->args, "echo", 4))
-		ret = exec_echo(ast);
+		return (exec_echo(ast));
 	else if (!ft_strncmp(ast->args, "cd", 2))
-		;
+		return (1);
 	else if (!ft_strncmp(ast->args, "pwd", 3))
-		ret = exec_pwd();
+		return (exec_pwd());
 	else if (!ft_strncmp(ast->args, "export", 6))
-		exec_export();
+		return (exec_export());
 	else if (!ft_strncmp(ast->args, "unset", 5))
-		ret = exec_unset();
+		return (exec_unset());
 	else if (!ft_strncmp(ast->args, "env", 3))
-		ret = exec_env();
+		return (exec_env());
 	else if (!ft_strncmp(ast->args, "exit", 4))
-		exec_exit();
+		return (exec_exit(), 0);
 	else
 		return (1);
-	if (ret == 0)
-		return (0);
-	return (1);
 }
+
+//add pipex logic to run before builtins:
+//if (!exec_ext_cmd && !exec_builtin)
+//{
+		//prnt_err("command not found", NULL);
+		//return (0);
+//}
 
 //execute commands if any are found
 int	exec_cmd(t_node *ast)
@@ -83,7 +84,10 @@ int	exec_cmd(t_node *ast)
 		return (1);
 	}
 	if (!exec_builtin(ast))
+	{
+		prnt_err("command not found", NULL);
 		return (0);
+	}
 	return (1);
 }
 
