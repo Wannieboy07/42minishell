@@ -6,15 +6,26 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/06 00:19:27 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 04:32:52 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//WIP
-int	rm_var(void)
+//removes variables
+int	rm_var(char *var)
 {
+	t_exp_env	*lst;
+
+	if (!g_minishell.exp_env)
+		return (1);
+	lst = g_minishell.exp_env;
+	while (lst)
+	{
+		if (!ft_strncmp(lst->var, var, ft_strlen(lst->var)))
+			cut_exp_lst(lst);
+		lst = lst->next;
+	}
 	return (1);
 }
 
@@ -38,8 +49,8 @@ int	check_var(char *var)
 }
 
 //WIP
-//Variables yet to be impemented.
-//command to remove exported variables
+//Shell variables yet to be impemented.
+//command to remove variables
 int	exec_unset(void)
 {
 	char	*args;
@@ -52,7 +63,8 @@ int	exec_unset(void)
 		return (0);
 	if (!check_var(args))
 		return (1);
+	if (!rm_var(args))
+		return (0);
 	free(args);
-	rm_var();
 	return (1);
 }

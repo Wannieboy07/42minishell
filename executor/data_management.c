@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/03 20:46:46 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 04:27:56 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ void	free_exp_lst(t_exp_env *lst)
 	}
 }
 
+//cut out an entree in the export environment's doubly linked list
+void	cut_exp_lst(t_exp_env *curr)
+{
+	t_exp_env	*prev;
+	t_exp_env	*next;
+
+	if (!curr)
+		return ;
+	prev = curr->prev;
+	next = curr->next;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+	free(curr);
+}
+
 //add an entree to the export environment's doubly linked list
 int	add_val2exp_lst(t_exp_env *lst, char *val)
 {
@@ -57,6 +74,7 @@ int	add_val2exp_lst(t_exp_env *lst, char *val)
 	while (curr->next)
 		curr = curr->next;
 	curr->next = new_lst;
+	new_lst->prev = curr;
 	return (1);
 }
 
@@ -70,6 +88,8 @@ t_exp_env	*init_exp_lst(char *var)
 	lst = (t_exp_env *)ft_calloc(1, sizeof(t_exp_env));
 	if (!lst)
 		return (NULL);
+	lst->prev = NULL;
 	lst->var = var;
+	lst->next = NULL;
 	return (lst);
 }

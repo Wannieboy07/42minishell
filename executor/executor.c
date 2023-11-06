@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/05 22:10:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 05:05:53 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	exec_builtin(t_node *ast)
 	if (!ast->args)
 		return (1);
 	if (!ft_strncmp(ast->args, "echo", 4))
-		return (exec_echo(ast));
+		return (exec_echo());
 	else if (!ft_strncmp(ast->args, "cd", 2))
-		return (1);
+		return (exec_cd());
 	else if (!ft_strncmp(ast->args, "pwd", 3))
 		return (exec_pwd());
 	else if (!ft_strncmp(ast->args, "export", 6))

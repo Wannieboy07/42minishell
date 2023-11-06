@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/06 00:11:01 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/06 05:08:09 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,6 +389,9 @@ void		prnt_exp_lst(t_exp_env *lst);
 //free the data of an export list doubly linked list
 void		free_exp_lst(t_exp_env *lst);
 
+//cut out an entree in the export environment's doubly linked list
+void		cut_exp_lst(t_exp_env *lst);
+
 //add an entree to the export environment's doubly linked list
 int			add_val2exp_lst(t_exp_env *lst, char *val);
 
@@ -423,7 +426,7 @@ void		exec_exit(void);
 /********************/
 
 //print out input
-int			exec_echo(t_node *ast);
+int			exec_echo(void);
 
 /********************/
 /*     export.c     */
@@ -442,8 +445,15 @@ int			exec_export(void);
 //check whether a variable exists wihtin the environment
 int			check_var(char *var);
 
-//command to remove exported variables
+//command to remove variables
 int			exec_unset(void);
+
+/********************/
+/*       cd.c       */
+/********************/
+
+//command to change directory
+int			exec_cd(void);
 
 /*=== ./parser/ ===*/
 
