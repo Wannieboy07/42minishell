@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/06 05:08:09 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 02:39:39 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,7 +393,7 @@ void		free_exp_lst(t_exp_env *lst);
 void		cut_exp_lst(t_exp_env *lst);
 
 //add an entree to the export environment's doubly linked list
-int			add_val2exp_lst(t_exp_env *lst, char *val);
+int			add_var2exp_lst(t_exp_env *lst, char *var);
 
 //initialization of export environment's doubly linked list
 t_exp_env	*init_exp_lst(char *var);

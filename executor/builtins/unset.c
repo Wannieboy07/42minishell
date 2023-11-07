@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/06 04:32:52 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 02:39:49 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	rm_var(char *var)
 	while (lst)
 	{
 		if (!ft_strncmp(lst->var, var, ft_strlen(lst->var)))
-			cut_exp_lst(lst);
+			return (cut_exp_lst(lst), 1);
 		lst = lst->next;
 	}
 	return (1);
