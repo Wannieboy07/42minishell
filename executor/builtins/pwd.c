@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:13 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/06 23:31:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:13:47 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	exec_pwd(void)
 {
 	char	cwd[PATH_MAX];
 
+	if (g_minishell.ast->args[3] != '\0' && g_minishell.ast->args[3] != ' ')
+		return (prnt_err("command not found", NULL));
 	if (g_minishell.ast->args[3] != '\0')
-		return (1);
+		return (prnt_err("pwd: invalid usage", NULL));
 	if (!getcwd(cwd, PATH_MAX))
 		return (0);
 	printf("%s\n", cwd);

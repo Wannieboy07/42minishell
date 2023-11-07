@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/06 05:05:53 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:40:55 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	exec_builtin(t_node *ast)
 	else if (!ft_strncmp(ast->args, "env", 3))
 		return (exec_env());
 	else if (!ft_strncmp(ast->args, "exit", 4))
-		return (exec_exit(), 0);
+		return (exec_exit());
 	else
-		return (1);
+		return (prnt_err("command not found", NULL));
 }
 
 //add pipex logic to run before builtins:
@@ -84,10 +84,7 @@ int	exec_cmd(t_node *ast)
 		return (1);
 	}
 	if (!exec_builtin(ast))
-	{
-		prnt_err("command not found", NULL);
 		return (0);
-	}
 	return (1);
 }
 

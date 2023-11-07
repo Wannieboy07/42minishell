@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/07 02:39:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:40:23 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef enum e_tokentype
 	NL
 }	t_tokentype;
 
+//add a differentiator between builtin and external commands
 //node types enumeration macro
 typedef enum e_nodetype
 {
@@ -419,7 +420,7 @@ int			exec_pwd(void);
 /********************/
 
 //exit the shell in a clean way
-void		exec_exit(void);
+int			exec_exit(void);
 
 /********************/
 /*      echo.c      */

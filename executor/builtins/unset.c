@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/07 02:39:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:26:10 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ int	check_var(char *var)
 	return (0);
 }
 
-//WIP
 //Shell variables yet to be impemented.
 //command to remove variables
 int	exec_unset(void)
 {
 	char	*args;
 
+	if (g_minishell.ast->args[5] != '\0' && g_minishell.ast->args[5] != ' ')
+		return (prnt_err("command not found", NULL));
 	if (g_minishell.ast->args[5] == '\0' || g_minishell.ast->args[5] != ' '
 		|| g_minishell.ast->args[6] == '-')
 		return (prnt_err("unset: invalid usage", NULL));

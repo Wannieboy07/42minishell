@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:19 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/06 23:37:29 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:23:47 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_echo(void)
 	if (g_minishell.ast->args[4] == '\0')
 		prnt_err("echo: invalid usage\nInfo: example: echo -n <arg(s)>", NULL);
 	else if (g_minishell.ast->args[4] != ' ')
-		return (1);
+		return (prnt_err("command not found", NULL));
 	else if (ft_strncmp(g_minishell.ast->args, "echo -n ", 8))
 		prnt_err("echo: invalid usage\nInfo: example: echo -n <arg(s)>", NULL);
 	else
