@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 01:20:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:20:17 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	exec_export(void)
 		return (prnt_lst(g_minishell.exp_env), 1);
 	if (g_minishell.ast->args[6] != ' ' || g_minishell.ast->args[7] == '-')
 		return (prnt_err("export: invalid usage", NULL));
-	return (add2lst(&g_minishell.exp_env, g_minishell.ast->args +7), 1);
+	return (add2lst(&g_minishell.exp_env, g_minishell.ast->args + 7));
 }

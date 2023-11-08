@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:57:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/07 20:20:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:10:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	exec_cd(void)
 		return (0);
 	if (chdir(path) < 0)
 		return (prnt_err("cd: invalid path", NULL));
+	free(path);
 	return (1);
 }

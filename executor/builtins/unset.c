@@ -6,23 +6,20 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 01:22:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 04:08:30 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 //removes variables
-int	rm_var(char *var)
+int	rm_var(char *var, t_lst *lst)
 {
-	t_lst	*lst;
-
-	if (!g_minishell.exp_env)
+	if (!lst)
 		return (1);
-	lst = g_minishell.exp_env;
 	while (lst)
 	{
-		if (!ft_strncmp(lst->val, var, ft_strlen(lst->val)))
+		if (!ft_strncmp(lst->val, var, ft_strlen(var)))
 			return (cut_lst(lst), 1);
 		lst = lst->next;
 	}
@@ -30,18 +27,13 @@ int	rm_var(char *var)
 }
 
 //check whether a variable exists wihtin the environment
-int	check_var(char *var)
+int	check_var(char *var, t_lst *lst)
 {
-	t_lst	*lst;
-
-	if (!var)
-		return (0);
-	lst = g_minishell.exp_env;
-	if (!lst)
+	if (!var || !lst)
 		return (0);
 	while (lst)
 	{
-		if (!ft_strncmp(lst->val, var, ft_strlen(lst->val)))
+		if (!ft_strncmp(lst->val, var, ft_strlen(var)))
 			return (1);
 		lst = lst->next;
 	}
@@ -62,10 +54,9 @@ int	exec_unset(void)
 	args = ft_strdup(g_minishell.ast->args + 6);
 	if (!args)
 		return (0);
-	if (!check_var(args))
+	if (!check_var(args, g_minishell.exp_env))
 		return (1);
-	if (!rm_var(args))
-		return (0);
+	rm_var(args, g_minishell.exp_env);
 	free(args);
 	return (1);
 }

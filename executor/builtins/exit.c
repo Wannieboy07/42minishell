@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:17 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 01:23:18 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 02:32:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exec_exit(void)
 		return (prnt_err("command not found", NULL));
 	free_token_lst(&g_minishell.tokens);
 	free_lst(g_minishell.exp_env);
+	free_lst(g_minishell.var_lst);
 	free_ast_nodes(g_minishell.ast);
 	rl_clear_history();
 	exit(EXIT_SUCCESS);

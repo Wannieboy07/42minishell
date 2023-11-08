@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/08 01:28:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 04:07:47 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,15 @@ int			add2lst(t_lst **lst, char *val);
 //initialization of a doubly linked list
 t_lst		*init_lst(char *val);
 
+/*=== ./variables/ ===*/
+
+/*********************/
+/*    variables.c    */
+/*********************/
+
+//testing
+int			var_test(void);
+
 /*=== ./executor/ ===*/
 
 /********************/
@@ -446,8 +455,11 @@ int			exec_export(void);
 /*      unset.c      */
 /*********************/
 
+//removes variables
+int			rm_var(char *var, t_lst *lst);
+
 //check whether a variable exists wihtin the environment
-int			check_var(char *var);
+int			check_var(char *var, t_lst *lst);
 
 //command to remove variables
 int			exec_unset(void);
