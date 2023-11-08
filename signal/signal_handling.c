@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:22 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/30 23:38:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 01:23:37 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
-	free_exp_lst(g_minishell.exp_env);
+	free_lst(g_minishell.exp_env);
 	rl_clear_history();
 	exit (EXIT_SUCCESS);
 }

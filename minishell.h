@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/07 20:40:23 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 01:28:00 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,13 @@ typedef struct s_node
 	void		*right;
 }	t_node;
 
-//export environment doubly linked list
-typedef struct s_exp_env
+//doubly linked list
+typedef struct s_lst
 {
-	char				*var;
-	struct s_exp_env	*prev;
-	struct s_exp_env	*next;
-}	t_exp_env;
+	char			*val;
+	struct s_lst	*prev;
+	struct s_lst	*next;
+}	t_lst;
 
 //parse error data structure
 typedef struct s_parse_err
@@ -158,7 +158,8 @@ typedef struct s_minishell
 	int			fdin;
 	int			fdout;
 	char		**envv;
-	t_exp_env	*exp_env;
+	t_lst		*exp_env;
+	t_lst		*var_lst;
 }	t_minishell;
 
 //make minishell structure able to be accessed globally
@@ -365,6 +366,27 @@ void		free_ast_nodes(t_node *node);
 //free all the memory associated with an abstract syntax tree
 void		clear_ast(t_node **ast);
 
+/*=== ./data/ ===*/
+
+/*********************/
+/* data_management.c */
+/*********************/
+
+//print out a doubly linked list
+void		prnt_lst(t_lst *lst);
+
+//free the data of a doubly linked list
+void		free_lst(t_lst *lst);
+
+//cut out an entree in a doubly linked list
+void		cut_lst(t_lst *curr);
+
+//add an entree to a doubly linked list
+int			add2lst(t_lst **lst, char *val);
+
+//initialization of a doubly linked list
+t_lst		*init_lst(char *val);
+
 /*=== ./executor/ ===*/
 
 /********************/
@@ -379,25 +401,6 @@ int			exec_cmd(t_node *ast);
 
 //parse linked list and execute commands
 int			executor(void);
-
-/*********************/
-/* data_management.c */
-/*********************/
-
-//printing of export environment's doubly linked list
-void		prnt_exp_lst(t_exp_env *lst);
-
-//free the data of an export list doubly linked list
-void		free_exp_lst(t_exp_env *lst);
-
-//cut out an entree in the export environment's doubly linked list
-void		cut_exp_lst(t_exp_env *lst);
-
-//add an entree to the export environment's doubly linked list
-int			add_var2exp_lst(t_exp_env *lst, char *var);
-
-//initialization of export environment's doubly linked list
-t_exp_env	*init_exp_lst(char *var);
 
 /*===  ./executor/builtins/ ===*/
 

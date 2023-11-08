@@ -6,48 +6,48 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/07 02:39:35 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 01:18:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//printing of export environment's doubly linked list
-void	prnt_exp_lst(t_exp_env *lst)
+//printing of a doubly linked list
+void	prnt_lst(t_lst *lst)
 {
-	t_exp_env	*curr;
+	t_lst	*curr;
 
 	if (!lst)
 		return ;
 	curr = lst;
 	while (curr)
 	{
-		printf("%s\n", curr->var);
+		printf("%s\n", curr->val);
 		curr = curr->next;
 	}
 }
 
-//free the data of an export list doubly linked list
-void	free_exp_lst(t_exp_env *lst)
+//free the data of a doubly linked list
+void	free_lst(t_lst *lst)
 {
-	t_exp_env	*next;
+	t_lst	*next;
 
 	if (!lst)
 		return ;
 	while (lst)
 	{
 		next = lst->next;
-		free(lst->var);
+		free(lst->val);
 		free(lst);
 		lst = next;
 	}
 }
 
-//cut out an entree in the export environment's doubly linked list
-void	cut_exp_lst(t_exp_env *curr)
+//cut out an entree in a doubly linked list
+void	cut_lst(t_lst *curr)
 {
-	t_exp_env	*prev;
-	t_exp_env	*next;
+	t_lst	*prev;
+	t_lst	*next;
 
 	if (!curr)
 		return ;
@@ -57,22 +57,29 @@ void	cut_exp_lst(t_exp_env *curr)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
-	free(curr->var);
+	free(curr->val);
 	free(curr);
 }
 
-//add an entree to the export environment's doubly linked list
-int	add_var2exp_lst(t_exp_env *lst, char *var)
+//add an entree to a doubly linked list
+int	add2lst(t_lst **lst, char *val)
 {
-	t_exp_env	*curr;
-	t_exp_env	*new_lst;
+	t_lst	*curr;
+	t_lst	*new_lst;
 
-	if (!lst || !var)
+	if (!val)
 		return (1);
-	new_lst = init_exp_lst(var);
+	if (!*lst)
+	{
+		*lst = init_lst(val);
+		if (!*lst)
+			return (0);
+		return (1);
+	}
+	new_lst = init_lst(val);
 	if (!new_lst)
 		return (0);
-	curr = lst;
+	curr = *lst;
 	while (curr->next)
 		curr = curr->next;
 	curr->next = new_lst;
@@ -80,21 +87,21 @@ int	add_var2exp_lst(t_exp_env *lst, char *var)
 	return (1);
 }
 
-//initialization of export environment's doubly linked list
-t_exp_env	*init_exp_lst(char *var)
+//initialization of a doubly linked list
+t_lst	*init_lst(char *val)
 {
-	t_exp_env	*lst;
+	t_lst	*lst;
 
-	if (!var)
+	if (!val)
 		return (NULL);
-	lst = (t_exp_env *)ft_calloc(1, sizeof(t_exp_env));
+	lst = (t_lst *)ft_calloc(1, sizeof(t_lst));
 	if (!lst)
 		return (NULL);
-	var = ft_strdup(var);
-	if (!var)
+	val = ft_strdup(val);
+	if (!val)
 		return (NULL);
 	lst->prev = NULL;
-	lst->var = var;
+	lst->val = val;
 	lst->next = NULL;
 	return (lst);
 }

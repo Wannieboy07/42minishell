@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/07 21:26:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/08 01:22:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 //removes variables
 int	rm_var(char *var)
 {
-	t_exp_env	*lst;
+	t_lst	*lst;
 
 	if (!g_minishell.exp_env)
 		return (1);
 	lst = g_minishell.exp_env;
 	while (lst)
 	{
-		if (!ft_strncmp(lst->var, var, ft_strlen(lst->var)))
-			return (cut_exp_lst(lst), 1);
+		if (!ft_strncmp(lst->val, var, ft_strlen(lst->val)))
+			return (cut_lst(lst), 1);
 		lst = lst->next;
 	}
 	return (1);
@@ -32,7 +32,7 @@ int	rm_var(char *var)
 //check whether a variable exists wihtin the environment
 int	check_var(char *var)
 {
-	t_exp_env	*lst;
+	t_lst	*lst;
 
 	if (!var)
 		return (0);
@@ -41,7 +41,7 @@ int	check_var(char *var)
 		return (0);
 	while (lst)
 	{
-		if (!ft_strncmp(lst->var, var, ft_strlen(lst->var)))
+		if (!ft_strncmp(lst->val, var, ft_strlen(lst->val)))
 			return (1);
 		lst = lst->next;
 	}
