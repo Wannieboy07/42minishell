@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 04:02:37 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:51:00 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int	executor(void)
 		return (1);
 	if (!var_test() || !exec_builtin(g_minishell.ast))
 		return (0);
-	prnt_lst(g_minishell.var_lst);
+	printf("test: %s\n", var_val(g_minishell.ast->args));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/08 04:07:47 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:16:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,6 +392,9 @@ t_lst		*init_lst(char *val);
 /*********************/
 /*    variables.c    */
 /*********************/
+
+//search for a variable's value inside the variable list
+char		*var_val(char *var);
 
 //testing
 int			var_test(void);
