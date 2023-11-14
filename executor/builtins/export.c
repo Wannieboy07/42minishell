@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 03:20:17 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:07:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	init_exp_env(void)
 int	exec_export(void)
 {
 	if (g_minishell.ast->args[6] != '\0' && g_minishell.ast->args[6] != ' ')
-		return (prnt_err("command not found", NULL));
+		return (g_minishell.exit_code = 127, 1);
 	if (g_minishell.ast->args[6] == '\0')
 		return (prnt_lst(g_minishell.exp_env), 1);
 	if (g_minishell.ast->args[6] != ' ' || g_minishell.ast->args[7] == '-')

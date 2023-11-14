@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/13 14:16:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:59:13 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //boolean
 # include <stdbool.h>
 
-//write, dup
+//write, dup, chdir, getcwd
 # include <unistd.h>
 
 //signal
@@ -405,11 +405,11 @@ int			var_test(void);
 /*    executor.c    */
 /********************/
 
-//execute built-in commands
-int			exec_builtin(t_node *ast);
-
 //execute commands if any are found
 int			exec_cmd(t_node *ast);
+
+//execute built-in commands
+int			exec_builtin(t_node *ast);
 
 //parse linked list and execute commands
 int			executor(void);
@@ -461,7 +461,7 @@ int			exec_export(void);
 //removes variables
 int			rm_var(char *var, t_lst *lst);
 
-//check whether a variable exists wihtin the environment
+//check whether a variable exists within the environment
 int			check_var(char *var, t_lst *lst);
 
 //command to remove variables

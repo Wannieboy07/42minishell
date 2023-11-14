@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 04:08:30 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:07:55 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	rm_var(char *var, t_lst *lst)
 	return (1);
 }
 
-//check whether a variable exists wihtin the environment
+//check whether a variable exists within the environment
 int	check_var(char *var, t_lst *lst)
 {
 	if (!var || !lst)
@@ -47,7 +47,7 @@ int	exec_unset(void)
 	char	*args;
 
 	if (g_minishell.ast->args[5] != '\0' && g_minishell.ast->args[5] != ' ')
-		return (prnt_err("command not found", NULL));
+		return (g_minishell.exit_code = 127, 1);
 	if (g_minishell.ast->args[5] == '\0' || g_minishell.ast->args[5] != ' '
 		|| g_minishell.ast->args[6] == '-')
 		return (prnt_err("unset: invalid usage", NULL));

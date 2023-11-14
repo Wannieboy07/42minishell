@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/13 15:51:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:58:48 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@
 	//}
 //}
 
+int	exec_cmd(t_node *ast)
+{
+	if (!ast->args)
+		return (1);
+	else
+		return (g_minishell.exit_code = 127, 1);
+}
+
 //execute built-in commands
 int	exec_builtin(t_node *ast)
 {
@@ -65,17 +73,31 @@ int	exec_builtin(t_node *ast)
 	else if (!ft_strncmp(ast->args, "exit", 4))
 		return (exec_exit());
 	else
-		return (prnt_err("command not found", NULL));
+		return (g_minishell.exit_code = 127, 1);
 }
 
 //add variable logic, then execute builtins, then external commands
 //parse linked list and execute commands
 int	executor(void)
 {
+	char	*test;
+
 	if (!g_minishell.ast)
 		return (1);
-	if (!var_test() || !exec_builtin(g_minishell.ast))
+	if (!exec_builtin(g_minishell.ast))
 		return (0);
-	printf("test: %s\n", var_val(g_minishell.ast->args));
+	if (g_minishell.exit_code != 127)
+		return (1);
+	if (!exec_cmd(g_minishell.ast))
+		return (0);
+	if (g_minishell.exit_code != 127)
+		return (1);
+	if (!var_test())
+		return (0);
+	test = var_val(g_minishell.ast->args);
+	if (test)
+		printf("variable value: %s\n", test);
+	else if (!ft_strchr(g_minishell.ast->args, '='))
+		return (prnt_err("command not found", NULL));
 	return (1);
 }

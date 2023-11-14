@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:57:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 03:10:14 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:07:56 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_cd(void)
 	if (g_minishell.ast->args[2] == '\0')
 		return (prnt_err("cd: invalid usage", NULL), 1);
 	if (g_minishell.ast->args[2] != ' ')
-		return (prnt_err("command not found", NULL));
+		return (g_minishell.exit_code = 127, 1);
 	path = ft_strdup(g_minishell.ast->args + 3);
 	if (!path)
 		return (0);
