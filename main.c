@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/24 16:06:20 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/15 15:33:02 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	init_minishell(char **env)
 
 void	start_exec(void)
 {
-// init tree = expanding args and values
+	handle_cmd_signals();
+	init_tree(g_minishell.ast);
 // execute node (rescursive)
 	clear_ast(&g_minishell.ast);
 }
@@ -33,6 +34,7 @@ int	minishell_loop(void)
 {
 	while (1)
 	{
+		handle_global_signals();
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
 			eof_handler();
@@ -60,7 +62,6 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (prnt_err("run ./minishell without arguments"));
 	init_minishell(env);
-	handle_global_signals();
 	if (minishell_loop() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 }
