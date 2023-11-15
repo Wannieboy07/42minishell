@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/14 19:24:53 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/15 10:31:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ char	*var_val(char *var)
 	return (NULL);
 }
 
-//WIP
-//currently just testing
+//ready to be implemented
 int	var_test(void)
 {
 	if (!ft_strchr(g_minishell.ast->args, '='))
