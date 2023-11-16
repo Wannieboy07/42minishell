@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/24 15:07:17 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/16 14:16:05 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,15 @@ typedef struct	s_parse_err
 	char			*str;
 }	t_parse_err;
 
+/*=== Expander/Executor ===*/
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 /*=== Minishell ===*/
 
 typedef struct s_minishell
@@ -114,6 +123,7 @@ typedef struct s_minishell
 	int		fdin;
 	int		fdout;
 	char	**envv;
+	t_env	*env_lst
 }	t_minishell;
 
 extern t_minishell	g_minishell;

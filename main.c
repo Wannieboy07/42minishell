@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/15 15:33:02 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/16 11:59:38 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_minishell(char **env)
 void	start_exec(void)
 {
 	handle_cmd_signals();
-	init_tree(g_minishell.ast);
+//	init_tree(g_minishell.ast);
 // execute node (rescursive)
 	clear_ast(&g_minishell.ast);
 }
