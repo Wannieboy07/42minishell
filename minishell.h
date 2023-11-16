@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/15 12:57:23 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:51:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,10 +394,10 @@ t_lst		*init_lst(char *val);
 /*********************/
 
 //fetch the variable a variable list entree
-char		*extract_var(char *lst_val);
+int			extract_var(char **lst_val);
 
 //search for a variable's value inside the variable list
-char		*var_val(char *var);
+int			var_val(char **var);
 
 //ready to be implemented
 int			var_test(void);

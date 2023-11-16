@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/15 18:42:33 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:05:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,50 @@ int	init_exp_env(void)
 	return (1);
 }
 
-//Variables not yet implemented.
+//populate and entree to a data list
+static int	complete_var(char **val)
+{
+	char	*var;
+	char	*var_eq;
+	char	*var_completed;
+
+	if (!*val)
+		return (1);
+	var = ft_strdup(g_minishell.ast->args + 7);
+	if (!var)
+		return (0);
+	var_eq = ft_strjoin(var, "=");
+	if (!var_eq)
+		return (free(var), 0);
+	var_completed = ft_strjoin(var_eq, *val);
+	if (!var_completed)
+		return (free(var_eq), 0);
+	return (*val = var_completed, 1);
+}
+
 //command to manage the export environment
 int	exec_export(void)
 {
+	char	*var;
+
 	if (g_minishell.ast->args[6] != '\0' && g_minishell.ast->args[6] != ' ')
 		return (g_minishell.exit_code = 127, 1);
 	if (g_minishell.ast->args[6] == '\0')
 		return (prnt_lst(g_minishell.exp_env), 1);
 	if (g_minishell.ast->args[6] != ' ' || g_minishell.ast->args[7] == '-')
 		return (prnt_err("export: invalid usage", NULL));
-	return (add2lst(&g_minishell.exp_env, g_minishell.ast->args + 7));
+	if (ft_strchr(g_minishell.ast->args, '='))
+		return (add2lst(&g_minishell.exp_env, g_minishell.ast->args + 7));
+	var = g_minishell.ast->args + 7;
+	if (!var_val(&var))
+		return (free(var), 0);
+	if (!var)
+		return (1);
+	if (!complete_var(&var))
+		return (free(var), 0);
+	if (!var)
+		return (1);
+	if (!add2lst(&g_minishell.exp_env, var))
+		return (free(var), 0);
+	return (free(var), 1);
 }
