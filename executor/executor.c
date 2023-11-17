@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/16 15:37:44 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:44:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ int	executor(void)
 	if (!var_test())
 		return (0);
 	test = g_minishell.ast->args;
-	if (!var_val(&test))
-		return (0);
+	if (!var_val(&test, g_minishell.var_lst))
+		return (free(test), 0);
 	if (test)
-		printf("variable value: %s\n", test);
+		return (printf("variable value: %s\n", test), 1);
 	else if (!ft_strchr(g_minishell.ast->args, '='))
 		return (prnt_err("command not found", NULL));
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/08 03:15:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:23:56 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	free_lst(t_lst *lst)
 	{
 		next = lst->next;
 		free(lst->val);
+		lst->val = NULL;
 		free(lst);
+		lst = NULL;
 		lst = next;
 	}
 }
@@ -58,7 +60,9 @@ void	cut_lst(t_lst *curr)
 	if (next)
 		next->prev = prev;
 	free(curr->val);
+	curr->val = NULL;
 	free(curr);
+	curr = NULL;
 }
 
 //add an entree to a doubly linked list

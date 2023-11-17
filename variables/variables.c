@@ -6,11 +6,32 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/16 18:40:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:39:53 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//populate an entree to a data list
+int	complete_var(char **val)
+{
+	char	*var;
+	char	*var_eq;
+	char	*var_completed;
+
+	if (!*val)
+		return (1);
+	var = ft_strdup(ft_strchr(g_minishell.ast->args, ' ') + 1);
+	if (!var)
+		return (0);
+	var_eq = ft_strjoin(var, "=");
+	if (!var_eq)
+		return (free(var), 0);
+	var_completed = ft_strjoin(var_eq, *val);
+	if (!var_completed)
+		return (free(var_eq), 0);
+	return (*val = var_completed, 1);
+}
 
 //fetch the variable a variable list entree
 int	extract_var(char **lst_val)
@@ -30,38 +51,48 @@ int	extract_var(char **lst_val)
 	var[i] = '\0';
 	while (--i > -1)
 		var[i] = (*lst_val)[i];
-	*lst_val = var;
-	return (1);
+	return (*lst_val = var, 1);
 }
 
-//search for a variable's value inside the variable list
-int	var_val(char **var)
+//check if variable exists within list
+static int	var_exists(char **var, char **lst_var, char *lst_val)
 {
-	t_lst	*var_lst;
-	char	*lst_var;
 	char	*val;
 
-	if (!*var || !g_minishell.var_lst)
-		return (1);
-	var_lst = g_minishell.var_lst;
-	while (var_lst)
+	val = NULL;
+	if (ft_strlen(*var) == ft_strlen(*lst_var)
+		&& !ft_strncmp(*lst_var, *var, ft_strlen(*lst_var)))
 	{
-		lst_var = var_lst->val;
+		val = ft_strchr(lst_val, '=') + 1;
+		if (!val)
+			return (free(*lst_var), 0);
+	}
+	if (val != NULL)
+		return (free(*lst_var), *var = val, 1);
+	return (free(*lst_var), 1);
+}
+
+//search for a variable's value inside a variable list
+int	var_val(char **var, t_lst *lst)
+{
+	char	*lst_var;
+
+	if (!*var)
+		return (1);
+	if (!lst)
+		return (*var = NULL, 1);
+	while (lst)
+	{
+		lst_var = lst->val;
 		if (!extract_var(&lst_var))
 			return (0);
 		if (!lst_var)
 			return (*var = NULL, 1);
-		val = NULL;
-		if (ft_strlen(*var) == ft_strlen(lst_var)
-			&& !ft_strncmp(lst_var, *var, ft_strlen(lst_var)))
-		{
-			val = ft_strdup(ft_strchr(var_lst->val, '=') + 1);
-			if (!val)
-				return (free(lst_var), 0);
-		}
-		if (val != NULL)
-			return (*var = val, 1);
-		var_lst = var_lst->next;
+		if (!var_exists(var, &lst_var, lst->val))
+			return (0);
+		if (var != NULL)
+			return (1);
+		lst = lst->next;
 	}
 	return (*var = NULL, 1);
 }

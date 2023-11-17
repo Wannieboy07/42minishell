@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/16 14:51:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:49:26 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_parse_err
 }	t_parse_err;
 
 //minishell data structure
+//CAN'T FUCKING USE THIS!!! Only error codes allowed
 typedef struct s_minishell
 {
 	char		*line;
@@ -393,11 +394,14 @@ t_lst		*init_lst(char *val);
 /*    variables.c    */
 /*********************/
 
+//populate an entree to a data list
+int			complete_var(char **val);
+
 //fetch the variable a variable list entree
 int			extract_var(char **lst_val);
 
-//search for a variable's value inside the variable list
-int			var_val(char **var);
+//search for a variable's value inside a variable list
+int			var_val(char **var, t_lst *lst);
 
 //ready to be implemented
 int			var_test(void);
@@ -465,7 +469,7 @@ int			exec_export(void);
 int			rm_var(char *var, t_lst *lst);
 
 //check whether a variable exists within the environment
-int			check_var(char *var, t_lst *lst);
+int			check_var(char **var, t_lst *lst);
 
 //command to remove variables
 int			exec_unset(void);
