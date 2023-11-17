@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 20:20:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 21:36:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	exec_unset(void)
 		|| g_minishell.ast->args[6] == '-')
 		return (prnt_err("unset: invalid usage", NULL));
 	args = g_minishell.ast->args + 6;
-	if (check_var(&args, g_minishell.var_lst))
-		rm_var(args, g_minishell.var_lst);
-	if (check_var(&args, g_minishell.exp_env))
-		rm_var(args, g_minishell.exp_env);
-	return (1);
+	if (!check_var(&args, g_minishell.exp_env)
+		&& !check_var(&args, g_minishell.var_lst))
+		return (1);
+	return (rm_var(args, g_minishell.exp_env),
+		rm_var(args, g_minishell.exp_env), free(args), 1);
 }
