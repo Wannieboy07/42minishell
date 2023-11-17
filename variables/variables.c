@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 19:39:53 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:51:40 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	var_test(void)
 {
 	if (!ft_strchr(g_minishell.ast->args, '='))
 		return (1);
-	if (!check_var(g_minishell.ast->args, g_minishell.var_lst))
+	if (!check_var(&g_minishell.ast->args, g_minishell.var_lst))
 		return (add2lst(&g_minishell.var_lst, g_minishell.ast->args));
 	return (1);
 }
