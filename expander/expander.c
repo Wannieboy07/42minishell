@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*handle_dollar(char *str, size_t *i)
 {

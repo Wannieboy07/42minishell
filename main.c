@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/16 11:59:38 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:03:32 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	init_minishell(char **env)
 	g_minishell.envv = env;
 	g_minishell.fdin = dup(0);
 	g_minishell.fdout = dup(1);
+}
+
+void	clean_ms(void)
+{
+	clear_ast(&g_minishell.ast);
+	clear_envlst();
+	rl_clear_history();
 }
 
 void	start_exec(void)

@@ -1,9 +1,9 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	heredoc_sig_handler(int signum)
 {
 	(void)signum;
-	exit_routine();
+	clean_ms();
 	exit(SIGINT);
 }
 
@@ -24,14 +24,14 @@ void	open_heredoc(t_io_node *io, int fd[2])
 		if (is_delimiter(io->value, line))
 			break ;
 		if (!*quotes)
-			expand_herdoc(line, p[1]);
+			expand_heredoc(line, p[1]);
 		else
 		{
 			ft_putstr_fd(line, p[1]);
 			ft_putstr_fd("\n", p[1]);
 		}
 	}
-	exit_routine();
+	clean_ms();
 	exit(0);
 }
 
