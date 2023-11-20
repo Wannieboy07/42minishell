@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 21:36:57 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:48:36 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,21 @@ int	rm_var(char *var, t_lst *lst)
 	{
 		if (ft_strlen(var) == ft_strlen(lst->val)
 			&& !ft_strncmp(var, lst->val, ft_strlen(var)))
-			return (cut_lst(lst), 1);
+			return (cut_lst(&lst), 1);
 		lst = lst->next;
 	}
 	return (1);
 }
 
 //check whether a variable exists within the environment
-int	check_var(char **var, t_lst *lst)
+int	check_var(char *var, t_lst *lst)
 {
-	if (!*var || !lst)
+	if (!var || !lst)
 		return (0);
-	if (!ft_strchr(*var, '='))
-	{
-		if (!var_val(var, g_minishell.var_lst))
-			return (0);
-		if (!*var)
-			return (1);
-		if (!complete_var(var))
-			return (0);
-		if (!*var)
-			return (1);
-	}
 	while (lst)
 	{
-		if (ft_strlen(*var) == ft_strlen(lst->val)
-			&& !ft_strncmp(*var, lst->val, ft_strlen(*var)))
+		if (ft_strlen(var) == ft_strlen(lst->val)
+			&& !ft_strncmp(var, lst->val, ft_strlen(var)))
 			return (1);
 		lst = lst->next;
 	}
@@ -65,9 +54,9 @@ int	exec_unset(void)
 		|| g_minishell.ast->args[6] == '-')
 		return (prnt_err("unset: invalid usage", NULL));
 	args = g_minishell.ast->args + 6;
-	if (!check_var(&args, g_minishell.exp_env)
-		&& !check_var(&args, g_minishell.var_lst))
+	if (!check_var(args, g_minishell.exp_env)
+		&& !check_var(args, g_minishell.var_lst))
 		return (1);
 	return (rm_var(args, g_minishell.exp_env),
-		rm_var(args, g_minishell.exp_env), free(args), 1);
+		rm_var(args, g_minishell.var_lst), 1);
 }

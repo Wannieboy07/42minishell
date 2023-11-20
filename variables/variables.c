@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 21:03:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:59:43 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,20 @@ static int	var_exists(char **var, char **lst_var, char *lst_val)
 	}
 	if (val != NULL)
 		return (free(*lst_var), *var = val, 1);
-	return (free(*lst_var), 1);
+	return (free(*lst_var), *var = NULL, 1);
 }
 
 //search for a variable's value inside a variable list
 int	var_val(char **var, t_lst *lst)
 {
 	char	*lst_var;
+	char	*hold_var;
 
 	if (!*var)
 		return (1);
 	if (!lst)
 		return (*var = NULL, 1);
+	hold_var = *var;
 	while (lst)
 	{
 		lst_var = lst->val;
@@ -92,6 +94,7 @@ int	var_val(char **var, t_lst *lst)
 			return (0);
 		if (var != NULL)
 			return (1);
+		*var = hold_var;
 		lst = lst->next;
 	}
 	return (*var = NULL, 1);
@@ -102,7 +105,7 @@ int	var_test(void)
 {
 	if (!ft_strchr(g_minishell.ast->args, '='))
 		return (1);
-	if (!check_var(&g_minishell.ast->args, g_minishell.var_lst))
+	if (!check_var(g_minishell.ast->args, g_minishell.var_lst))
 		return (add2lst(&g_minishell.var_lst, g_minishell.ast->args));
 	return (1);
 }

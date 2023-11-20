@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/17 21:32:46 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:48:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,10 +377,10 @@ void		clear_ast(t_node **ast);
 void		prnt_lst(t_lst *lst);
 
 //free the data of a doubly linked list
-void		free_lst(t_lst *lst);
+void		free_lst(t_lst **lst);
 
 //cut out an entree in a doubly linked list
-void		cut_lst(t_lst *curr);
+void		cut_lst(t_lst **lst);
 
 //add an entree to a doubly linked list
 int			add2lst(t_lst **lst, char *val);
@@ -469,7 +469,7 @@ int			exec_export(void);
 int			rm_var(char *var, t_lst *lst);
 
 //check whether a variable exists within the environment
-int			check_var(char **var, t_lst *lst);
+int			check_var(char *var, t_lst *lst);
 
 //command to remove variables
 int			exec_unset(void);

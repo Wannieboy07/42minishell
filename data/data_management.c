@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 21:32:48 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:53:35 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,41 +28,43 @@ void	prnt_lst(t_lst *lst)
 }
 
 //free the data of a doubly linked list
-void	free_lst(t_lst *lst)
+void	free_lst(t_lst **lst)
 {
 	t_lst	*next;
 
-	if (!lst)
+	if (!*lst)
 		return ;
-	while (lst)
+	while (*lst)
 	{
-		next = lst->next;
-		free(lst->val);
-		lst->val = NULL;
-		free(lst);
-		lst = NULL;
-		lst = next;
+		next = (*lst)->next;
+		free((*lst)->val);
+		(*lst)->val = NULL;
+		free(*lst);
+		*lst = NULL;
+		*lst = next;
 	}
 }
 
 //cut out an entree in a doubly linked list
-void	cut_lst(t_lst *curr)
+void	cut_lst(t_lst **lst)
 {
 	t_lst	*prev;
 	t_lst	*next;
 
-	if (!curr)
+	if (!*lst)
 		return ;
-	prev = curr->prev;
-	next = curr->next;
+	prev = (*lst)->prev;
+	next = (*lst)->next;
 	if (prev)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
-	free(curr->val);
-	curr->val = NULL;
-	free(curr);
-	curr = NULL;
+	free((*lst)->val);
+	(*lst)->val = NULL;
+	free(*lst);
+	*lst = NULL;
+	if (!prev && !next)
+		lst = NULL;
 }
 
 //add an entree to a doubly linked list

@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/17 18:11:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:48:54 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	init_exp_env(void)
 	if (!g_minishell.exp_env)
 		while (g_minishell.envv[i])
 			if (!add2lst(&g_minishell.exp_env, g_minishell.envv[i++]))
-				return (free_lst(g_minishell.exp_env), 0);
+				return (free_lst(&g_minishell.exp_env), 0);
 	return (1);
 }
 
