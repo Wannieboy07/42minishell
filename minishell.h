@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/16 14:16:05 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/21 17:29:17 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -123,10 +124,12 @@ typedef struct s_minishell
 	int		fdin;
 	int		fdout;
 	char	**envv;
-	t_env	*env_lst
+	t_env	*env_lst;
 }	t_minishell;
 
 extern t_minishell	g_minishell;
+
+void	clean_ms(void);
 
 /*=== Signal Handling ===*/
 
@@ -179,5 +182,34 @@ t_iotype	get_iotype(t_tokentype type);
 
 void	clear_ast(t_node **ast);
 void	free_cmd_node(t_node *node);
+
+/*=== Expander ===*/
+
+void	init_tree(t_node *node);
+
+char	**expand_args(char *str);
+char	*handle_dollar(char *str, size_t *i);
+
+char	*skip_squotes(char *str, size_t *i);
+char	*handle_dquotes(char *str, size_t *i);
+char	*handle_str(char *str, size_t *i);
+
+char	*clean_empties(char *str);
+
+char	**exp_split(const char *s);
+
+char	*strip_quotes(char *str);
+
+void	expand_heredoc(char *str, int fd);
+
+char	*get_env_val(char *key);
+t_env	*envlst_new(char *key, char *value);
+void	envlst_addback(t_env *new);
+void	update_envlst(char *key, char *value, bool create);
+
+/*=== Execute ===*/
+
+void	*garbage_collector(void *ptr, bool clean);
+bool	is_delimiter(char *delim, char *str);
 
 #endif

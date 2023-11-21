@@ -24,22 +24,22 @@ void	open_heredoc(t_io_node *io, int fd[2])
 		if (is_delimiter(io->value, line))
 			break ;
 		if (!*quotes)
-			expand_heredoc(line, p[1]);
+			expand_heredoc(line, fd[1]);
 		else
 		{
-			ft_putstr_fd(line, p[1]);
-			ft_putstr_fd("\n", p[1]);
+			ft_putstr_fd(line, fd[1]);
+			ft_putstr_fd("\n", fd[1]);
 		}
 	}
 	clean_ms();
 	exit(0);
 }
 
-bool	leave_node(int fd[2], int pid)
+bool	leave_node(int fd[2], int *pid)
 {
 	waitpid(*pid, pid, 0);
 	close(fd[1]);
-	if (WIFEXITED(*pid) && WETIDSTATUS(*pid) == SIGINT)
+	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 		return (true);
 	return (false);
 }
@@ -55,7 +55,7 @@ void	init_node(t_node *node)
 	io = node->io_lst;
 	while (io)
 	{
-		if (io->type == HEREDOC)
+		if (io->type == HERDOC)
 		{
 			pipe(fd);
 			pid = (signal(SIGQUIT, SIG_IGN), fork());

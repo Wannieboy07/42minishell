@@ -17,10 +17,10 @@ char	*handle_dollar(char *str, size_t *i)
 		(*i)++;
 		return (ft_itoa(g_minishell.exit_code));
 	}
-	else if (!ft_isalnum(c) || c != '_')
+	else if (!ft_isalnum(str[*i]) || str[*i] != '_')
 		return (ft_strdup("$"));
 	start = *i;
-	while (ft_isalnum(c) || c == '_')
+	while (ft_isalnum(str[*i]) || str[*i] == '_')
 		(*i)++;
 	var = ft_substr(str, start, *i - start);
 	env_val = get_env_val(var);
@@ -41,7 +41,7 @@ char	*expand_var(char *str)
 		if (str[i] == '\'')
 			ret = ft_strjoin(ret, skip_squotes(str, &i));
 		else if (str[i] == '"')
-			ret = ft_strjoin(ret, handle_dqoutes(str, &i));
+			ret = ft_strjoin(ret, handle_dquotes(str, &i));
 		else if (str[i] == '$')
 			ret = ft_strjoin(ret, handle_dollar(str, &i));
 		else

@@ -24,7 +24,7 @@ char	*handle_dqoutes(char *str, size_t *i)
 {
 	char	*ret;
 
-	ret = ft_substr("\"");
+	ret = ft_strdup("\"");
 	(*i)++;
 	while (str[*i] != '"')
 	{
@@ -41,7 +41,7 @@ char	*skip_squotes(char *str, size_t *i)
 {
 	size_t	start;
 
-	start = i;
+	start = *i;
 	while (str[++(*i)] != '\'')
 		;
 	(*i)++;
