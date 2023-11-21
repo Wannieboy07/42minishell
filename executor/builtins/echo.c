@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:19 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/14 19:07:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:37:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 //print out input
 int	exec_echo(void)
 {
-	int	i;
+	int		i;
+	bool	nl;
 
-	if (g_minishell.ast->args[4] == '\0')
-		prnt_err("echo: invalid usage\nInfo: example: echo -n <arg(s)>", NULL);
-	else if (g_minishell.ast->args[4] != ' ')
-		return (g_minishell.exit_code = 127, 1);
-	else if (ft_strncmp(g_minishell.ast->args, "echo -n ", 8))
-		prnt_err("echo: invalid usage\nInfo: example: echo -n <arg(s)>", NULL);
-	else
+	if (g_minishell.ast->args[4] == '\0' && g_minishell.ast->args[4] != ' ')
+		return (g_minishell.exit_code = 127,
+			prnt_err("echo: invalid usage", NULL));
+	nl = false;
+	if (g_minishell.ast->args[5] != '-')
 	{
-		i = 7;
-		while (g_minishell.ast->args[++i])
-			printf("%c", g_minishell.ast->args[i]);
+		nl = true;
+		i = 4;
 	}
+	else
+		i = 7;
+	if (g_minishell.ast->args[5] == '-' && g_minishell.ast->args[6] != 'n')
+		prnt_err("echo: invalid usage", NULL);
+	while (g_minishell.ast->args[++i])
+		printf("%c", g_minishell.ast->args[i]);
+	if (nl)
+		printf("\n");
 	return (1);
 }
