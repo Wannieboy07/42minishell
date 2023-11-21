@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   mk_arr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 01:11:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/21 17:54:35 by lpeeters         ###   ########.fr       */
+/*   Created: 2023/11/21 19:56:14 by lpeeters          #+#    #+#             */
+/*   Updated: 2023/11/21 20:12:22 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../libft.h"
 
-//print out the environment variable
-int	exec_env(void)
+//join two strings into an array
+char	**mk_arr(char *s1, char *s2)
 {
-	int	i;
+	char	**arr;
 
-	if (g_minishell.ast->args[3] != '\0' && g_minishell.ast->args[3] != ' ')
-		return (g_minishell.exit_code = 127, 1);
-	if (ft_strlen(g_minishell.ast->args) > 3)
-		return (prnt_err("env: invalid usage", NULL));
-	i = -1;
-	while (g_minishell.envv[++i])
-		printf("%s\n", g_minishell.envv[i]);
-	return (1);
+	if (!s1 || !s2)
+		return (NULL);
+	arr = (char **)malloc(sizeof(char *) * 3);
+	if (!arr)
+		return (NULL);
+	arr[0] = ft_strdup(s1);
+	arr[1] = ft_strdup(s2);
+	if (!arr[0] || !arr[1])
+		return (NULL);
+	return (arr[2] = NULL, arr);
 }

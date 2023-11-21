@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 13:55:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:35:40 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@
 //quotes
 # define D_QUOTES 34
 # define S_QUOTES 39
+
+//var_val
+# define VAR 0
+# define VAL 1
 
 //token types enumeration macro
 typedef enum e_tokentype
@@ -134,7 +138,9 @@ typedef struct s_node
 //doubly linked list
 typedef struct s_lst
 {
+	char			*var;
 	char			*val;
+	bool			exp;
 	struct s_lst	*prev;
 	struct s_lst	*next;
 }	t_lst;
@@ -159,7 +165,6 @@ typedef struct s_minishell
 	int			fdin;
 	int			fdout;
 	char		**envv;
-	t_lst		*exp_env;
 	t_lst		*var_lst;
 }	t_minishell;
 
@@ -185,7 +190,7 @@ int			init_minishell(char **env);
 int			minishell_loop(void);
 
 //parse inputs, execute commands, handle redirections
-int			main(int ac, char **av, char **env);
+//int			main(int ac, char **av, char **env);
 
 /*=== ./signal/ ===*/
 
@@ -374,7 +379,7 @@ void		clear_ast(t_node **ast);
 /*********************/
 
 //print out a doubly linked list
-void		prnt_lst(t_lst *lst);
+void		prnt_lst(t_lst *lst, bool exp);
 
 //free the data of a doubly linked list
 void		free_lst(t_lst **lst);
@@ -383,10 +388,10 @@ void		free_lst(t_lst **lst);
 void		cut_lst(t_lst **lst);
 
 //add an entree to a doubly linked list
-int			add2lst(t_lst **lst, char *val);
+int			add2lst(t_lst **lst, char *var, char *val, bool exp);
 
 //initialization of a doubly linked list
-t_lst		*init_lst(char *val);
+t_lst		*init_lst(char *var, char *val, bool exp);
 
 /*=== ./variables/ ===*/
 
@@ -394,17 +399,14 @@ t_lst		*init_lst(char *val);
 /*    variables.c    */
 /*********************/
 
-//populate an entree to a data list
-int			complete_var(char **val);
+//check whether a variable exists within the environment
+t_lst		*check_var(char *var, t_lst *lst);
 
-//fetch the variable a variable list entree
-int			extract_var(char **lst_val);
+//convert variable string to array
+char		**var_val(char *var_val);
 
-//search for a variable's value inside a variable list
-int			var_val(char **var, t_lst *lst);
-
-//ready to be implemented
-int			var_test(void);
+//logical variable handler
+int			var_handler(char *args);
 
 /*=== ./executor/ ===*/
 
@@ -456,7 +458,7 @@ int			exec_echo(void);
 /********************/
 
 //initialize the export environment
-int			init_exp_env(void);
+int			init_var_lst(void);
 
 //command to manage the export environment
 int			exec_export(void);
@@ -467,9 +469,6 @@ int			exec_export(void);
 
 //removes variables
 int			rm_var(char *var, t_lst *lst);
-
-//check whether a variable exists within the environment
-int			check_var(char *var, t_lst *lst);
 
 //command to remove variables
 int			exec_unset(void);

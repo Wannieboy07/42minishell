@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/16 14:15:15 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:19:02 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_minishell(char **env)
 	g_minishell.fdout = dup(1);
 	if (g_minishell.fdin < 0 || g_minishell.fdout < 0)
 		return (0);
-	if (!init_exp_env())
+	if (!init_var_lst())
 		return (0);
 	return (1);
 }

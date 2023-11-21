@@ -6,14 +6,14 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/21 14:13:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/22 00:30:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //printing of a doubly linked list
-void	prnt_lst(t_lst *lst)
+void	prnt_lst(t_lst *lst, bool exp)
 {
 	t_lst	*curr;
 
@@ -22,7 +22,11 @@ void	prnt_lst(t_lst *lst)
 	curr = lst;
 	while (curr)
 	{
-		printf("%s\n", curr->val);
+		if (exp == false)
+			printf("%s=%s\n", curr->var, curr->val);
+		else if (exp == true)
+			if (curr->exp)
+				printf("%s=%s\n", curr->var, curr->val);
 		curr = curr->next;
 	}
 }
@@ -37,6 +41,8 @@ void	free_lst(t_lst **lst)
 	while (*lst)
 	{
 		next = (*lst)->next;
+		free((*lst)->var);
+		(*lst)->var = NULL;
 		free((*lst)->val);
 		(*lst)->val = NULL;
 		free(*lst);
@@ -59,14 +65,17 @@ void	cut_lst(t_lst **lst)
 		prev->next = next;
 	if (next)
 		next->prev = prev;
+	free((*lst)->var);
+	(*lst)->var = NULL;
 	free((*lst)->val);
 	(*lst)->val = NULL;
+	(*lst)->exp = false;
 	free(*lst);
 	*lst = NULL;
 }
 
 //add an entree to a doubly linked list
-int	add2lst(t_lst **lst, char *val)
+int	add2lst(t_lst **lst, char *var, char *val, bool exp)
 {
 	t_lst	*curr;
 	t_lst	*new_lst;
@@ -75,37 +84,40 @@ int	add2lst(t_lst **lst, char *val)
 		return (1);
 	if (!*lst)
 	{
-		*lst = init_lst(val);
+		*lst = init_lst(var, val, exp);
 		if (!*lst)
 			return (0);
 		return (1);
 	}
-	new_lst = init_lst(val);
+	new_lst = init_lst(var, val, exp);
 	if (!new_lst)
 		return (0);
 	curr = *lst;
 	while (curr->next)
 		curr = curr->next;
-	curr->next = new_lst;
 	new_lst->prev = curr;
+	curr->next = new_lst;
 	return (1);
 }
 
 //initialization of a doubly linked list
-t_lst	*init_lst(char *val)
+t_lst	*init_lst(char *var, char *val, bool exp)
 {
 	t_lst	*lst;
 
-	if (!val)
+	if (!var || !val)
 		return (NULL);
-	lst = (t_lst *)ft_calloc(1, sizeof(t_lst));
+	lst = (t_lst *)malloc(sizeof(t_lst));
 	if (!lst)
 		return (NULL);
-	val = ft_strdup(val);
-	if (!val)
-		return (NULL);
 	lst->prev = NULL;
-	lst->val = val;
+	lst->var = ft_strdup(var);
+	if (!lst->var)
+		return (free(lst), NULL);
+	lst->val = ft_strdup(val);
+	if (!lst->val)
+		return (free(lst), free(lst->var), NULL);
 	lst->next = NULL;
+	lst->exp = exp;
 	return (lst);
 }

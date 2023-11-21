@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/21 13:39:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:34:26 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 	//}
 //}
 
+//execute external commands
 int	exec_cmd(t_node *ast)
 {
 	if (!ast->args)
@@ -80,8 +81,6 @@ int	exec_builtin(t_node *ast)
 //parse linked list and execute commands
 int	executor(void)
 {
-	char	*test;
-
 	if (!g_minishell.ast)
 		return (1);
 	if (!exec_builtin(g_minishell.ast))
@@ -92,14 +91,7 @@ int	executor(void)
 		return (0);
 	if (g_minishell.exit_code != 127)
 		return (1);
-	if (!var_test())
+	if (!var_handler(g_minishell.ast->args))
 		return (0);
-	test = g_minishell.ast->args;
-	if (!var_val(&test, g_minishell.var_lst))
-		return (free(test), 0);
-	if (test)
-		return (printf("variable value: %s\n", test), 1);
-	else if (!ft_strchr(g_minishell.ast->args, '='))
-		return (prnt_err("command not found", NULL));
 	return (1);
 }

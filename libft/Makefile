@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/25 12:42:59 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/11/21 20:10:55 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS =	\
 		str/ft_strmapi.c			\
 		str/ft_striteri.c			\
 		str/cpy_arr.c				\
+		str/mk_arr.c				\
 		\
 		math/ft_atoi.c				\
 		math/ft_itoa.c				\

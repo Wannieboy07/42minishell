@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:06:10 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/15 12:57:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:11:25 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,9 @@ char	**ft_split(const char *s, char c);
 
 //copy a 2d array
 char	**cpy_arr(char **arr);
+
+//join two strings into an array
+char	**mk_arr(char *s1, char *s2);
 
 /*****************/
 /*   structure   */
