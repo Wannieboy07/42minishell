@@ -6,11 +6,33 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:19 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/21 17:54:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:55:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+//error checker for echo with -n flag
+static int	err_echo_n(char *args)
+{
+	if (args[5] == '-' && args[6] != 'n')
+		return (prnt_err("echo: invalid usage", NULL));
+	if (args[7] == '\0')
+		return (printf("%s", ""), 1);
+	if (args[7] != ' ')
+		return (prnt_err("echo: invalid usage", NULL));
+	return (0);
+}
+
+//initial error checker for echo
+static int	err_echo(char c)
+{
+	if (c == '\0')
+		return (printf("\n"), 1);
+	if (c != ' ')
+		return (g_minishell.exit_code = 127, 1);
+	return (0);
+}
 
 //print out input
 int	exec_echo(void)
@@ -18,9 +40,8 @@ int	exec_echo(void)
 	int		i;
 	bool	nl;
 
-	if (g_minishell.ast->args[4] == '\0' && g_minishell.ast->args[4] != ' ')
-		return (g_minishell.exit_code = 127,
-			prnt_err("echo: invalid usage", NULL));
+	if (err_echo(g_minishell.ast->args[4]))
+		return (1);
 	nl = false;
 	if (g_minishell.ast->args[5] != '-')
 	{
@@ -28,9 +49,11 @@ int	exec_echo(void)
 		i = 4;
 	}
 	else
+	{
 		i = 7;
-	if (g_minishell.ast->args[5] == '-' && g_minishell.ast->args[6] != 'n')
-		prnt_err("echo: invalid usage", NULL);
+		if (err_echo_n(g_minishell.ast->args))
+			return (1);
+	}
 	while (g_minishell.ast->args[++i])
 		printf("%c", g_minishell.ast->args[i]);
 	if (nl)
