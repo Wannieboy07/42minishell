@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/22 17:19:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:45:08 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,26 @@ static int	err_arg(char *str)
 	return (0);
 }
 
+//WIP
+//check if variable exists and change value if it needs to be changed
+static int	check_var_val(char *var, char *val)
+{
+	t_lst	*vv;
+
+	vv = check_var(var, g_minishell.var_lst);
+	if (!vv)
+		return (0);
+	if (ft_strlen(vv->val) == ft_strlen(val)
+		&& !ft_strncmp(vv->val, val, ft_strlen(vv->val)))
+		return (1);
+	return (0);
+}
+
 //command to manage the export environment
 int	exec_export(void)
 {
 	char	**vv;
-	t_lst	*va_va;
+	t_lst	*v_v;
 	char	*var;
 
 	if (g_minishell.ast->args[6] == '\0')
@@ -69,15 +84,15 @@ int	exec_export(void)
 		vv = var_val(var);
 		if (!vv)
 			return (0);
-		va_va = check_var(vv[VAR], g_minishell.var_lst);
-		if (va_va)
-			return (free_arr(vv), va_va->exp = true, 1);
+		v_v = check_var(vv[VAR], g_minishell.var_lst);
+		if (v_v)
+			return (free_arr(vv), v_v->exp = true, 1);
 		if (!add2lst(&g_minishell.var_lst, vv[VAR], vv[VAL], true))
 			return (free_arr(vv), 0);
 		return (free_arr(vv), 1);
 	}
-	va_va = check_var(var, g_minishell.var_lst);
-	if (!va_va)
+	v_v = check_var(var, g_minishell.var_lst);
+	if (!v_v)
 		return (1);
-	return (va_va->exp = true, 1);
+	return (v_v->exp = true, 1);
 }
