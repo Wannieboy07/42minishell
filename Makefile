@@ -48,7 +48,7 @@ $(OBJS_DIR)%.o : */%.c minishell.h
 	@mkdir -p $(dir $@)
 	@echo "\033[38;5;226mCompiling: $(notdir $<)\033[0;39m"
 	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf "$(UP) $(CUT)"
+	@printf "$(UP)$(CUT)"
 
 $(NAME): $(OBJS_PREFIXED) $(LIBFT) main.c
 	@echo "\033[0;92mCompiling Done!\033[0;39m"
@@ -57,14 +57,14 @@ $(NAME): $(OBJS_PREFIXED) $(LIBFT) main.c
 
 
 $(LIBFT) :
-	@$(MAKE) -C ./libft
+	@$(MAKE) -sC ./libft
 
 all: $(NAME)
 
 clean:
 	@rm -rf $(OBJS_DIR)
 	@echo "\033[0;31mClearing object files\033[0;39m"
-	@$(MAKE) fclean -C libft/
+	@$(MAKE) fclean -sC libft/
 
 fclean: clean
 	@rm -f $(NAME) $(OUT)
