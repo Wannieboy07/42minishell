@@ -12,6 +12,19 @@ void	prnt_tabs(int *tabs)
 			printf("%c", '\t');
 }
 
+void	prnt_args(char **args)
+{
+	int	i = 0;
+
+	printf("Expanded Args: ");
+	while (args[i])
+	{
+		printf("%s, ", args[i]);
+		i++;
+	}
+	printf("\n");
+}
+
 void	prnt_with_io(t_node *node, int *i)
 {
 	t_io_node	*curr;
@@ -38,7 +51,7 @@ void	prnt_with_io(t_node *node, int *i)
 	}
 	printf("\n");
 	prnt_tabs(i);
-	printf("Arguments: %s", node->args);
+	prnt_args(node->exp_args);
 	curr = node->io_lst;
 	while (curr)
 	{
@@ -84,7 +97,7 @@ void	prnt_node(t_node *node, int *i)
 			prnt_tabs(i);
 			printf("Type: CMD\n");
 			prnt_tabs(i);
-			printf("Arguments: %s\n", node->args);
+			prnt_args(node->exp_args);
 		}
 	}
 }

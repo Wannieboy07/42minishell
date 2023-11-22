@@ -20,7 +20,7 @@ char	*handle_dquote_str(char *str, size_t *i)
 	return (ft_substr(str, start, *i - start));
 }
 
-char	*handle_dqoutes(char *str, size_t *i)
+char	*handle_dquotes(char *str, size_t *i)
 {
 	char	*ret;
 

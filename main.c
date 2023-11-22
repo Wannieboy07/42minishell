@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 15:54:47 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/22 18:10:35 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clean_ms(void)
 {
 	garbage_collector(NULL, true);
 	clear_ast(&g_minishell.ast);
-//	clear_envlst();
+	clear_envlst();
 	rl_clear_history();
 }
 
@@ -34,7 +34,8 @@ void	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
-// execute node (rescursive)
+	prnt_ast(g_minishell.ast);
+	// execute node (rescursive)
 	clear_ast(&g_minishell.ast);
 }
 

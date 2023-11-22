@@ -18,23 +18,23 @@ void	skip_str(const char *s, size_t *i)
 	}
 }
 
-void	fill_str(char **strs, const char *s, size_t *i, size_t j)
+void	fill_str(char **strs, const char *s, size_t i, size_t j)
 {
 	char	quotes;
 	size_t	k;
 
 	k = 0;
-	while (s[(*i)] && s[(*i)] != ' ')
+	while (s[i] && s[i] != ' ')
 	{
-		if (s[(*i)] != '\'' && s[(*i)] != '"')
-			strs[j][k++] = s[(*i)++];
+		if (s[i] != '\'' && s[i] != '"')
+			strs[j][k++] = s[i++];
 		else
 		{
-			quotes = s[(*i)++];
+			quotes = s[i++];
 			strs[j][k++] = quotes;
-			while (s[(*i)] != quotes)
-				strs[j][k++] = s[(*i)++];
-			strs[j][k++] = s[(*i)++];
+			while (s[i] != quotes)
+				strs[j][k++] = s[i++];
+			strs[j][k++] = s[i++];
 		}
 	}
 }
@@ -47,7 +47,7 @@ char	**set_strs(char **strs, const char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i] && strs[j])
+	while (s[i] && strs)
 	{
 		if (s[i] != ' ')
 		{
@@ -56,7 +56,7 @@ char	**set_strs(char **strs, const char *s)
 			strs[j] = ft_calloc(i - start + 1, sizeof(char));
 			if (!strs[j])
 				return (NULL);
-			fill_str(strs, s, &i, j);
+			fill_str(strs, s, start, j);
 			j++;
 		}
 		while (s[i] && s[i] == ' ')

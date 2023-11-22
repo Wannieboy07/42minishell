@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:28:49 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 16:49:58 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/22 17:04:04 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ char	*get_env_val(char *key)
 		envlst = envlst->next;
 	}
 	return (NULL);
+}
+
+void	clear_envlst(void)
+{
+	t_env	*envlst;
+	t_env	*lst_tofree;
+
+	envlst = g_minishell.env_lst;
+	while (envlst)
+	{
+		lst_tofree = envlst;
+		envlst = envlst->next;
+		free(lst_tofree);
+	}
+	g_minishell.env_lst = NULL;
 }
 
 void	envlst_addback(t_env *new)

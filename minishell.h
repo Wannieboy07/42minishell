@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 17:29:17 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/22 17:04:44 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ typedef struct s_minishell
 	t_parse_err	parse_err;
 	int		fdin;
 	int		fdout;
+	bool	sigint_child;
+	bool	heredoc_sigint;
 	char	**envv;
 	t_env	*env_lst;
 }	t_minishell;
@@ -204,6 +206,7 @@ void	expand_heredoc(char *str, int fd);
 
 char	*get_env_val(char *key);
 t_env	*envlst_new(char *key, char *value);
+void	clear_envlst(void);
 void	envlst_addback(t_env *new);
 void	update_envlst(char *key, char *value, bool create);
 

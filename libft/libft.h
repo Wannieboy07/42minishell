@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:06:10 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/24 16:25:26 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/22 15:46:36 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ int		ft_tolower(int c);
 //calculate the difference between memory areas
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
-//compare two strings
+int		ft_strcmp(const char *s1, const char *s2);
+
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 //convert a string to an integer

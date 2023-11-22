@@ -39,7 +39,7 @@ char	*strip_quotes(char *str)
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
-			qoutes = str[i++];
+			quotes = str[i++];
 			while (str[i] != quotes)
 				ret[j++] = str[i++];
 			i++;

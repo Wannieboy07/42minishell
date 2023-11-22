@@ -15,6 +15,7 @@ SRCS =	\
 	parser/tmp_parser_prnt.c	\
 	\
 	expander/clean_empties.c	\
+	env_lst.c			\
 	expander/expander.c		\
 	expander/expander_split.c	\
 	expander/expander_utils.c	\
@@ -22,7 +23,7 @@ SRCS =	\
 	expander/init_tree.c		\
 	expander/strip_quotes.c		\
 	\
-	exec/execute_utils.c		\
+	exec/exec_utils.c		\
 	\
 	error/error_handling.c		\
 	\

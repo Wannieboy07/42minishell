@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:34:55 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 17:22:47 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/22 15:25:41 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*garbage_collector(void *ptr, bool clean)
 	if (clean)
 	{
 		ft_lstclear(&garbage, free_ptr);
-		return (NULL)
+		return (NULL);
 	}
 	else
 	{

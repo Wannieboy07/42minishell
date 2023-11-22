@@ -77,7 +77,7 @@ void	init_tree(t_node *node)
 	if (node->type == P_PIPE)
 	{
 		init_tree(node->left);
-		if (!g_minishell.herdoc_sigint)
+		if (!g_minishell.heredoc_sigint)
 			init_tree(node->right);
 	}
 	else
