@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 14:08:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:09:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,6 @@ static int	err_arg(char *str)
 	return (0);
 }
 
-//check if variable exists and change value if it needs to be changed
-static int	handle_var_val(char *var, char *val)
-{
-	t_lst	*vv;
-
-	vv = check_var(g_minishell.var_lst, var);
-	if (!vv)
-	{
-		if (!add2lst(&g_minishell.var_lst, var, val, true))
-			return (0);
-		return (1);
-	}
-	if (ft_strlen(val) == ft_strlen(vv->val)
-		&& !ft_strncmp(val, vv->val, ft_strlen(val)))
-		return (vv->exp = true, 1);
-	free(vv->val);
-	vv->val = NULL;
-	vv->val = ft_strdup(val);
-	if (!vv->val)
-		return (0);
-	return (1);
-}
-
 //command to manage the export environment
 int	exec_export(void)
 {
@@ -84,12 +61,13 @@ int	exec_export(void)
 		vv = var_val(g_minishell.ast->args + 7);
 		if (!vv)
 			return (1);
-		if (!handle_var_val(vv[VAR], vv[VAL]))
+		if (!handle_var_val(vv[VAR], vv[VAL], true))
 			return (0);
 		return (free_arr(vv), 1);
 	}
 	v_v = check_var(g_minishell.var_lst, g_minishell.ast->args + 7);
 	if (!v_v)
-		return (1);
+		return (add2lst(&g_minishell.var_lst,
+				g_minishell.ast->args + 7, "", true));
 	return (v_v->exp = true, 1);
 }

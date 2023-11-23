@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/23 13:49:42 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 22:05:54 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,6 +399,9 @@ t_lst		*init_lst(char *var, char *val, bool exp);
 /*    variables.c    */
 /*********************/
 
+//check if variable exists and change value if it needs to be changed
+int			handle_var_val(char *var, char *val, bool exp);
+
 //check whether a value matches for a variable within the environment
 t_lst		*check_val(t_lst *lst, char *val);
 
@@ -427,6 +430,13 @@ int			exec_builtin(t_node *ast);
 int			executor(void);
 
 /*===  ./executor/builtins/ ===*/
+
+/*******************/
+/*      set.c      */
+/*******************/
+
+//print out the environment variable
+int			exec_set(void);
 
 /*******************/
 /*      env.c      */

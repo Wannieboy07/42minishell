@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:06:30 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/22 00:30:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 21:53:19 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	prnt_lst(t_lst *lst, bool exp)
 		if (exp == false)
 			printf("%s=%s\n", curr->var, curr->val);
 		else if (exp == true)
-			if (curr->exp)
+			if (curr->exp == true)
 				printf("%s=%s\n", curr->var, curr->val);
 		curr = curr->next;
 	}
@@ -80,7 +80,7 @@ int	add2lst(t_lst **lst, char *var, char *val, bool exp)
 	t_lst	*curr;
 	t_lst	*new_lst;
 
-	if (!val)
+	if (!var || !val)
 		return (1);
 	if (!*lst)
 	{

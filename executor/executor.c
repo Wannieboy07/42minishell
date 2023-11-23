@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/22 17:14:28 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 22:06:00 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	exec_builtin(t_node *ast)
 		return (exec_export());
 	else if (!ft_strncmp(ast->args, "unset", 5))
 		return (exec_unset());
+	else if (!ft_strncmp(ast->args, "set", 3))
+		return (exec_set());
 	else if (!ft_strncmp(ast->args, "env", 3))
 		return (exec_env());
 	else if (!ft_strncmp(ast->args, "exit", 4))
@@ -96,6 +98,5 @@ int	executor(void)
 		return (0);
 	if (g_minishell.exit_code != 127)
 		return (1);
-	g_minishell.exit_code = 0;
 	return (prnt_err("command not found", NULL), 1);
 }

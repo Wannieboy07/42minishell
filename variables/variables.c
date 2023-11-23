@@ -6,11 +6,34 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 14:03:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 20:33:04 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//check if variable exists and change value if it needs to be changed
+int	handle_var_val(char *var, char *val, bool exp)
+{
+	t_lst	*vv;
+
+	vv = check_var(g_minishell.var_lst, var);
+	if (!vv)
+	{
+		if (!add2lst(&g_minishell.var_lst, var, val, exp))
+			return (0);
+		return (1);
+	}
+	if (ft_strlen(val) == ft_strlen(vv->val)
+		&& !ft_strncmp(val, vv->val, ft_strlen(val)))
+		return (vv->exp = exp, 1);
+	free(vv->val);
+	vv->val = NULL;
+	vv->val = ft_strdup(val);
+	if (!vv->val)
+		return (0);
+	return (1);
+}
 
 //check whether a value matches for a variable within the environment
 t_lst	*check_val(t_lst *lst, char *val)
@@ -72,7 +95,7 @@ int	var_handler(char *args)
 	vv = var_val(args);
 	if (!vv)
 		return (0);
-	if (!add2lst(&g_minishell.var_lst, vv[VAR], vv[VAL], false))
-		return (0);
-	return (free_arr(vv), prnt_lst(g_minishell.var_lst, false), 1);
+	if (!handle_var_val(vv[VAR], vv[VAL], false))
+		return (free_arr(vv), 0);
+	return (free_arr(vv), 1);
 }
