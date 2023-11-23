@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/21 21:35:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:49:42 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,8 +399,11 @@ t_lst		*init_lst(char *var, char *val, bool exp);
 /*    variables.c    */
 /*********************/
 
+//check whether a value matches for a variable within the environment
+t_lst		*check_val(t_lst *lst, char *val);
+
 //check whether a variable exists within the environment
-t_lst		*check_var(char *var, t_lst *lst);
+t_lst		*check_var(t_lst *lst, char *var);
 
 //convert variable string to array
 char		**var_val(char *var_val);

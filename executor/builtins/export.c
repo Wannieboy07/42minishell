@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/22 19:45:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:08:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,34 @@ int	init_var_lst(void)
 //check argument's string for syntax errors
 static int	err_arg(char *str)
 {
-	int	i;
-
 	if (str[6] != '\0' && str[6] != ' ')
 		return (g_minishell.exit_code = 127, 1);
-	if (str[7] == '=')
+	if (str[7] == '=' && !ft_isalpha(str[7]))
 		return (prnt_err("export: invalid usage", NULL));
-	i = 6;
-	while (str[++i])
-		if (str[i] != '=' && !ft_isalpha(str[i]))
-			return (prnt_err("export: invalid usage", NULL));
 	return (0);
 }
 
-//WIP
 //check if variable exists and change value if it needs to be changed
-static int	check_var_val(char *var, char *val)
+static int	handle_var_val(char *var, char *val)
 {
 	t_lst	*vv;
 
-	vv = check_var(var, g_minishell.var_lst);
+	vv = check_var(g_minishell.var_lst, var);
 	if (!vv)
-		return (0);
-	if (ft_strlen(vv->val) == ft_strlen(val)
-		&& !ft_strncmp(vv->val, val, ft_strlen(vv->val)))
+	{
+		if (!add2lst(&g_minishell.var_lst, var, val, true))
+			return (0);
 		return (1);
-	return (0);
+	}
+	if (ft_strlen(val) == ft_strlen(vv->val)
+		&& !ft_strncmp(val, vv->val, ft_strlen(val)))
+		return (vv->exp = true, 1);
+	free(vv->val);
+	vv->val = NULL;
+	vv->val = ft_strdup(val);
+	if (!vv->val)
+		return (0);
+	return (1);
 }
 
 //command to manage the export environment
@@ -72,26 +74,21 @@ int	exec_export(void)
 {
 	char	**vv;
 	t_lst	*v_v;
-	char	*var;
 
 	if (g_minishell.ast->args[6] == '\0')
 		return (prnt_lst(g_minishell.var_lst, true), 1);
 	if (err_arg(g_minishell.ast->args))
 		return (1);
-	var = g_minishell.ast->args + 7;
-	if (ft_strchr(var, '='))
+	if (ft_strchr(g_minishell.ast->args + 7, '='))
 	{
-		vv = var_val(var);
+		vv = var_val(g_minishell.ast->args + 7);
 		if (!vv)
+			return (1);
+		if (!handle_var_val(vv[VAR], vv[VAL]))
 			return (0);
-		v_v = check_var(vv[VAR], g_minishell.var_lst);
-		if (v_v)
-			return (free_arr(vv), v_v->exp = true, 1);
-		if (!add2lst(&g_minishell.var_lst, vv[VAR], vv[VAL], true))
-			return (free_arr(vv), 0);
 		return (free_arr(vv), 1);
 	}
-	v_v = check_var(var, g_minishell.var_lst);
+	v_v = check_var(g_minishell.var_lst, g_minishell.ast->args + 7);
 	if (!v_v)
 		return (1);
 	return (v_v->exp = true, 1);

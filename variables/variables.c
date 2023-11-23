@@ -6,14 +6,32 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/22 00:26:50 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:03:41 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//check whether a value matches for a variable within the environment
+t_lst	*check_val(t_lst *lst, char *val)
+{
+	t_lst	*curr;
+
+	if (!val || !lst)
+		return (NULL);
+	curr = lst;
+	while (curr)
+	{
+		if (ft_strlen(val) == ft_strlen(curr->val)
+			&& !ft_strncmp(val, curr->val, ft_strlen(val)))
+			return (curr);
+		curr = curr->next;
+	}
+	return (NULL);
+}
+
 //check whether a variable exists within the environment
-t_lst	*check_var(char *var, t_lst *lst)
+t_lst	*check_var(t_lst *lst, char *var)
 {
 	t_lst	*curr;
 
@@ -38,8 +56,8 @@ char	**var_val(char *var_val)
 
 	if (!var_val)
 		return (NULL);
-	val = ft_strchr(var_val, '=') + 1;
 	var = var_val;
+	val = ft_strchr(var_val, '=') + 1;
 	ft_strlcpy(var, var_val, (ft_strlen(var_val) - ft_strlen(val)));
 	return (mk_arr(var, val));
 }
