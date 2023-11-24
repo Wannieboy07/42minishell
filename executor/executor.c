@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/24 14:25:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:08:42 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	exec_cmd(t_node *ast)
 		return (1);
 	if (!exec_ext(ast->exp_args))
 		return (0);
-	else
-		return (g_minishell.exit_code = 127, 1);
+	return (1);
 }
 
 //execute built-in commands
@@ -86,6 +85,7 @@ int	executor(void)
 {
 	if (!g_minishell.ast)
 		return (1);
+	g_minishell.exit_code = 0;
 	if (!exec_builtin(g_minishell.ast))
 		return (0);
 	if (g_minishell.exit_code != 127)

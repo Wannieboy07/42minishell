@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:37:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/25 12:01:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:36:41 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ t_node	*parser(void)
 	ast = parse_expr(0);
 	if (g_minishell.curr_token)
 		return (set_parse_err(SYNTAX), ast);
-	prnt_ast(ast);
 	return (ast);
 }

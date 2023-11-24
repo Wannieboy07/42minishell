@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/24 14:27:24 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 23:26:22 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //boolean
 # include <stdbool.h>
 
-//write, dup, chdir, getcwd
+//write, dup, chdir, getcwd, access, execve, fork
 # include <unistd.h>
 
 //signal
@@ -35,13 +35,16 @@
 //PATH_MAX
 # include <limits.h>
 
+//waitpid
+# include <sys/wait.h>
+
 //readline and associated functions
 # include <readline/readline.h>
 
 //add_history
 # include <readline/history.h>
 
-//custom libary
+//custom library
 # include "libft/libft.h"
 
 /*****************/
@@ -63,6 +66,10 @@
 //var_val
 # define VAR 0
 # define VAL 1
+
+//check for access()
+# define VALID 0
+# define INVALID 1
 
 //token types enumeration macro
 typedef enum e_tokentype
@@ -135,6 +142,13 @@ typedef struct s_node
 	void		*right;
 }	t_node;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 //doubly linked list
 typedef struct s_lst
 {
@@ -164,7 +178,10 @@ typedef struct s_minishell
 	t_parse_err	parse_err;
 	int			fdin;
 	int			fdout;
+	bool		sigint_child;
+	bool		heredoc_sigint;
 	char		**envv;
+	t_env		*env_lst;
 	t_lst		*var_lst;
 }	t_minishell;
 
@@ -183,6 +200,9 @@ extern t_minishell	g_minishell;
 /*     main.c     */
 /******************/
 
+//cleanup handler
+void		clean_ms(void);
+
 //initialize minishell data struct variables
 int			init_minishell(char **env);
 
@@ -190,7 +210,7 @@ int			init_minishell(char **env);
 int			minishell_loop(void);
 
 //parse inputs, execute commands, handle redirections
-//int			main(int ac, char **av, char **env);
+int			main(int ac, char **av, char **env);
 
 /*=== ./signal/ ===*/
 
@@ -371,6 +391,97 @@ void		free_ast_nodes(t_node *node);
 
 //free all the memory associated with an abstract syntax tree
 void		clear_ast(t_node **ast);
+
+/*=== ./expander ===*/
+
+/*******************/
+/*   init_tree.c   */
+/*******************/
+
+void		heredoc_sig_handler(int signum);
+
+void		open_heredoc(t_io_node *io, int fd[2]);
+
+bool		leave_node(int fd[2], int *pid);
+
+void		init_node(t_node *node);
+
+void		init_tree(t_node *node);
+
+/********************/
+/*    expander.c    */
+/********************/
+
+char		*handle_dollar(char *str, size_t *i);
+
+char		**expand_args(char *str);
+
+char		*expand_var(char *str);
+
+/********************/
+/* expander_utils.c */
+/********************/
+
+char		*handle_str(char *str, size_t *i);
+
+char		*handle_dquote_str(char *str, size_t *i);
+
+char		*handle_dquotes(char *str, size_t *i);
+
+char		*skip_squotes(char *str, size_t *i);
+
+/*******************/
+/* clean_empties.c */
+/*******************/
+
+char		*clean_empties(char *str);
+
+/********************/
+/* expander_split.c */
+/********************/
+
+void		skip_str(const char *s, size_t *i);
+
+void		fill_str(char **strs, const char *s, size_t i, size_t j);
+
+char		**set_strs(char **strs, const char *s);
+
+char		**exp_split(const char *s);
+
+/********************/
+/*  strip_quotes.c  */
+/********************/
+
+int			unquoted_len(char *str);
+
+char		*strip_quotes(char *str);
+
+/********************/
+/* expand_heredoc.c */
+/********************/
+
+int			heredoc_var_expand(char *str, int i, int fd);
+
+void		expand_heredoc(char *str, int fd);
+
+/*******************/
+/*    env_lst.c    */
+/*******************/
+
+char		*get_env_val(char *key);
+
+void		clear_envlst(void);
+
+void		envlst_addback(t_env *new);
+
+t_env		*envlst_new(char *key, char *value);
+
+void		update_envlst(char *key, char *value, bool create);
+
+/*=== Execute ===*/
+
+void		*garbage_collector(void *ptr, bool clean);
+bool		is_delimiter(char *delim, char *str);
 
 /*=== ./data/ ===*/
 

@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/11/21 20:10:55 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/11/24 23:10:47 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS =	\
 		str/ft_strlen.c				\
 		str/ft_strchr.c				\
 		str/ft_strrchr.c			\
+		str/ft_strcmp.c				\
 		str/ft_strncmp.c			\
 		str/ft_strlcpy.c			\
 		str/ft_strlcat.c			\
@@ -61,6 +62,7 @@ SRCS =	\
 		str/ft_striteri.c			\
 		str/cpy_arr.c				\
 		str/mk_arr.c				\
+		str/strjoin.c				\
 		\
 		math/ft_atoi.c				\
 		math/ft_itoa.c				\

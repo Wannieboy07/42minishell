@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:29:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/20 00:46:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:39:05 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_lst(t_token *token_lst)
 	curr = token_lst;
 	while (curr)
 	{
-		printf("Value: %s\n", curr->value);
+		printf("Type: %d\nValue: %s\n", curr->type, curr->value);
 		curr = curr->next;
 	}
 }
