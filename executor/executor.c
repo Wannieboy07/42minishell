@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 22:06:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:25:56 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@
 //execute external commands
 int	exec_cmd(t_node *ast)
 {
-	if (!ast->args)
+	if (!ast->exp_args)
 		return (1);
+	if (!exec_ext(ast->exp_args))
+		return (0);
 	else
 		return (g_minishell.exit_code = 127, 1);
 }

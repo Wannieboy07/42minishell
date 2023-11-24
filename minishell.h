@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/23 22:05:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:27:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,6 +492,15 @@ int			exec_unset(void);
 
 //command to change directory
 int			exec_cd(void);
+
+/*===  ./executor/externals/ ===*/
+
+/********************/
+/*    exec_ext.c    */
+/********************/
+
+//execute external commands
+int			exec_ext(char **args);
 
 /*=== ./parser/ ===*/
 
