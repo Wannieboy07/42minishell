@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/20 00:57:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 23:26:22 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //boolean
 # include <stdbool.h>
 
-//write, dup
+//write, dup, chdir, getcwd, access, execve, fork
 # include <unistd.h>
 
 //signal
@@ -35,13 +35,16 @@
 //PATH_MAX
 # include <limits.h>
 
+//waitpid
+# include <sys/wait.h>
+
 //readline and associated functions
 # include <readline/readline.h>
 
 //add_history
 # include <readline/history.h>
 
-//custom libary
+//custom library
 # include "libft/libft.h"
 
 /*****************/
@@ -60,6 +63,14 @@
 # define D_QUOTES 34
 # define S_QUOTES 39
 
+//var_val
+# define VAR 0
+# define VAL 1
+
+//check for access()
+# define VALID 0
+# define INVALID 1
+
 //token types enumeration macro
 typedef enum e_tokentype
 {
@@ -72,6 +83,7 @@ typedef enum e_tokentype
 	NL
 }	t_tokentype;
 
+//add a differentiator between builtin and external commands
 //node types enumeration macro
 typedef enum e_nodetype
 {
@@ -130,6 +142,23 @@ typedef struct s_node
 	void		*right;
 }	t_node;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+//doubly linked list
+typedef struct s_lst
+{
+	char			*var;
+	char			*val;
+	bool			exp;
+	struct s_lst	*prev;
+	struct s_lst	*next;
+}	t_lst;
+
 //parse error data structure
 typedef struct s_parse_err
 {
@@ -138,6 +167,7 @@ typedef struct s_parse_err
 }	t_parse_err;
 
 //minishell data structure
+//CAN'T FUCKING USE THIS!!! Only error codes allowed
 typedef struct s_minishell
 {
 	char		*line;
@@ -148,7 +178,11 @@ typedef struct s_minishell
 	t_parse_err	parse_err;
 	int			fdin;
 	int			fdout;
+	bool		sigint_child;
+	bool		heredoc_sigint;
 	char		**envv;
+	t_env		*env_lst;
+	t_lst		*var_lst;
 }	t_minishell;
 
 //make minishell structure able to be accessed globally
@@ -166,8 +200,11 @@ extern t_minishell	g_minishell;
 /*     main.c     */
 /******************/
 
+//cleanup handler
+void		clean_ms(void);
+
 //initialize minishell data struct variables
-void		init_minishell(char **env);
+int			init_minishell(char **env);
 
 //prompt that takes inputs
 int			minishell_loop(void);
@@ -182,7 +219,7 @@ int			main(int ac, char **av, char **env);
 /*********************/
 
 //handle end of of file signal
-void		eof_handler(t_token *lst);
+void		eof_handler(void);
 
 //handle interuption signal whilst executing commands
 void		cmd_sig_handler(int signum);
@@ -355,35 +392,240 @@ void		free_ast_nodes(t_node *node);
 //free all the memory associated with an abstract syntax tree
 void		clear_ast(t_node **ast);
 
+/*=== ./expander ===*/
+
+/*******************/
+/*   init_tree.c   */
+/*******************/
+
+void		heredoc_sig_handler(int signum);
+
+void		open_heredoc(t_io_node *io, int fd[2]);
+
+bool		leave_node(int fd[2], int *pid);
+
+void		init_node(t_node *node);
+
+void		init_tree(t_node *node);
+
+/********************/
+/*    expander.c    */
+/********************/
+
+char		*handle_dollar(char *str, size_t *i);
+
+char		**expand_args(char *str);
+
+char		*expand_var(char *str);
+
+/********************/
+/* expander_utils.c */
+/********************/
+
+char		*handle_str(char *str, size_t *i);
+
+char		*handle_dquote_str(char *str, size_t *i);
+
+char		*handle_dquotes(char *str, size_t *i);
+
+char		*skip_squotes(char *str, size_t *i);
+
+/*******************/
+/* clean_empties.c */
+/*******************/
+
+char		*clean_empties(char *str);
+
+/********************/
+/* expander_split.c */
+/********************/
+
+void		skip_str(const char *s, size_t *i);
+
+void		fill_str(char **strs, const char *s, size_t i, size_t j);
+
+char		**set_strs(char **strs, const char *s);
+
+char		**exp_split(const char *s);
+
+/********************/
+/*  strip_quotes.c  */
+/********************/
+
+int			unquoted_len(char *str);
+
+char		*strip_quotes(char *str);
+
+/********************/
+/* expand_heredoc.c */
+/********************/
+
+int			heredoc_var_expand(char *str, int i, int fd);
+
+void		expand_heredoc(char *str, int fd);
+
+/*******************/
+/*    env_lst.c    */
+/*******************/
+
+char		*get_env_val(char *key);
+
+void		clear_envlst(void);
+
+void		envlst_addback(t_env *new);
+
+t_env		*envlst_new(char *key, char *value);
+
+void		update_envlst(char *key, char *value, bool create);
+
+/*=== Execute ===*/
+
+void		*garbage_collector(void *ptr, bool clean);
+bool		is_delimiter(char *delim, char *str);
+
+/*=== ./data/ ===*/
+
+/*********************/
+/* data_management.c */
+/*********************/
+
+//print out a doubly linked list
+void		prnt_lst(t_lst *lst, bool exp);
+
+//free the data of a doubly linked list
+void		free_lst(t_lst **lst);
+
+//cut out an entree in a doubly linked list
+void		cut_lst(t_lst **lst);
+
+//add an entree to a doubly linked list
+int			add2lst(t_lst **lst, char *var, char *val, bool exp);
+
+//initialization of a doubly linked list
+t_lst		*init_lst(char *var, char *val, bool exp);
+
+/*=== ./variables/ ===*/
+
+/*********************/
+/*    variables.c    */
+/*********************/
+
+//check if variable exists and change value if it needs to be changed
+int			handle_var_val(char *var, char *val, bool exp);
+
+//check whether a value matches for a variable within the environment
+t_lst		*check_val(t_lst *lst, char *val);
+
+//check whether a variable exists within the environment
+t_lst		*check_var(t_lst *lst, char *var);
+
+//convert variable string to array
+char		**var_val(char *var_val);
+
+//logical variable handler
+int			var_handler(char *args);
+
 /*=== ./executor/ ===*/
 
 /********************/
 /*    executor.c    */
 /********************/
 
-//execute built-in commands
-int			exec_builtin(t_token *lst);
-
 //execute commands if any are found
-int			exec_cmd(void);
+int			exec_cmd(t_node *ast);
+
+//execute built-in commands
+int			exec_builtin(t_node *ast);
 
 //parse linked list and execute commands
 int			executor(void);
 
-/********************/
-/*    builtins.c    */
-/********************/
+/*===  ./executor/builtins/ ===*/
+
+/*******************/
+/*      set.c      */
+/*******************/
+
+//print out the environment variable
+int			exec_set(void);
+
+/*******************/
+/*      env.c      */
+/*******************/
 
 //print out the environment variable
 int			exec_env(void);
 
+/*******************/
+/*      pwd.c      */
+/*******************/
+
 //print out the current working directory
 int			exec_pwd(void);
 
+/********************/
+/*      exit.c      */
+/********************/
+
 //exit the shell in a clean way
-void		exec_exit(t_token *lst);
+int			exec_exit(void);
+
+/********************/
+/*      echo.c      */
+/********************/
 
 //print out input
-int			exec_echo(t_token *lst);
+int			exec_echo(void);
+
+/********************/
+/*     export.c     */
+/********************/
+
+//initialize the export environment
+int			init_var_lst(void);
+
+//command to manage the export environment
+int			exec_export(void);
+
+/*********************/
+/*      unset.c      */
+/*********************/
+
+//removes variables
+int			rm_var(char *var, t_lst *lst);
+
+//command to remove variables
+int			exec_unset(void);
+
+/********************/
+/*       cd.c       */
+/********************/
+
+//command to change directory
+int			exec_cd(void);
+
+/*===  ./executor/externals/ ===*/
+
+/********************/
+/*    exec_ext.c    */
+/********************/
+
+//execute external commands
+int			exec_ext(char **args);
+
+/*=== ./parser/ ===*/
+
+/*********************/
+/*   parser_prnt.c   */
+/*********************/
+
+//TEST FUNCTION
+void		prnt_tabs(int *tabs);
+
+//TEST FUNCTION
+void		prnt_node(t_node *node, int *i);
+
+//TEST FUNCTION
+void		prnt_ast(t_node	*ast);
 
 #endif

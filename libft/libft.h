@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:06:10 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/04 21:56:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 23:10:09 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
 //free the memory of a 2d array
-void	free_arr(char **array);
+void	free_arr(char **arr);
 
 /***************/
 /*   pointer   */
@@ -147,6 +147,9 @@ int		ft_tolower(int c);
 //calculate the difference between memory areas
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
+//compare two strings, but smarter
+int		ft_strcmp(const char *s1, const char *s2);
+
 //compare two strings
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
@@ -186,6 +189,9 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 
 //join two strings together into one
+char	*strjoin(const char *s1, const char *s2);
+
+//join two strings together into one and free the input
 char	*ft_strjoin(const char *s1, const char *s2);
 
 //perform a function on each character within a string
@@ -215,6 +221,9 @@ char	**ft_split(const char *s, char c);
 
 //copy a 2d array
 char	**cpy_arr(char **arr);
+
+//join two strings into an array
+char	**mk_arr(char *s1, char *s2);
 
 /*****************/
 /*   structure   */

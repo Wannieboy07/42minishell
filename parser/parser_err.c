@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:19:26 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/20 00:55:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:40:28 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	handle_parse_err(void)
 
 	types = (char *[]){"IDENTIFIER", "|", ">", ">>", "<", "<<", "newline"};
 	err_type = g_minishell.parse_err.type;
+	(void)t_type;
+	(void)types;
 	if (err_type)
 	{
 		if (err_type == SYNTAX)

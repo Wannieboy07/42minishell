@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   strjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 09:26:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/24 23:09:17 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 23:08:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//join two strings together into one and free the input
-char	*ft_strjoin(const char *s1, const char *s2)
+//join two strings together into one
+char	*strjoin(const char *s1, const char *s2)
 {
 	size_t	s1len;
 	size_t	s2len;
@@ -33,7 +33,5 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	ft_memmove(rtn, s1, s1len);
 	ft_memmove(rtn + s1len, s2, s2len);
 	rtn[s1len + s2len] = '\0';
-	free((char *)s1);
-	free((char *)s2);
 	return (rtn);
 }

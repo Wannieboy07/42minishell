@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/10/04 22:07:04 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/11/05 20:53:35 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 #project specific flags
-PFLAGS = -lreadline
+PFLAGS = -l readline
 
 #compiler
 CC = cc
@@ -93,7 +93,7 @@ all: MK ${NAME}
 #make project into program
 ${NAME}: ${objs} ${HEADERS}
 	@echo "${GREEN}Compiling done!${WHITE}"
-	@${CC} ${CFLAGS} ${PFLAGS} ${objs} ${HDR_ALL} ${LIB_ALL} -o ${NAME}
+	@${CC} ${CFLAGS} ${objs} ${HDR_ALL} ${LIB_ALL} ${PFLAGS} -o ${NAME}
 	@chmod +x ${NAME}
 	@echo "${GREEN}Minishell done!${WHITE}"
 

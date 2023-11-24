@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/19 22:54:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:05:37 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,40 @@
 t_minishell	g_minishell;
 
 //initialize minishell data struct variables
-void	init_minishell(char **env)
+int	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
 	g_minishell.envv = env;
 	g_minishell.fdin = dup(0);
 	g_minishell.fdout = dup(1);
+	if (g_minishell.fdin < 0 || g_minishell.fdout < 0)
+		return (0);
+	if (!init_var_lst())
+		return (0);
+	return (1);
+}
+
+//cleanup hanlder
+void	clean_ms(void)
+{
+	garbage_collector(NULL, true);
+	clear_ast(&g_minishell.ast);
+	clear_envlst();
+	rl_clear_history();
+}
+
+// execute node (rescursive)
+
+//WIP
+static int	start_exec(void)
+{
+	handle_cmd_signals();
+	init_tree(g_minishell.ast);
+	prnt_ast(g_minishell.ast);
+	if (!executor())
+		return (prnt_err("executor", NULL), 0);
+	clear_ast(&g_minishell.ast);
+	return (1);
 }
 
 //prompt that takes inputs
@@ -29,25 +57,23 @@ int	minishell_loop(void)
 {
 	while (1)
 	{
+		handle_global_signals();
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
-			eof_handler(g_minishell.tokens);
+			eof_handler();
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
-		if (!executor())
-			return (prnt_err("executor", NULL));
 		if (!g_minishell.tokens)
-		{
-			printf(GREY "info: no tokens\n" WHITE);
 			continue ;
-		}
 		g_minishell.ast = parser();
 		if (g_minishell.parse_err.type)
 		{
 			handle_parse_err();
 			continue ;
 		}
+		if (!start_exec())
+			return (0);
 	}
 }
 
@@ -56,8 +82,8 @@ int	main(int ac, char **av, char **env)
 {
 	if (ac != 1)
 		return (prnt_err("args", av));
-	init_minishell(env);
-	handle_global_signals();
+	if (!init_minishell(env))
+		return (EXIT_FAILURE);
 	if (minishell_loop() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 }

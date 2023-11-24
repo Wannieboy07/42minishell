@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 22:56:52 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/10/12 00:07:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:32:52 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**cpy_arr(char **arr)
 	int		i;
 	char	**cpy;
 
+	if (!arr)
+		return (NULL);
 	i = 0;
 	while (arr[i] != NULL)
 		i++;
