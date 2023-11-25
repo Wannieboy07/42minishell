@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/25 16:01:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/25 21:42:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //boolean
 # include <stdbool.h>
 
-//write, dup, chdir, getcwd, execve, fork
+//write, dup, chdir, getcwd, execve, fork, pipe
 # include <unistd.h>
 
 //signal
@@ -86,7 +86,6 @@ typedef enum e_tokentype
 	NL
 }	t_tokentype;
 
-//add a differentiator between builtin and external commands
 //node types enumeration macro
 typedef enum e_nodetype
 {
@@ -614,9 +613,9 @@ int			exec_cd(void);
 
 /*===  ./executor/externals/ ===*/
 
-/********************/
-/*    exec_ext.c    */
-/********************/
+/***********************/
+/* external_commands.c */
+/***********************/
 
 //execute external commands
 int			exec_ext(char **args);

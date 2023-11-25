@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:03:02 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/25 16:44:15 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/25 21:20:51 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*comp_path(char **paths, char *arg, struct stat fstat)
 	char	*path;
 	int		i;
 
+	if (!paths || !arg)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -71,6 +73,8 @@ int	exec_ext(char **args)
 	pid_t	pid;
 	int		status;
 
+	if (!args)
+		return (1);
 	path = check_path(args[0]);
 	if (!path)
 		return (1);
@@ -80,5 +84,7 @@ int	exec_ext(char **args)
 	if (!pid)
 		execve(path, args, g_minishell.envv);
 	waitpid(pid, &status, 0);
+	if (status != 0)
+		return (free(path), 1);
 	return (free(path), 1);
 }
