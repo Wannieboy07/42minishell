@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/24 23:26:22 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:01:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //boolean
 # include <stdbool.h>
 
-//write, dup, chdir, getcwd, access, execve, fork
+//write, dup, chdir, getcwd, execve, fork
 # include <unistd.h>
 
 //signal
@@ -37,6 +37,9 @@
 
 //waitpid
 # include <sys/wait.h>
+
+//stat
+# include <sys/stat.h>
 
 //readline and associated functions
 # include <readline/readline.h>
@@ -478,9 +481,14 @@ t_env		*envlst_new(char *key, char *value);
 
 void		update_envlst(char *key, char *value, bool create);
 
-/*=== Execute ===*/
+/*=== ./exec/ ===*/
+
+/********************/
+/*   exec_utils.c   */
+/********************/
 
 void		*garbage_collector(void *ptr, bool clean);
+
 bool		is_delimiter(char *delim, char *str);
 
 /*=== ./data/ ===*/
@@ -616,7 +624,7 @@ int			exec_ext(char **args);
 /*=== ./parser/ ===*/
 
 /*********************/
-/*   parser_prnt.c   */
+/* tmp_parser_prnt.c */
 /*********************/
 
 //TEST FUNCTION
