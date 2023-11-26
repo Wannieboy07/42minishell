@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/25 22:05:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:04:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,71 +48,74 @@
 //pipe redirector
 static int	redir(int fd, int *pfd)
 {
-	if (!fd || !pfd)
+	if (!pfd)
 		return (1);
 	if (fd == IN)
-	{
-		if (close(pfd[OUT]) < 0)
-			return (0);
-		if (dup2(pfd[IN], STDIN_FILENO) < 0)
-			return (0);
-	}
-	else if (fd == OUT)
-	{
-		if (close(pfd[IN]) < 0)
-			return (0);
-		if (dup2(pfd[OUT], STDOUT_FILENO) < 0)
-			return (0);
-	}
+		if (close(pfd[IN]) < 0 || dup2(pfd[OUT], STDOUT_FILENO) < 0)
+			return (perror("redir in"), 0);
+	if (fd == OUT)
+		if (close(pfd[OUT]) < 0 || (dup2(pfd[IN], STDIN_FILENO) < 0))
+			return (perror("redir out"), 0);
 	return (1);
 }
 
 //logical piping handler
-static int	pipe_handler(int *pfd, t_node *ast)
+static int	pipe_handler(t_node *ast)
 {
-	pid_t	pid;
-	int		status;
+	int		pfd[2];
+	pid_t	lcmd;
+	pid_t	rcmd;
+	int		lstatus;
+	int		rstatus;
 
 	if (pipe(pfd) < 0)
-		return (0);
-	pid = fork();
-	if (pid < 0)
-		return (0);
-	if (!pid)
+		return (perror("pipe"), 0);
+	lcmd = fork();
+	if (lcmd < 0)
+		return (perror("fork"), 0);
+	if (!lcmd)
 	{
 		if (!redir(IN, pfd))
-			return (0);
+			exit(EXIT_FAILURE);
 		ast = ast->left;
 		exec_ext(ast->exp_args);
-		waitpid(pid, &status, 0);
-		if (status != 0)
-			return (0);
+		exit(EXIT_FAILURE);
 	}
-	else
+	waitpid(lcmd, &lstatus, 0);
+	if (lstatus != 0)
+		return (prnt_err("cmd", NULL), 1);
+	rcmd = fork();
+	if (rcmd < 0)
+		return (perror("fork"), 0);
+	if (!rcmd)
 	{
-		ast = ast->right;
 		if (!redir(OUT, pfd))
-			return (0);
+			exit(EXIT_FAILURE);
+		ast = ast-> right;
 		exec_ext(ast->exp_args);
+		exit(EXIT_FAILURE);
 	}
+	if (close(pfd[IN]) < 0 || close(pfd[OUT]) < 0)
+		return (perror("close"), 0);
+	waitpid(rcmd, &rstatus, 0);
+	if (rstatus != 0)
+		return (prnt_err("cmd", NULL), 1);
 	return (1);
 }
 
 //execute external commands
 int	exec_cmd(t_node *ast)
 {
-	int	pfd[2];
-
 	if (!ast)
 		return (1);
 	if (ast->type == P_PIPE)
 	{
-		if (!pipe_handler(pfd, ast))
+		if (!pipe_handler(ast))
 			return (0);
 		return (1);
 	}
-	if (!exec_ext(ast->exp_args))
-		return (0);
+	//if (!exec_ext(ast->exp_args))
+		//return (0);
 	return (1);
 }
 
@@ -141,16 +144,17 @@ int	exec_builtin(t_node *ast)
 		return (g_minishell.exit_code = 127, 1);
 }
 
-//parse linked list and execute commands
-int	executor(void)
-{
-	if (!g_minishell.ast)
-		return (1);
 	//g_minishell.exit_code = 0;
 	//if (!exec_builtin(g_minishell.ast))
 		//return (0);
 	//if (g_minishell.exit_code != 127)
 		//return (1);
+
+//parse linked list and execute commands
+int	executor(void)
+{
+	if (!g_minishell.ast)
+		return (1);
 	g_minishell.exit_code = 0;
 	if (!exec_cmd(g_minishell.ast))
 		return (0);

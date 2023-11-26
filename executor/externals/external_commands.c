@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:03:02 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/25 21:20:51 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:41:19 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,13 @@ char	*check_path(char *arg)
 int	exec_ext(char **args)
 {
 	char	*path;
-	pid_t	pid;
-	int		status;
 
 	if (!args)
 		return (1);
 	path = check_path(args[0]);
 	if (!path)
 		return (1);
-	pid = fork();
-	if (pid < 0)
+	if (execve(path, args, g_minishell.envv) < 0)
 		return (0);
-	if (!pid)
-		execve(path, args, g_minishell.envv);
-	waitpid(pid, &status, 0);
-	if (status != 0)
-		return (free(path), 1);
 	return (free(path), 1);
 }
