@@ -6,13 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:01:03 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/24 15:39:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/25 20:21:19 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//handle end of of file signal
+//handle end of file signal
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
