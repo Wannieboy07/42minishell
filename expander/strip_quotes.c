@@ -14,7 +14,7 @@ int	unquoted_len(char *str)
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			quotes = str[i];
-			while (str[++i] != quotes)
+			while (str[++i] && str[i] != quotes)
 				len++;
 		}
 		else

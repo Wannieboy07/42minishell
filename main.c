@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/22 18:10:35 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:02:48 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ void	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
+	if (g_minishell.heredoc_sigint)
+	{
+		clear_ast(&g_minishell.ast);
+		g_minishell.heredoc_sigint = false;
+	}
 	prnt_ast(g_minishell.ast);
-	// execute node (rescursive)
+	g_minishell.ecit_code = execute_node(g_minishell.ast, false);
 	clear_ast(&g_minishell.ast);
 }
 
@@ -46,7 +51,7 @@ int	minishell_loop(void)
 		handle_global_signals();
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
-			eof_handler();
+			(clean_ms(), eof_handler());
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
