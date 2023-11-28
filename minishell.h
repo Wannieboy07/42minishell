@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 13:02:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:24:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_io_node
 	void		*next;
 }	t_io_node;
 
-//abstract syntax tree data doubly linked list
+//abstract syntax tree data singly linked list
 typedef struct s_node
 {
 	t_nodetype	type;

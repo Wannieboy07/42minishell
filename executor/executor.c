@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/28 15:56:53 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:30:12 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,58 @@ static int	pipe_handler(t_node *ast, int fd, int *pfd)
 	return (0);
 }
 
+/*//TESTING*/
+/*static void	tester(t_node *ast)*/
+/*{*/
+	/*t_node	*test;*/
+
+	/*test = ast;*/
+	/*if (test->type == P_CMD)*/
+	/*{*/
+		/*printf("cmd: %s\n", test->exp_args[0]);*/
+		/*if (test->left)*/
+			/*tester(test->left);*/
+		/*if (test->right)*/
+			/*tester(test->right);*/
+	/*}*/
+	/*if (test->type == P_PIPE)*/
+	/*{*/
+		/*if (test->left)*/
+			/*tester(test->left);*/
+		/*if (test->right)*/
+			/*tester(test->right);*/
+	/*}*/
+/*}*/
+
+////TESTING
+//static void	tester(t_node *ast)
+//{
+	//t_node	*test;
+
+	//test = ast;
+	//test = test->left;
+	//test = test->left;
+	//test = test->left;
+	//printf("cmd1: %s\n", test->exp_args[0]);
+	//test = ast;
+	//test = test->left;
+	//test = test->left;
+	//test = test->right;
+	//printf("cmd2: %s\n", test->exp_args[0]);
+	//test = ast;
+	//test = test->left;
+	//test = test->right;
+	//printf("cmd3: %s\n", test->exp_args[0]);
+	//test = ast;
+	//test = test->right;
+	//printf("cmd4: %s\n", test->exp_args[0]);
+//}
+
 //execute external commands
 int	exec_cmd(t_node *ast)
 {
-	int	pfd[2];
-	int	status;
+	int		pfd[2];
+	int		status;
 
 	if (!ast)
 		return (1);

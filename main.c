@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/28 13:02:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:52:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
-	prnt_ast(g_minishell.ast);
+	//prnt_ast(g_minishell.ast);
 	g_minishell.exit_code = executor();
 	clear_ast(&g_minishell.ast);
 }
