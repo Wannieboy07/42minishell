@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:03:02 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/26 19:41:19 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:31:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*check_path(char *arg)
 		return (NULL);
 	path = comp_path(paths, arg, fstat);
 	if (!path)
-		return (free_arr(paths), g_minishell.exit_code = 127, NULL);
+		return (free_arr(paths), NULL);
 	return (free_arr(paths), path);
 }
 
@@ -78,5 +78,5 @@ int	exec_ext(char **args)
 		return (1);
 	if (execve(path, args, g_minishell.envv) < 0)
 		return (0);
-	return (free(path), 1);
+	return (g_minishell.exit_code = 0, free(path), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:01:03 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/25 20:21:19 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:56:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 void	eof_handler(void)
 {
 	write(1, "exit\n", 5);
-	free_lst(&g_minishell.var_lst);
 	rl_clear_history();
-	exit (EXIT_SUCCESS);
+	free_lst(&g_minishell.var_lst);
+	exit(EXIT_SUCCESS);
 }
 
 //handle interuption signal whilst executing commands

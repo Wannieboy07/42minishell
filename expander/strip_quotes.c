@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:54:44 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/24 15:54:50 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:10:51 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	unquoted_len(char *str)
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			quotes = str[i];
-			while (str[++i] != quotes)
+			while (str[++i] && str[i] != quotes)
 				len++;
 		}
 		else

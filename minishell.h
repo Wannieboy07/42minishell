@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/25 21:42:14 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:02:41 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,6 @@ extern t_minishell	g_minishell;
 
 //cleanup handler
 void		clean_ms(void);
-
-//initialize minishell data struct variables
-int			init_minishell(char **env);
 
 //prompt that takes inputs
 int			minishell_loop(void);

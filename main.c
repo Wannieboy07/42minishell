@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/24 21:05:37 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:02:43 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_minishell	g_minishell;
 
 //initialize minishell data struct variables
-int	init_minishell(char **env)
+static int	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
 	g_minishell.envv = env;
@@ -29,7 +29,7 @@ int	init_minishell(char **env)
 	return (1);
 }
 
-//cleanup hanlder
+//cleanup handler
 void	clean_ms(void)
 {
 	garbage_collector(NULL, true);
@@ -41,15 +41,13 @@ void	clean_ms(void)
 // execute node (rescursive)
 
 //WIP
-static int	start_exec(void)
+void	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
 	prnt_ast(g_minishell.ast);
-	if (!executor())
-		return (prnt_err("executor", NULL), 0);
+	g_minishell.exit_code = executor();
 	clear_ast(&g_minishell.ast);
-	return (1);
 }
 
 //prompt that takes inputs
@@ -72,8 +70,7 @@ int	minishell_loop(void)
 			handle_parse_err();
 			continue ;
 		}
-		if (!start_exec())
-			return (0);
+		start_exec();
 	}
 }
 

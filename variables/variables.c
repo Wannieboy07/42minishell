@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 20:33:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:05:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	var_handler(char *args)
 {
 	char	**vv;
 
-	if (!ft_strchr(args, '='))
+	if (!args || !ft_strchr(args, '='))
 		return (g_minishell.exit_code = 127, 1);
 	vv = var_val(args);
 	if (!vv)
