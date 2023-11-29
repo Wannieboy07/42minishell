@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/29 19:27:03 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:24:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,23 @@ int	exec_builtin(t_node *ast)
 }
 
 //execute commands in order
-int	ast_parser(t_node *ast, int fd, t_node *start, int *pfd)
+int	ast_parser(t_node *ast, int fd, t_node *start)
 {
 	if (!ast)
 		return (0);
 	if (ast->type == P_PIPE)
 	{
 		if (ast->left)
-			ast_parser(ast->left, IN, start, pfd);
+			ast_parser(ast->left, IN, start);
 		if (ast->right != start->right)
-			ast_parser(ast->right, IN, start, pfd);
+			ast_parser(ast->right, IN, start);
 		if (ast->right == start->right)
-			ast_parser(ast->right, OUT, start, pfd);
+			ast_parser(ast->right, OUT, start);
 	}
 	else if (ast->type == P_CMD)
 	{
 		printf("cmd: %s\n", ast->exp_args[0]);
-		if (!pipe_handler(ast, fd, pfd))
+		if (!pipe_handler(ast, fd))
 			return (0);
 		if (g_minishell.exit_code != 0)
 			return (prnt_err("could not execute command", NULL), 0);
@@ -85,8 +85,6 @@ int	ast_parser(t_node *ast, int fd, t_node *start, int *pfd)
 //parse linked list and execute commands
 int	executor(void)
 {
-	int		pfd[2];
-
 	if (!g_minishell.ast)
 		return (1);
 	g_minishell.exit_code = 0;
@@ -99,9 +97,7 @@ int	executor(void)
 		return (g_minishell.exit_code);
 	if (g_minishell.exit_code != 127)
 		return (1);
-	if (pipe(pfd) < 0)
-		return (perror("pipe"), 0);
-	if (!ast_parser(g_minishell.ast, -1, g_minishell.ast, pfd))
+	if (!ast_parser(g_minishell.ast, -1, g_minishell.ast))
 		return (g_minishell.exit_code);
 	if (g_minishell.exit_code != 127)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 19:03:26 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:24:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ typedef struct s_parse_err
 }	t_parse_err;
 
 //minishell data structure
-//CAN'T FUCKING USE THIS!!! Only error codes allowed
 typedef struct s_minishell
 {
 	char		*line;
@@ -536,7 +535,7 @@ int			var_handler(char *args);
 /********************/
 
 //execute commands in order
-int			ast_parser(t_node *ast, int fd, t_node *start, int *pfd);
+int			ast_parser(t_node *ast, int fd, t_node *start);
 
 //execute commands if any are found
 int			exec_cmd(t_node *ast);
@@ -552,7 +551,7 @@ int			executor(void);
 /*******************/
 
 //logical piping handler
-int			pipe_handler(t_node *ast, int fd, int *pfd);
+int			pipe_handler(t_node *ast, int fd);
 
 //pipe redirector
 int			redir(int fd, int *pfd, char *path);

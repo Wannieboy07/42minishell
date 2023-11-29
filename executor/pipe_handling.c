@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:01:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/29 19:09:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:24:18 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ int	redir(int fd, int *pfd, char *path)
 }
 
 //logical piping handler
-int	pipe_handler(t_node *ast, int fd, int *pfd)
+int	pipe_handler(t_node *ast, int fd)
 {
 	pid_t	pid;
 	char	*path;
+	int		pfd[2];
 
 	path = check_path(ast->exp_args[0]);
 	if (!path)
 		return (prnt_err("command not found", NULL), 0);
+	if (pipe(pfd) > 0)
+		return (0);
 	pid = fork();
 	if (pid < 0)
 		return (free(path), perror("fork"), 0);
