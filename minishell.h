@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 19:24:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:45:35 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -614,8 +614,14 @@ int			exec_cd(void);
 /* external_commands.c */
 /***********************/
 
+//attempt to find a valid path for the command received in the environment
+char		*comp_path(char **paths, char *arg, struct stat fstat);
+
+//check the path of an external command
+char		*check_path(char *arg);
+
 //execute external commands
-int			exec_ext(char **args);
+int			exec_ext(char **args, char *path);
 
 /*=== ./parser/ ===*/
 
