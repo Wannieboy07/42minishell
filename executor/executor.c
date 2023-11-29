@@ -6,125 +6,31 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/29 13:12:58 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:27:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//pipe redirector
-static int	redir(int fd, int *pfd, char *path)
-{
-	if (!pfd || !path)
-		return (1);
-	if (fd == IN)
-		if (close(pfd[IN]) < 0 || dup2(pfd[OUT], STDOUT_FILENO) < 0)
-			return (free(path), perror("redir in"), 0);
-	if (fd == OUT)
-		if (close(pfd[OUT]) < 0 || (dup2(pfd[IN], STDIN_FILENO) < 0))
-			return (free(path), perror("redir out"), 0);
-	return (1);
-}
-
-//logical piping handler
-static int	pipe_handler(t_node *ast, int fd, int *pfd)
-{
-	pid_t	pid;
-	char	*path;
-
-	path = check_path(ast->exp_args[0]);
-	if (!path)
-		return (prnt_err("command not found", NULL), 0);
-	pid = fork();
-	if (pid < 0)
-		return (free(path), perror("fork"), 0);
-	if (!pid)
-	{
-		if (fd != -1)
-			if (!redir(fd, pfd, path))
-				exit(EXIT_FAILURE);
-		exec_ext(ast->exp_args, path);
-		exit(EXIT_FAILURE);
-	}
-	if (fd == OUT)
-		if (close(pfd[IN]) < 0 || close(pfd[OUT]) < 0)
-			return (free(path), perror("close"), 0);
-	waitpid(pid, &g_minishell.exit_code, 0);
-	return (free(path), 1);
-}
-
-/*//TESTING*/
-/*static void	tester(t_node *ast)*/
+/*//execute external commands*/
+/*int	exec_cmd(t_node *ast)*/
 /*{*/
-	/*t_node	*test;*/
-
-	/*test = ast;*/
-	/*if (test->type == P_CMD)*/
+	/*if (!ast)*/
+		/*return (1);*/
+	/*if (ast->type == P_PIPE)*/
 	/*{*/
-		/*printf("cmd: %s\n", test->exp_args[0]);*/
-		/*if (test->left)*/
-			/*tester(test->left);*/
-		/*if (test->right)*/
-			/*tester(test->right);*/
+		/*if (!ast_parser(ast, -1))*/
+			/*return (0);*/
 	/*}*/
-	/*if (test->type == P_PIPE)*/
+	/*else*/
 	/*{*/
-		/*if (test->left)*/
-			/*tester(test->left);*/
-		/*if (test->right)*/
-			/*tester(test->right);*/
+		/*if (!pipe_handler(ast, -1, NULL))*/
+			/*return (0);*/
 	/*}*/
+	/*if (g_minishell.exit_code != 0)*/
+		/*return (prnt_err("could not execute command", NULL), 0);*/
+	/*return (1);*/
 /*}*/
-
-////TESTING
-//static void	tester(t_node *ast)
-//{
-	//t_node	*test;
-
-	//test = ast;
-	//test = test->left;
-	//test = test->left;
-	//test = test->left;
-	//printf("cmd1: %s\n", test->exp_args[0]);
-	//test = ast;
-	//test = test->left;
-	//test = test->left;
-	//test = test->right;
-	//printf("cmd2: %s\n", test->exp_args[0]);
-	//test = ast;
-	//test = test->left;
-	//test = test->right;
-	//printf("cmd3: %s\n", test->exp_args[0]);
-	//test = ast;
-	//test = test->right;
-	//printf("cmd4: %s\n", test->exp_args[0]);
-//}
-
-//execute external commands
-int	exec_cmd(t_node *ast)
-{
-	int		pfd[2];
-
-	if (!ast)
-		return (1);
-	if (ast->type == P_PIPE)
-	{
-		if (pipe(pfd) < 0)
-			return (perror("pipe"), 0);
-		if (!pipe_handler(ast->left, IN, pfd))
-			return (0);
-		if (g_minishell.exit_code != 0)
-			return (prnt_err("could not execute command", NULL), 0);
-		if (!pipe_handler(ast->right, OUT, pfd))
-			return (0);
-	}
-	else
-		if (!pipe_handler(ast, -1, NULL))
-			return (0);
-	if (g_minishell.exit_code != 0)
-		return (prnt_err("could not execute command", NULL), 0);
-	return (1);
-}
 
 //execute built-in commands
 int	exec_builtin(t_node *ast)
@@ -151,9 +57,36 @@ int	exec_builtin(t_node *ast)
 		return (g_minishell.exit_code = 127, 1);
 }
 
+//execute commands in order
+int	ast_parser(t_node *ast, int fd, t_node *start, int *pfd)
+{
+	if (!ast)
+		return (0);
+	if (ast->type == P_PIPE)
+	{
+		if (ast->left)
+			ast_parser(ast->left, IN, start, pfd);
+		if (ast->right != start->right)
+			ast_parser(ast->right, IN, start, pfd);
+		if (ast->right == start->right)
+			ast_parser(ast->right, OUT, start, pfd);
+	}
+	else if (ast->type == P_CMD)
+	{
+		printf("cmd: %s\n", ast->exp_args[0]);
+		if (!pipe_handler(ast, fd, pfd))
+			return (0);
+		if (g_minishell.exit_code != 0)
+			return (prnt_err("could not execute command", NULL), 0);
+	}
+	return (1);
+}
+
 //parse linked list and execute commands
 int	executor(void)
 {
+	int		pfd[2];
+
 	if (!g_minishell.ast)
 		return (1);
 	g_minishell.exit_code = 0;
@@ -166,7 +99,9 @@ int	executor(void)
 		return (g_minishell.exit_code);
 	if (g_minishell.exit_code != 127)
 		return (1);
-	if (!exec_cmd(g_minishell.ast))
+	if (pipe(pfd) < 0)
+		return (perror("pipe"), 0);
+	if (!ast_parser(g_minishell.ast, -1, g_minishell.ast, pfd))
 		return (g_minishell.exit_code);
 	if (g_minishell.exit_code != 127)
 		return (1);
