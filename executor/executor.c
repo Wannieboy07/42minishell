@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/29 12:32:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:12:58 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ static int	redir(int fd, int *pfd, char *path)
 static int	pipe_handler(t_node *ast, int fd, int *pfd)
 {
 	pid_t	pid;
-	int		status;
 	char	*path;
 
 	path = check_path(ast->exp_args[0]);
 	if (!path)
-		return (prnt_err("command not found", NULL), 1);
+		return (prnt_err("command not found", NULL), 0);
 	pid = fork();
 	if (pid < 0)
 		return (free(path), perror("fork"), 0);
@@ -50,10 +49,8 @@ static int	pipe_handler(t_node *ast, int fd, int *pfd)
 	if (fd == OUT)
 		if (close(pfd[IN]) < 0 || close(pfd[OUT]) < 0)
 			return (free(path), perror("close"), 0);
-	waitpid(pid, &status, 0);
-	if (status != 0)
-		return (free(path), status);
-	return (free(path), 0);
+	waitpid(pid, &g_minishell.exit_code, 0);
+	return (free(path), 1);
 }
 
 /*//TESTING*/
@@ -107,7 +104,6 @@ static int	pipe_handler(t_node *ast, int fd, int *pfd)
 int	exec_cmd(t_node *ast)
 {
 	int		pfd[2];
-	int		status;
 
 	if (!ast)
 		return (1);
@@ -115,16 +111,19 @@ int	exec_cmd(t_node *ast)
 	{
 		if (pipe(pfd) < 0)
 			return (perror("pipe"), 0);
-		status = pipe_handler(ast->left, IN, pfd);
-		if (status != 0)
-			return (prnt_err("cmd", NULL), 0);
-		status = pipe_handler(ast->right, OUT, pfd);
+		if (!pipe_handler(ast->left, IN, pfd))
+			return (0);
+		if (g_minishell.exit_code != 0)
+			return (prnt_err("could not execute command", NULL), 0);
+		if (!pipe_handler(ast->right, OUT, pfd))
+			return (0);
 	}
 	else
-		status = pipe_handler(ast, -1, NULL);
-	if (status != 0)
-		return (prnt_err("cmd", NULL), 0);
-	return (g_minishell.exit_code = 0, 1);
+		if (!pipe_handler(ast, -1, NULL))
+			return (0);
+	if (g_minishell.exit_code != 0)
+		return (prnt_err("could not execute command", NULL), 0);
+	return (1);
 }
 
 //execute built-in commands
