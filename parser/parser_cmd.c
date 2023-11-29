@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:25:36 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/26 13:10:21 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:46:18 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_node	*get_simple_cmd(void)
 		return (set_parse_err(MEM), NULL);
 	while (g_minishell.curr_token
 		&& (g_minishell.curr_token->type == IDENTIFIER
-		|| is_redir(g_minishell.curr_token->type)))
+			|| is_redir(g_minishell.curr_token->type)))
 	{
 		if (g_minishell.curr_token->type == IDENTIFIER)
 		{

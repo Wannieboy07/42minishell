@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:19:26 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/19 17:12:01 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:45:14 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	set_parse_err(t_parse_errtype type)
 void	handle_parse_err(void)
 {
 	t_parse_errtype	err_type;
-	t_tokentype	t_type;
-	char		**types;
+	t_tokentype		t_type;
+	char			**types;
 
 	types = (char *[]){"IDENTIFIER", "|", ">", ">>", "<", "<<", "newline"};
 	err_type = g_minishell.parse_err.type;
@@ -35,7 +35,8 @@ void	handle_parse_err(void)
 				t_type = NL;
 			else
 				t_type = g_minishell.curr_token->type;
-			ft_putstr_fd(RED "» " CYAN "minishell: " WHITE"syntax error near unexpected token '", 2);
+			ft_putstr_fd("\033[92m» \033[36mminishell:\033[0;97m", 2);
+			ft_putstr_fd("syntax error near unexpected token '", 2);
 			ft_putstr_fd(types[t_type], 2);
 			ft_putendl_fd("'", 2);
 			g_minishell.exit_code = 258;

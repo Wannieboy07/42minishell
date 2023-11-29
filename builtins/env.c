@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:14:40 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 13:18:24 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:48:43 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	is_valid_key(char *key)
 char	*extract_key(char *str)
 {
 	size_t	i;
+
 	i = 0;
 	while (str[i])
 	{
@@ -49,7 +50,8 @@ char	*extract_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			return (garbage_collector(ft_substr(str, i, ft_strlen(str) - i), false);
+			return (garbage_collector(
+					ft_substr(str, i, ft_strlen(str) - i), false));
 		}
 		i++;
 	}

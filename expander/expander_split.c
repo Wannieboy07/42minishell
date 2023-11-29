@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_split.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/29 10:36:43 by wmarien           #+#    #+#             */
+/*   Updated: 2023/11/29 10:37:22 by wmarien          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	skip_str(const char *s, size_t *i)
@@ -67,7 +79,7 @@ char	**set_strs(char **strs, const char *s)
 
 char	**exp_split(const char *s)
 {
-	int	ctr;
+	int		ctr;
 	char	**strs;
 	char	**tofree;
 	size_t	i;

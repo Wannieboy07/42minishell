@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:34:55 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/22 15:25:41 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:34:35 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_ptr(void *ptr)
 
 void	*garbage_collector(void *ptr, bool clean)
 {
-	static t_list *garbage;
+	static t_list	*garbage;
 
 	if (clean)
 	{
@@ -41,7 +41,7 @@ bool	is_delimiter(char *delim, char *str)
 		if (*delim == '\'' || *delim == '"')
 		{
 			delim++;
-			continue;
+			continue ;
 		}
 		else if (*str == *delim)
 		{

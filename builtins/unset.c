@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:42:20 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 14:54:07 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:49:12 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	unset_lst(char *key)
 
 int	unset(char **argv)
 {
-	int	i;
+	int		i;
 	bool	err;
 
 	i = 1;

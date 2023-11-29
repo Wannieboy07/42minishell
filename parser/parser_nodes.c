@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:51:54 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/19 17:13:33 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:46:51 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	append_io_node(t_io_node **head, t_io_node *io_node)
 {
 	t_io_node	*curr;
 
-	if(!*head)
+	if (!*head)
 	{
 		*head = io_node;
 		return ;
 	}
 	curr = *head;
-	while(curr && curr->next)
+	while (curr && curr->next)
 		curr = curr->next;
 	curr->next = io_node;
 }

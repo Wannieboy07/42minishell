@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:28:49 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/22 17:04:04 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:38:53 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	clear_envlst(void)
 
 void	envlst_addback(t_env *new)
 {
-	t_env *curr;
+	t_env	*curr;
 
 	if (!g_minishell.env_lst)
 	{
@@ -81,7 +81,7 @@ void	update_envlst(char *key, char *value, bool create)
 		{
 			if (value)
 				envlst->value = garbage_collector(ft_strdup(value), false);
-			return;
+			return ;
 		}
 		envlst = envlst->next;
 	}

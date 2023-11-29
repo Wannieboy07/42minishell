@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:37:56 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/22 17:18:44 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:45:55 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_node	*parse_atom(void)
 
 t_node	*parse_expr(int min_prec)
 {
-	t_node	*left;
-	t_node	*right;
+	t_node		*left;
+	t_node		*right;
 	t_tokentype	op;
 
 	if (g_minishell.parse_err.type || !g_minishell.curr_token)
@@ -71,6 +71,6 @@ t_node	*parser(void)
 	g_minishell.curr_token = g_minishell.tokens;
 	ast = parse_expr(0);
 	if (g_minishell.curr_token)
-		return (set_parse_err(SYNTAX),ast);
+		return (set_parse_err(SYNTAX), ast);
 	return (ast);
 }

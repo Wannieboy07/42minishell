@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_tree.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/29 10:35:08 by wmarien           #+#    #+#             */
+/*   Updated: 2023/11/29 10:35:46 by wmarien          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	heredoc_sig_handler(int signum)
@@ -47,8 +59,8 @@ bool	leave_node(int fd[2], int *pid)
 void	init_node(t_node *node)
 {
 	t_io_node	*io;
-	int		fd[2];
-	int		pid;
+	int			fd[2];
+	int			pid;
 
 	if (node->args)
 		node->exp_args = expand_args(node->args);
@@ -62,7 +74,7 @@ void	init_node(t_node *node)
 			if (!pid)
 				open_heredoc(io, fd);
 			if (leave_node(fd, &pid))
-				return;
+				return ;
 			io->here_doc = fd[0];
 		}
 		else
@@ -70,6 +82,7 @@ void	init_node(t_node *node)
 		io = io->next;
 	}
 }
+
 void	init_tree(t_node *node)
 {
 	if (!node)
