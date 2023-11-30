@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/22 17:04:44 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:45:17 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,38 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef enum e_err_msg
+{
+	ERRMSG_CMD_NOT_FOUND,
+	ERRMSG_NO_SUCH_FILE,
+	ERRMSG_PERM_DENIED,
+	ERRMSG_AMBIGUOUS,
+	ERRMSG_TOO_MANY_ARGS,
+	ERRMSG_NUMERIC_REQUI
+}	t_err_msg;
+
+typedef enum e_err_no
+{
+	ENO_SUCCES,
+	ENO_GENERAL,
+	ENO_CANT_EXEC = 126,
+	ENO_NOT_FOUND,
+	ENO_EXEC_255 = 255
+}	t_err_no;
+
+typedef struct s_err
+{
+	t_err_no	no;
+	t_err_msg	msg;
+	char		*cause;
+}	t_err;
+
+typedef struct s_path
+{
+	t_err	err;
+	char	*path;
+}	t_path;
 
 /*=== Minishell ===*/
 
