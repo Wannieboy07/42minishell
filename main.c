@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/28 18:52:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:48:53 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
-	//prnt_ast(g_minishell.ast);
+	prnt_ast(g_minishell.ast);
 	g_minishell.exit_code = executor();
 	clear_ast(&g_minishell.ast);
 }
@@ -58,7 +58,7 @@ int	minishell_loop(void)
 		handle_global_signals();
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
-			eof_handler();
+			(clean_ms(), eof_handler());
 		if (ft_strlen(g_minishell.line) > 0)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();

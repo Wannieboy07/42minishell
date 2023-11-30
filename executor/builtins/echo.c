@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:19 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 20:04:28 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:39:13 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ static int	err_echo(char c)
 }
 
 //print out input
-int	exec_echo(void)
+int	exec_echo(char **args)
 {
 	int		i;
 	bool	nl;
 
-	if (err_echo(g_minishell.ast->args[4]))
+	if (err_echo(args[0][4]))
 		return (1);
 	nl = false;
-	if (g_minishell.ast->args[5] != '-')
+	if (args[0][5] != '-')
 	{
 		nl = true;
 		i = 4;
@@ -54,8 +54,8 @@ int	exec_echo(void)
 		if (err_echo_n(g_minishell.ast->args))
 			return (1);
 	}
-	while (g_minishell.ast->args[++i])
-		printf("%c", g_minishell.ast->args[i]);
+	while (args[0][++i])
+		printf("%c", args[0][i]);
 	if (nl)
 		printf("\n");
 	return (1);

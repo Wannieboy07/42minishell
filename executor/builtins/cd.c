@@ -6,22 +6,22 @@
 /*   By: lpeeters <lpeeters@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:57:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 21:22:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:39:12 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 //command to change directory
-int	exec_cd(void)
+int	exec_cd(char **args)
 {
 	char	*path;
 	t_lst	*vv;
 	char	cwd[PATH_MAX];
 
-	if (g_minishell.ast->args[2] == '\0')
+	if (args[0][2] == '\0')
 		return (prnt_err("cd: invalid usage", NULL), 1);
-	if (g_minishell.ast->args[2] != ' ')
+	if (args[0][2] != ' ')
 		return (g_minishell.exit_code = 127, 1);
 	path = ft_strdup(g_minishell.ast->args + 3);
 	if (!path)

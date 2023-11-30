@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 23:24:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 20:20:51 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,13 @@
 # define VAR 0
 # define VAL 1
 
-//check for access()
+//check for stat()
 # define VALID 0
 # define INVALID 1
+
+//identifier for fork()
+# define CHILD 0
+# define PARENT 1
 
 //token types enumeration macro
 typedef enum e_tokentype
@@ -526,7 +530,7 @@ t_lst		*check_var(t_lst *lst, char *var);
 char		**var_val(char *var_val);
 
 //logical variable handler
-int			var_handler(char *args);
+int			var_handler(char **args);
 
 /*=== ./executor/ ===*/
 
@@ -534,14 +538,11 @@ int			var_handler(char *args);
 /*    executor.c    */
 /********************/
 
-//execute commands in order
-int			ast_parser(t_node *ast, int fd, t_node *start);
-
-//execute commands if any are found
-int			exec_cmd(t_node *ast);
-
 //execute built-in commands
-int			exec_builtin(t_node *ast);
+int			exec_builtin(char **args);
+
+//execute commands in order
+int			ast_parser(t_node *start, t_node *ast, int fd);
 
 //parse linked list and execute commands
 int			executor(void);
@@ -553,9 +554,6 @@ int			executor(void);
 //logical piping handler
 int			pipe_handler(t_node *ast, int fd);
 
-//pipe redirector
-int			redir(int fd, int *pfd, char *path);
-
 /*===  ./executor/builtins/ ===*/
 
 /*******************/
@@ -563,35 +561,35 @@ int			redir(int fd, int *pfd, char *path);
 /*******************/
 
 //print out the environment variable
-int			exec_set(void);
+int			exec_set(char **args);
 
 /*******************/
 /*      env.c      */
 /*******************/
 
 //print out the environment variable
-int			exec_env(void);
+int			exec_env(char **args);
 
 /*******************/
 /*      pwd.c      */
 /*******************/
 
 //print out the current working directory
-int			exec_pwd(void);
+int			exec_pwd(char **args);
 
 /********************/
 /*      exit.c      */
 /********************/
 
 //exit the shell in a clean way
-int			exec_exit(void);
+int			exec_exit(char **args);
 
 /********************/
 /*      echo.c      */
 /********************/
 
 //print out input
-int			exec_echo(void);
+int			exec_echo(char **args);
 
 /********************/
 /*     export.c     */
@@ -601,7 +599,7 @@ int			exec_echo(void);
 int			init_var_lst(void);
 
 //command to manage the export environment
-int			exec_export(void);
+int			exec_export(char **args);
 
 /*********************/
 /*      unset.c      */
@@ -611,14 +609,14 @@ int			exec_export(void);
 int			rm_var(char *var, t_lst *lst);
 
 //command to remove variables
-int			exec_unset(void);
+int			exec_unset(char **args);
 
 /********************/
 /*       cd.c       */
 /********************/
 
 //command to change directory
-int			exec_cd(void);
+int			exec_cd(char **args);
 
 /*===  ./executor/externals/ ===*/
 
@@ -633,7 +631,7 @@ char		*comp_path(char **paths, char *arg, struct stat fstat);
 char		*check_path(char *arg);
 
 //execute external commands
-int			exec_ext(char **args, char *path);
+void		exec_ext(char **args, char *path);
 
 /*=== ./parser/ ===*/
 

@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/23 19:09:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:39:15 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int	err_arg(char *str)
 }
 
 //command to manage the export environment
-int	exec_export(void)
+int	exec_export(char **args)
 {
 	char	**vv;
 	t_lst	*v_v;
 
-	if (g_minishell.ast->args[6] == '\0')
+	if (args[0][6] == '\0')
 		return (prnt_lst(g_minishell.var_lst, true), 1);
 	if (err_arg(g_minishell.ast->args))
 		return (1);

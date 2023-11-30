@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:03:02 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/29 12:31:12 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 23:08:45 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ char	*check_path(char *arg)
 }
 
 //execute external commands
-int	exec_ext(char **args, char *path)
+void	exec_ext(char **args, char *path)
 {
-	if (!args || !path)
-		return (1);
+	if (!path)
+		exit(0);
+	if (!args)
+		(free(path), exit(0));
+	ft_putstr_fd("test\n", 2);
 	if (execve(path, args, g_minishell.envv) < 0)
-		return (free(path), 0);
-	return (free(path), g_minishell.exit_code = 0, 1);
+		(free(path), exit(EXIT_FAILURE));
 }

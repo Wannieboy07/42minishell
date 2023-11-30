@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/28 16:05:01 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:28:03 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ char	**var_val(char *var_val)
 }
 
 //logical variable handler
-int	var_handler(char *args)
+int	var_handler(char **args)
 {
 	char	**vv;
 
-	if (!args || !ft_strchr(args, '='))
+	if (!args || args[1] != NULL || !ft_strchr(args[0], '='))
 		return (g_minishell.exit_code = 127, 1);
-	vv = var_val(args);
+	vv = var_val(args[0]);
 	if (!vv)
 		return (0);
 	if (!handle_var_val(vv[VAR], vv[VAL], false))
