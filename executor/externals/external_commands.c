@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:03:02 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/30 23:08:45 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:14:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	exec_ext(char **args, char *path)
 		exit(0);
 	if (!args)
 		(free(path), exit(0));
-	ft_putstr_fd("test\n", 2);
 	if (execve(path, args, g_minishell.envv) < 0)
 		(free(path), exit(EXIT_FAILURE));
 }

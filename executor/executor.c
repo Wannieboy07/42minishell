@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/01 00:28:07 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:04:05 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,32 @@ int	exec_builtin(char **args)
 		return (g_minishell.exit_code = 127, 1);
 }
 
+////execute commands in order
+//int	ast_parser(t_node *start, t_node *ast, int fd)
+//{
+	//t_node	*test;
+
+	//if (!start || !ast)
+		//return (1);
+	//(void)start;
+	//(void)fd;
+	//test = ast->left;
+	//test = test->left;
+	//printf("cmd1: %s\n", test->exp_args[0]);
+	//if (!pipe_handler(test, IN))
+		//return (0);
+	//test = ast->left;
+	//test = test->right;
+	//printf("cmd2: %s\n", test->exp_args[0]);
+	//if (!pipe_handler(test, IN))
+		//return (0);
+	//test = ast->right;
+	//printf("cmd3: %s\n", test->exp_args[0]);
+	//if (!pipe_handler(test, OUT))
+		//return (0);
+	//return (1);
+//}
+
 //execute commands in order
 int	ast_parser(t_node *start, t_node *ast, int fd)
 {
@@ -60,20 +86,6 @@ int	ast_parser(t_node *start, t_node *ast, int fd)
 	}
 	return (1);
 }
-
-/*//execute commands in order*/
-/*int	ast_parser(t_node *start, t_node *ast, int fd)*/
-/*{*/
-	/*if (!ast)*/
-		/*return (0);*/
-	/*(void)start;*/
-	/*(void)fd;*/
-	/*if (!pipe_handler(ast->left, IN))*/
-		/*return (0);*/
-	/*if (!pipe_handler(ast->right, OUT))*/
-		/*return (0);*/
-	/*return (1);*/
-/*}*/
 
 //parse linked list and execute commands
 int	executor(void)
