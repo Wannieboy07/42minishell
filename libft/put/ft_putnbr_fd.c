@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:54:04 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:50:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:34:27 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//write an integer to a file descriptor
 void	ft_putnbr_fd(int n, int fd)
 {
 	if (n < 0)

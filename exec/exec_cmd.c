@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:17:22 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/30 13:01:36 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:13:33 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int	check_redir(t_node *node)
 	tmp_io = node->io_lst;
 	while (tmp_io)
 	{
-		if (tmp_io->type == OUT && check_out(tmp_io, &status) != ENO_SUCCES)
+		if (tmp_io->type == OUT && check_out(tmp_io, &status) != ENO_SUCCESS)
 			return (status);
-		else if (tmp_io->type == IN && check_in(tmp_io, &status) != ENO_SUCCES)
+		else if (tmp_io->type == IN && check_in(tmp_io, &status) != ENO_SUCCESS)
 			return (status);
-		else if (tmp_io->type == APPEND && check_append(tmp_io, &status) != ENO_SUCCES)
+		else if (tmp_io->type == APPEND && check_append(tmp_io, &status) != ENO_SUCCESS)
 			return (status);
 		else if (tmp_io->type == HERDOC)
 			(dup2(tmp_io->here_doc, 0), close(tmp_io->here_doc));
 		tmp_io = tmp_io->next;
 	}
-	return (ENO_SUCCES);
+	return (ENO_SUCCESS);
 }
 
 void	reset_stds(bool piped)
@@ -52,10 +52,10 @@ int	exec_child(t_node *node)
 	if (!fork_pid)
 	{
 		status = check_redir(node);
-		if (status != ENO_SUCCES)
+		if (status != ENO_SUCCESS)
 			(clean_ms(), exit(ENO_GENERAL));
 		path_stat = get_path((node->exp_args)[0]);
-		if (path_stat.err.no != ENO_SUCCES)
+		if (path_stat.err.no != ENO_SUCCESS)
 		{
 			status = err_msg(path_stat.err);
 			(clean_ms(), exit(status));
@@ -80,7 +80,7 @@ int	exec_simple_cmd(t_node *node, bool piped)
 	else if (is_builtin((node->exp_args)[0]))
 	{
 		status = check_redir(node);
-		if (status != ENO_SUCCES)
+		if (status != ENO_SUCCESS)
 			return (reset_stds(piped), ENO_GENERAL);
 		status = exec_builtin(node->exp_args);
 		return (reset_stds(piped), status);

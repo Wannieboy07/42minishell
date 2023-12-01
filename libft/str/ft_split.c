@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 10:23:29 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 23:14:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:59:30 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//count the amount of strings
 static int	count_strs(const char *str, char sep)
 {
 	int	i;
@@ -32,7 +31,6 @@ static int	count_strs(const char *str, char sep)
 	return (ctr);
 }
 
-//calculate the length of a string
 static int	ft_strlen_wrd(const char *str, char sep)
 {
 	int	i;
@@ -43,7 +41,6 @@ static int	ft_strlen_wrd(const char *str, char sep)
 	return (i);
 }
 
-//allocate and add a string to the 2d array
 static char	*set_word(const char *str, char sep)
 {
 	char	*word;
@@ -62,7 +59,6 @@ static char	*set_word(const char *str, char sep)
 	return (word);
 }
 
-//split a string on a delimiter into a 2d array
 char	**ft_split(const char *s, char c)
 {
 	char	**strs;

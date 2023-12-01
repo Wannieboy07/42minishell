@@ -6,14 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:48:55 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:26:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:54:04 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//calculate the absolute value of an integer
-int	ft_abs(int nb)
+long	ft_abs(long nb)
 {
 	if (nb < 0)
 		return (-nb);

@@ -23,9 +23,24 @@ SRCS =	\
 	expander/init_tree.c		\
 	expander/strip_quotes.c		\
 	\
+	exec/check_perm.c		\
+	exec/exec_builtin.c		\
+	exec/exec.c			\
+	exec/exec_cmd.c			\
+	exec/exec_redir.c		\
 	exec/exec_utils.c		\
+	exec/get_path.c			\
+	\
+	builtins/cd.c			\
+	builtins/echo.c			\
+	builtins/env.c			\
+	builtins/exit.c			\
+	builtins/export.c		\
+	builtins/pwd.c			\
+	builtins/unset.c		\
 	\
 	error/error_handling.c		\
+	error/error_msg.c		\
 	\
 	signal/signal_handling.c	\
 

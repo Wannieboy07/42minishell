@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:14:08 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:32:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:58:22 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//calculate the length of a number
 static int	numlen(int n)
 {
 	long	ctr;
@@ -33,7 +32,6 @@ static int	numlen(int n)
 	return (ctr);
 }
 
-//convert an integer to a string
 char	*ft_itoa(int n)
 {
 	char	*str;

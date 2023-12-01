@@ -1,33 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 11:12:21 by wmarien           #+#    #+#             */
-/*   Updated: 2023/01/20 11:51:44 by wmarien          ###   ########.fr       */
+/*   Created: 2023/12/01 15:50:05 by wmarien           #+#    #+#             */
+/*   Updated: 2023/12/01 17:08:23 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../minishell.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	check_option(char *str)
 {
-	size_t	i;
-	size_t	srclen;
+	int	i;
 
 	i = 0;
-	srclen = ft_strlen(src);
-	if (!dst || !src)
+	if (str[0] != '-')
 		return (0);
-	if (!size)
-		return (srclen);
-	while (i < size - 1 && src[i] != '\0')
+	i++;
+	while (str[i])
 	{
-		dst[i] = src[i];
+		if (str[i] != 'n')
+			return (0);
 		i++;
 	}
-	dst[i] = '\0';
-	return (srclen);
+	return (1);
+}
+
+int	ms_echo(char **args)
+{
+	int	i;
+	int	nl;
+
+	i = 0;
+	nl = 0;
+	while (args[++i] != NULL && check_option(args[i]) == 1)
+		nl = 1;
+	while (args[i])
+	{
+		ft_putstr_fd(args[i], 1);
+		if (args[i + 1])
+			ft_putstr_fd(" ", 1);
+		i++;
+	}
+	if (nl == 0)
+		ft_putstr_fd("\n", 1);
+	return (0);
 }

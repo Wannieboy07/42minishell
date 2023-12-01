@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:03:05 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:47:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/11 09:39:51 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//copy a memory area
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	char		*tdst;

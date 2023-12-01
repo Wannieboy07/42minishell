@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:45:28 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 14:19:32 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:09:01 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_key(char *key)
 	return (1);
 }
 
-int	export(char **argv)
+int	ms_export(char **argv)
 {
 	int		i;
 	int		exit_s;

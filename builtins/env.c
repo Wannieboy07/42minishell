@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:14:40 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:48:43 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:08:38 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	init_envlst(void)
 	}
 }
 
-int	env(void)
+int	ms_env(void)
 {
 	t_env	*lst;
 

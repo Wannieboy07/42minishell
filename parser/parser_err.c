@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:19:26 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:45:14 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:39:19 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_parse_err(void)
 				t_type = NL;
 			else
 				t_type = g_minishell.curr_token->type;
-			ft_putstr_fd("\033[92m» \033[36mminishell:\033[0;97m", 2);
+			ft_putstr_fd("\033[31m» \033[36mminishell:\033[0;97m", 2);
 			ft_putstr_fd("syntax error near unexpected token '", 2);
 			ft_putstr_fd(types[t_type], 2);
 			ft_putendl_fd("'", 2);

@@ -6,14 +6,13 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:40:31 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 22:05:51 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:23:41 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//check if given character is any form of whitespace
-int	ft_isspace(char c)
+int	ft_isspace(int c)
 {
 	if (c == '\t' || c == '\n' || c == '\v'
 		|| c == '\f' || c == '\r' || c == ' ')

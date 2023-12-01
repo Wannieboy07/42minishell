@@ -6,13 +6,12 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:17:49 by wmarien           #+#    #+#             */
-/*   Updated: 2023/10/06 23:17:48 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:07:23 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-//compare two strings
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;

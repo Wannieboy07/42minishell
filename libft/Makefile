@@ -10,6 +10,7 @@ SRCS =	\
 		\
 		ascii/ft_isalpha.c 		\
 		ascii/ft_isdigit.c		\
+		ascii/ft_isnumber.c		\
 		ascii/ft_isalnum.c		\
 		ascii/ft_isascii.c		\
 		ascii/ft_isprint.c		\
@@ -68,7 +69,7 @@ CC_FLAGS = -Wall -Wextra -Werror
 UP = \033[A
 CUT = \033[K
 
-$(OBJS_DIR)%.o : */%.c libft.h
+$(OBJS_DIR)%.o : */%.c libft.h get_next_line.h
 	@mkdir -p $(dir $@)
 	@echo "\033[38;5;226mCompiling: $(notdir $<)\033[0;39m"
 	@$(CC) $(CC_FLAGS) -c $< -o $@

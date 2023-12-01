@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/30 12:45:17 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:15:54 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef enum e_ast_dir
+{
+	TD_LEFT,
+	TD_RIGHT
+}	t_ast_dir;
+
 typedef enum e_err_msg
 {
 	ERRMSG_CMD_NOT_FOUND,
@@ -123,7 +129,7 @@ typedef enum e_err_msg
 
 typedef enum e_err_no
 {
-	ENO_SUCCES,
+	ENO_SUCCESS,
 	ENO_GENERAL,
 	ENO_CANT_EXEC = 126,
 	ENO_NOT_FOUND,
@@ -173,6 +179,7 @@ void		handle_cmd_signals(void);
 void		exit_routine(void);
 /*=== Error Handling ===*/
 
+int			err_msg(t_err err);
 int			prnt_err(char *str);
 
 /*=== Lexer ===*/
@@ -244,7 +251,22 @@ void	update_envlst(char *key, char *value, bool create);
 
 /*=== Execute ===*/
 
+int	exec_node(t_node *tree, bool piped);
+int	get_exit_status(int status);
+
+int	exec_simple_cmd(t_node *node, bool piped);
+
 void	*garbage_collector(void *ptr, bool clean);
 bool	is_delimiter(char *delim, char *str);
+
+/*=== Builtin ===*/
+
+int	ms_cd(char *path);
+int	ms_echo(char **args);
+int	ms_env(void);
+int	ms_exit(char **args);
+int	ms_export(char **argv);
+int	ms_pwd(void);
+int	ms_unset(char **argv);
 
 #endif

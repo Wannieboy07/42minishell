@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:10:24 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:34:10 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:11:45 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	exec_pipeline(t_node *tree)
 		{
 			(close(fds[0]), close(fds[1]),
 				waitpid(pid_l, &status, 0), waitpid(pid_r, &status, 0));
-			g_minshell.sigint_child = false;
+			g_minishell.sigint_child = false;
 			return (get_exit_status(status));
 		}
 	}
@@ -69,8 +69,6 @@ int	exec_pipeline(t_node *tree)
 
 int	exec_node(t_node *tree, bool piped)
 {
-	int	status;
-
 	if (!tree)
 		return (1);
 	if (tree->type == P_PIPE)

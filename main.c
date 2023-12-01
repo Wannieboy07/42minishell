@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/28 13:02:48 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:28:23 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	start_exec(void)
 		g_minishell.heredoc_sigint = false;
 	}
 	prnt_ast(g_minishell.ast);
-	g_minishell.ecit_code = execute_node(g_minishell.ast, false);
+	g_minishell.exit_code = execute_node(g_minishell.ast, false);
 	clear_ast(&g_minishell.ast);
 }
 
