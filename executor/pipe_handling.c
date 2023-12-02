@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:01:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/01 21:48:37 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:54:22 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,11 @@ static int	parent(int fd, int *pfd, pid_t pid, char *path)
 		if (!pipe_redir(OUT, pfd))
 			return (free(path), 0);
 	}
+	else if (fd == OUT)
+		if (dup2(g_minishell.fdin, STDIN_FILENO) < 0)
+			return (perror("error resetting input"), 0);
 	return (free(path), 1);
 }
-	//else if (fd == OUT)
-		//if (dup2(g_minishell.fdin, STDIN_FILENO) < 0
-			//|| close(g_minishell.fdin) < 0)
-			//return (perror("error resetting input"), 0);
-//info: In the function above, leaving out the else if will make single
-//commands work for an infinite amount, but with pipes, the shell exits.
-//On the other hand, leaving it in will make everything work, only for
-//2 times any command and amount of them is ran in the shell, even pipes.
 
 //logical piping handler
 int	pipe_handler(t_node *ast, int fd)
