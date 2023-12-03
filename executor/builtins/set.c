@@ -6,18 +6,16 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:11:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/30 19:39:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:08:26 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//print out the environment variable
+//print out all the environment variables
 int	exec_set(char **args)
 {
-	if (args[0][3] != '\0' && args[0][3] != ' ')
-		return (g_minishell.exit_code = 127, 1);
-	if (ft_strlen(g_minishell.ast->args) > 3)
+	if (args[1] != NULL)
 		return (prnt_err("set: invalid usage", NULL));
 	return (prnt_lst(g_minishell.var_lst, false), 1);
 }

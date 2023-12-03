@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/30 20:20:51 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:08:45 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -560,7 +560,7 @@ int			pipe_handler(t_node *ast, int fd);
 /*      set.c      */
 /*******************/
 
-//print out the environment variable
+//print out all the environment variables
 int			exec_set(char **args);
 
 /*******************/

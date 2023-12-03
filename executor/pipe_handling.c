@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:01:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/02 14:54:22 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/03 02:13:47 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,57 +29,57 @@ static int	pipe_redir(int fd, int *pfd)
 }
 
 //execute commands within child process
-static int	exec_cmd(int fd, int *pfd, t_node *ast, char *path)
+static int	exec_cmd(int fd, int *pfd, t_node *ast)
 {
+	char	*path;
+
 	if (fd == IN)
 		if (!pipe_redir(IN, pfd))
-			return (free(path), exit(EXIT_FAILURE), 0);
+			return (exit(EXIT_FAILURE), 0);
 	g_minishell.exit_code = 0;
 	if (!exec_builtin(ast->exp_args))
-		return (free(path), exit(EXIT_FAILURE), 0);
+		return (exit(EXIT_FAILURE), 0);
 	if (g_minishell.exit_code != 127)
-		return (free(path), exit(EXIT_SUCCESS), 1);
-	else
-		exec_ext(ast->exp_args, path);
+		return (exit(EXIT_SUCCESS), 1);
+	path = check_path(ast->exp_args[0]);
+	if (!path)
+		return (prnt_err("command not found", NULL), 0);
+	exec_ext(ast->exp_args, path);
 	return (free(path), exit(EXIT_FAILURE), 0);
 }
 //info: builtins currently do not work with pipes
 
 //handle redirection after child
-static int	parent(int fd, int *pfd, pid_t pid, char *path)
+static int	parent(int fd, int *pfd, pid_t pid)
 {
 	waitpid(pid, &g_minishell.exit_code, 0);
 	if (fd == IN)
 	{
 		if (close(pfd[OUT]) < 0)
-			return (free(path), perror("close"), 0);
+			return (perror("close"), 0);
 		if (!pipe_redir(OUT, pfd))
-			return (free(path), 0);
+			return (0);
 	}
 	else if (fd == OUT)
 		if (dup2(g_minishell.fdin, STDIN_FILENO) < 0)
 			return (perror("error resetting input"), 0);
-	return (free(path), 1);
+	return (1);
 }
 
 //logical piping handler
 int	pipe_handler(t_node *ast, int fd)
 {
 	pid_t	pid;
-	char	*path;
 	int		pfd[2];
 
-	path = check_path(ast->exp_args[0]);
-	if (!path)
-		return (prnt_err("command not found", NULL), 0);
 	if (pipe(pfd) > 0)
-		return (free(path), perror("pipe"), 0);
+		return (perror("pipe"), 0);
 	pid = fork();
 	if (pid < 0)
-		return (free(path), perror("fork"), 0);
+		return (perror("fork"), 0);
 	if (pid == CHILD)
-		return (exec_cmd(fd, pfd, ast, path));
+		return (exec_cmd(fd, pfd, ast));
 	else
-		return (parent(fd, pfd, pid, path));
-	return (free(path), 0);
+		return (parent(fd, pfd, pid));
+	return (0);
 }
