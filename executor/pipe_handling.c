@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:01:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 02:13:47 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/03 21:23:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	exec_cmd(int fd, int *pfd, t_node *ast)
 		return (exit(EXIT_SUCCESS), 1);
 	path = check_path(ast->exp_args[0]);
 	if (!path)
-		return (prnt_err("command not found", NULL), 0);
+		return (prnt_err("command not found", NULL), exit(EXIT_FAILURE), 0);
 	exec_ext(ast->exp_args, path);
 	return (free(path), exit(EXIT_FAILURE), 0);
 }

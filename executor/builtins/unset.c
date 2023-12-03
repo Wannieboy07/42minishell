@@ -6,37 +6,47 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:20:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 02:55:12 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:13:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//check params of unset for invalid characters
-static int	error_unset(char **args)
+//check params of unset for syntax errors
+static int	err_unset(char **args)
 {
 	int	i;
+	int	j;
 
-	if (args[1][0] != '_' && !ft_isalpha(args[1][0]))
-		return (0);
-	i = 0;
-	while (args[1][++i])
-		if (args[1][i] != '_' && !ft_isalnum(args[1][i]))
-			return (0);
-	return (1);
+	i = -1;
+	while (args[++i])
+	{
+		j = 0;
+		if (args[i][j] != '_' && !ft_isalpha(args[i][j]))
+			return (1);
+		while (args[i][++j])
+			if (args[i][j] != '_' && !ft_isalnum(args[i][j]))
+				return (1);
+	}
+	return (0);
 }
 
 //command to remove variables
 int	exec_unset(char **args)
 {
 	t_lst	*vv;
+	int		i;
 
 	if (args[1] == NULL)
 		return (1);
-	if (!error_unset(args))
+	if (err_unset(args))
 		return (prnt_err("unset: invalid usage", NULL));
-	vv = check_var(g_minishell.var_lst, args[1]);
-	if (!vv)
-		return (printf("test\n"), 1);
-	return (cut_lst(&vv), 1);
+	i = -1;
+	while (args[++i])
+	{
+		vv = check_var(g_minishell.var_lst, args[i]);
+		if (vv)
+			cut_lst(&vv);
+	}
+	return (1);
 }

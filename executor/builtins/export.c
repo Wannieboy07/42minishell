@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:44:58 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/30 19:39:15 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/03 23:16:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,63 @@ int	init_var_lst(void)
 	return (1);
 }
 
-//check argument's string for syntax errors
-static int	err_arg(char *str)
+//logical param handler for export, adding and changing variables
+static int	export_handler(char **args)
 {
-	if (str[6] != '\0' && str[6] != ' ')
-		return (g_minishell.exit_code = 127, 1);
-	if (str[7] == '=' && !ft_isalpha(str[7]))
-		return (prnt_err("export: invalid usage", NULL));
+	char	**vv;
+	t_lst	*v_v;
+	int		i;
+
+	i = 0;
+	while (args[++i])
+	{
+		if (ft_strchr(args[i], '='))
+		{
+			vv = var_val(args[i]);
+			if (vv)
+				if (!handle_var_val(vv[VAR], vv[VAL], true))
+					return (0);
+			free_arr(vv);
+			continue ;
+		}
+		v_v = check_var(g_minishell.var_lst, args[i]);
+		if (v_v)
+			v_v->exp = true;
+		else if (!v_v)
+			if (!add2lst(&g_minishell.var_lst, args[i], "", true))
+				return (0);
+	}
+	return (1);
+}
+
+//check params of export for syntax errors
+static int	err_export(char **args)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (args[++i])
+	{
+		j = 0;
+		if (args[i][j] != '_' && !ft_isalpha(args[i][j]))
+			return (1);
+		while (args[i][++j])
+			if (args[i][j] != '_' && args[i][j] != '='
+				&& !ft_isalnum(args[i][j]))
+				return (1);
+	}
 	return (0);
 }
 
 //command to manage the export environment
 int	exec_export(char **args)
 {
-	char	**vv;
-	t_lst	*v_v;
-
-	if (args[0][6] == '\0')
+	if (args[1] == NULL)
 		return (prnt_lst(g_minishell.var_lst, true), 1);
-	if (err_arg(g_minishell.ast->args))
-		return (1);
-	if (ft_strchr(g_minishell.ast->args + 7, '='))
-	{
-		vv = var_val(g_minishell.ast->args + 7);
-		if (!vv)
-			return (1);
-		if (!handle_var_val(vv[VAR], vv[VAL], true))
-			return (0);
-		return (free_arr(vv), 1);
-	}
-	v_v = check_var(g_minishell.var_lst, g_minishell.ast->args + 7);
-	if (!v_v)
-		return (add2lst(&g_minishell.var_lst,
-				g_minishell.ast->args + 7, "", true));
-	return (v_v->exp = true, 1);
+	if (err_export(args))
+		return (prnt_err("export: invalid usage", NULL));
+	if (!export_handler(args))
+		return (0);
+	return (1);
 }
