@@ -6,31 +6,60 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:04 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/14 18:52:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:12:08 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//print argument errors
+int	prnt_arg_err(char *type, char *arg, char *msg)
+{
+	if (!type && !arg && !msg)
+		return (1);
+	ft_putstr_fd(RED "Error" GREY ": ", 2);
+	if (type)
+	{
+		ft_putstr_fd(type, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (arg)
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (msg)
+		ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+	return (1);
+}
 
 //print errors
 int	prnt_err(char *str, char **av)
 {
 	int	i;
 
-	printf(RED "Error" GREY ": ");
+	ft_putstr_fd(RED "Error" GREY ": ", 2);
 	if (str)
-		printf("%s", str);
+		ft_putstr_fd(str, 2);
 	if (str && av)
-		printf(": ");
+		ft_putstr_fd(": ", 2);
 	if (av)
 	{
-		printf("run %s without arguments\n", av[0]);
-		printf("Tip: change '");
+		ft_putstr_fd("run ", 2);
+		ft_putstr_fd(av[0], 2);
+		ft_putstr_fd(" without arguments\n", 2);
+		ft_putstr_fd("Tip: change ", 2);
 		i = 0;
 		while (av[i + 1])
-			printf("%s ", av[i++]);
-		printf("%s' to '%s'", av[i], av[0]);
+		{
+			ft_putstr_fd(av[i++], 2);
+			ft_putstr_fd(" ", 2);
+		}
+		ft_putstr_fd(av[i], 2);
+		ft_putstr_fd(" to ", 2);
+		ft_putstr_fd(av[0], 2);
 	}
-	printf("\n");
+	ft_putstr_fd("\n", 2);
 	return (1);
 }

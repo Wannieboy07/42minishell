@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/02 22:08:45 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:37:08 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,9 @@ void		handle_global_signals(void);
 /********************/
 /* error_handling.c */
 /********************/
+
+//print argument errors
+int			prnt_arg_err(char *type, char *arg, char *msg);
 
 //print errors
 int			prnt_err(char *str, char **av);
@@ -597,6 +600,9 @@ int			exec_echo(char **args);
 
 //initialize the export environment
 int			init_var_lst(void);
+
+//check params of variables for syntax errors
+int			err_var(char *var);
 
 //command to manage the export environment
 int			exec_export(char **args);

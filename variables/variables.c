@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 00:17:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/11/30 19:28:03 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:40:17 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,24 @@ char	**var_val(char *var_val)
 int	var_handler(char **args)
 {
 	char	**vv;
+	int		i;
 
-	if (!args || args[1] != NULL || !ft_strchr(args[0], '='))
+	if (!args || !ft_strchr(args[0], '='))
 		return (g_minishell.exit_code = 127, 1);
-	vv = var_val(args[0]);
-	if (!vv)
-		return (0);
-	if (!handle_var_val(vv[VAR], vv[VAL], false))
-		return (free_arr(vv), 0);
-	return (free_arr(vv), 1);
+	i = -1;
+	while (args[++i])
+	{
+		if (err_var(args[i]))
+		{
+			prnt_arg_err("variable", args[i], "syntax error");
+			continue ;
+		}
+		vv = var_val(args[i]);
+		if (!vv)
+			return (0);
+		if (!handle_var_val(vv[VAR], vv[VAL], false))
+			return (free_arr(vv), 0);
+		free_arr(vv);
+	}
+	return (1);
 }
