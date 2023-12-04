@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:17:22 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 17:13:33 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:33:08 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	reset_stds(bool piped)
 {
 	if (piped)
 		return ;
-	dup2(g_minishell.stdin, 0);
-	dup2(g_minishell.stdout, 1);
+	dup2(g_minishell.fdin, 0);
+	dup2(g_minishell.fdout, 1);
 }
 
 int	exec_child(t_node *node)
@@ -60,7 +60,7 @@ int	exec_child(t_node *node)
 			status = err_msg(path_stat.err);
 			(clean_ms(), exit(status));
 		}
-		if (execve(path_stat.path, node->exp_args. g_minishell.envv) == -1)
+		if (execve(path_stat.path, node->exp_args, g_minishell.envv) == -1)
 			(clean_ms(), exit(1));
 	}
 	waitpid(fork_pid, &status, 0);

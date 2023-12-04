@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:45:28 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 17:09:01 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:33:31 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	export_err_msg(char *identifier)
 	return (1);
 }
 
-int	check_key(char *key)
+int	check_key(char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:51:08 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 14:07:13 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:37:05 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_append(t_io_node *io_lst, int *status)
 		*status = err_msg((t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_lst->value});
 		return (*status);
 	}
-	fd = open(io_lst->exp_value[0], O_CREATE | O_WRONLY | O_APPEND, 0644);
+	fd = open(io_lst->exp_value[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		*status = err_msg(check_write(io_lst->exp_value[0]));

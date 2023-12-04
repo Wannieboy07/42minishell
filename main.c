@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 16:28:23 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:41:19 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_minishell(char **env)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
 	g_minishell.envv = env;
+	init_envlst();
 	g_minishell.fdin = dup(0);
 	g_minishell.fdout = dup(1);
 }
@@ -39,8 +40,7 @@ void	start_exec(void)
 		clear_ast(&g_minishell.ast);
 		g_minishell.heredoc_sigint = false;
 	}
-	prnt_ast(g_minishell.ast);
-	g_minishell.exit_code = execute_node(g_minishell.ast, false);
+	g_minishell.exit_code = exec_node(g_minishell.ast, false);
 	clear_ast(&g_minishell.ast);
 }
 

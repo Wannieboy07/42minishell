@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 17:15:54 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:42:28 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <unistd.h>
 # include <signal.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -256,6 +260,19 @@ int	get_exit_status(int status);
 
 int	exec_simple_cmd(t_node *node, bool piped);
 
+int	exec_builtin(char **args);
+bool	is_builtin(char *arg);
+
+int	check_out(t_io_node *io_lst, int *status);
+int	check_in(t_io_node *io_lst, int *status);
+int	check_append(t_io_node *io_lst, int *status);
+
+t_err	check_exec(char *file, bool cmd);
+t_err	check_write(char *file);
+t_err	check_read(char *file);
+
+t_path	get_path(char *cmd);
+
 void	*garbage_collector(void *ptr, bool clean);
 bool	is_delimiter(char *delim, char *str);
 
@@ -268,5 +285,13 @@ int	ms_exit(char **args);
 int	ms_export(char **argv);
 int	ms_pwd(void);
 int	ms_unset(char **argv);
+
+void	init_envlst(void);
+
+bool	is_valid_key(char *key);
+char	*extract_key(char *str);
+char	*extract_value(char *str);
+
+int	check_key(char *str);
 
 #endif
