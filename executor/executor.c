@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:02:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 21:27:36 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:31:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,6 @@ int	exec_builtin(char **args)
 	else
 		return (g_minishell.exit_code = 127, 1);
 }
-
-////execute commands in order
-//int	ast_parser(t_node *start, t_node *ast, int fd)
-//{
-	//t_node	*test;
-
-	//if (!start || !ast)
-		//return (1);
-	//(void)start;
-	//(void)fd;
-	//test = ast->left;
-	//test = test->left;
-	//printf("cmd1: %s\n", test->exp_args[0]);
-	//if (!pipe_handler(test, IN))
-		//return (0);
-	//test = ast->left;
-	//test = test->right;
-	//printf("cmd2: %s\n", test->exp_args[0]);
-	//if (!pipe_handler(test, IN))
-		//return (0);
-	//test = ast->right;
-	//printf("cmd3: %s\n", test->exp_args[0]);
-	//if (!pipe_handler(test, OUT))
-		//return (0);
-	//return (1);
-//}
 
 //execute commands in order
 int	ast_parser(t_node *start, t_node *ast, int fd)
@@ -94,7 +68,7 @@ int	executor(void)
 		return (1);
 	g_minishell.exit_code = 0;
 	if (!var_handler(g_minishell.ast->exp_args))
-		return (g_minishell.exit_code);
+		return (0);
 	if (g_minishell.exit_code != 127)
 		return (1);
 	if (g_minishell.ast->type == P_CMD)

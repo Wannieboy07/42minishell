@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:25 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/01 23:28:50 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:51:39 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ void	clean_ms(void)
 	rl_clear_history();
 }
 
-// execute node (rescursive)
-
-//WIP
-void	start_exec(void)
+//set up for execution and execute
+static int	start_exec(void)
 {
 	handle_cmd_signals();
 	init_tree(g_minishell.ast);
 	prnt_ast(g_minishell.ast);
-	g_minishell.exit_code = executor();
+	if (!executor())
+		return (0);
 	clear_ast(&g_minishell.ast);
+	return (1);
 }
 
-//prompt that takes inputs
+//prompt that takes inputs and handles them
 int	minishell_loop(void)
 {
 	while (1)
@@ -70,8 +70,10 @@ int	minishell_loop(void)
 			handle_parse_err();
 			continue ;
 		}
-		start_exec();
+		if (!start_exec())
+			break ;
 	}
+	return (clear_ast(&g_minishell.ast), 0);
 }
 
 //parse inputs, execute commands, handle redirections
@@ -81,6 +83,6 @@ int	main(int ac, char **av, char **env)
 		return (prnt_err("args", av));
 	if (!init_minishell(env))
 		return (EXIT_FAILURE);
-	if (minishell_loop() == EXIT_FAILURE)
+	if (!minishell_loop())
 		return (EXIT_FAILURE);
 }

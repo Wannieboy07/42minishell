@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:57:40 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 23:12:52 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:04:48 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static int	update_env(char *var)
 int	exec_cd(char **args)
 {
 	if (args[1] == NULL || args[2] != NULL)
-		return (prnt_err("cd: invalid usage", NULL), 1);
+		return (prnt_arg_err("cd", NULL, "too many arguments"), 1);
 	if (!update_env("OLDPWD"))
 		return (0);
 	if (chdir(args[1]) < 0)
-		return (prnt_err("cd: invalid path", NULL), 1);
+		return (prnt_arg_err("cd", args[1], "invalid path"), 1);
 	if (!update_env("PWD"))
 		return (0);
 	return (1);

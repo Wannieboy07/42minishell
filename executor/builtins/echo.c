@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:12:19 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 23:14:52 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:56:19 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ static int	err_echo_flag(char **args)
 
 	flag = args[1];
 	if (flag[1] != 'n' || flag[2] != '\0')
-		return (prnt_err("echo: invalid usage", NULL));
+	{
+		if (flag[2] == '\0')
+			return (prnt_arg_err("echo", args[1], "invalid option"));
+		return (prnt_arg_err("echo", args[1], "invalid options"));
+	}
 	if (args[2] == NULL)
 		return (printf("%s", ""), 1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:14:04 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/04 16:12:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:43:06 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	prnt_arg_err(char *type, char *arg, char *msg)
 {
 	if (!type && !arg && !msg)
-		return (1);
+		return (g_minishell.exit_code = 1, 1);
 	ft_putstr_fd(RED "Error" GREY ": ", 2);
 	if (type)
 	{
@@ -25,13 +25,15 @@ int	prnt_arg_err(char *type, char *arg, char *msg)
 	}
 	if (arg)
 	{
+		ft_putstr_fd("'", 2);
 		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("'", 2);
 		ft_putstr_fd(": ", 2);
 	}
 	if (msg)
 		ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
-	return (1);
+	return (g_minishell.exit_code = 1, 1);
 }
 
 //print errors

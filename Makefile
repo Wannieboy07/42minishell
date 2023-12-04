@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/11/05 20:53:35 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/12/04 21:39:06 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ PFLAGS = -l readline
 CC = cc
 
 #flags
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 #redirect output to /dev/null to silence it
 OUT = > /dev/null
