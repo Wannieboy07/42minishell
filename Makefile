@@ -1,46 +1,44 @@
 SRCS =	\
 	lexer/handle_identifier.c	\
 	lexer/handle_seperator.c	\
-	lexer/lexer.c			\
-	lexer/lexer_lst.c		\
-	lexer/lexer_utils.c		\
+	lexer/lexer.c				\
+	lexer/lexer_lst.c			\
+	lexer/lexer_utils.c			\
 	\
-	parser/parser.c			\
-	parser/parser_cmd.c		\
-	parser/parser_err.c		\
+	parser/parser.c				\
+	parser/parser_cmd.c			\
+	parser/parser_err.c			\
 	parser/parser_free.c		\
 	parser/parser_nodes.c		\
 	parser/parser_util.c		\
 	\
-	parser/tmp_parser_prnt.c	\
-	\
 	expander/clean_empties.c	\
-	env_lst.c			\
-	expander/expander.c		\
+	env_lst.c					\
+	expander/expander.c			\
 	expander/expander_split.c	\
 	expander/expander_utils.c	\
 	expander/expand_heredoc.c	\
 	expander/init_tree.c		\
 	expander/strip_quotes.c		\
 	\
-	exec/check_perm.c		\
-	exec/exec_builtin.c		\
-	exec/exec.c			\
-	exec/exec_cmd.c			\
-	exec/exec_redir.c		\
-	exec/exec_utils.c		\
-	exec/get_path.c			\
+	exec/check_perm.c			\
+	exec/exec_builtin.c			\
+	exec/exec.c					\
+	exec/exec_cmd.c				\
+	exec/exec_redir.c			\
+	exec/exec_utils.c			\
+	exec/get_path.c				\
 	\
-	builtins/cd.c			\
-	builtins/echo.c			\
-	builtins/env.c			\
-	builtins/exit.c			\
-	builtins/export.c		\
-	builtins/pwd.c			\
-	builtins/unset.c		\
+	builtins/cd.c				\
+	builtins/echo.c				\
+	builtins/env.c				\
+	builtins/exit.c				\
+	builtins/export.c			\
+	builtins/pwd.c				\
+	builtins/unset.c			\
 	\
 	error/error_handling.c		\
-	error/error_msg.c		\
+	error/error_msg.c			\
 	\
 	signal/signal_handling.c	\
 

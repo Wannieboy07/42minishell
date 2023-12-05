@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:17:22 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/04 14:33:08 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:55:53 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	check_redir(t_node *node)
 			return (status);
 		else if (tmp_io->type == IN && check_in(tmp_io, &status) != ENO_SUCCESS)
 			return (status);
-		else if (tmp_io->type == APPEND && check_append(tmp_io, &status) != ENO_SUCCESS)
+		else if (tmp_io->type == APPEND
+			&& check_append(tmp_io, &status) != ENO_SUCCESS)
 			return (status);
 		else if (tmp_io->type == HERDOC)
 			(dup2(tmp_io->here_doc, 0), close(tmp_io->here_doc));

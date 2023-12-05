@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 15:19:06 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 17:07:44 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:56:40 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ bool	is_builtin(char *arg)
 {
 	if (!arg)
 		return (false);
-	if (!ft_strcmp(arg, "echo") || !ft_strcmp(arg, "cd") || !ft_strcmp(arg, "pwd")
-		|| !ft_strcmp(arg, "export") || !ft_strcmp(arg, "unset")
-		|| !ft_strcmp(arg, "env")|| !ft_strcmp(arg, "exit"))
+	if (!ft_strcmp(arg, "echo") || !ft_strcmp(arg, "cd")
+		|| !ft_strcmp(arg, "pwd") || !ft_strcmp(arg, "export")
+		|| !ft_strcmp(arg, "unset") || !ft_strcmp(arg, "env")
+		|| !ft_strcmp(arg, "exit"))
 		return (true);
 	return (false);
 }

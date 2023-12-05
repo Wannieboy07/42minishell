@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/04 16:41:19 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 14:08:49 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,12 @@ int	minishell_loop(void)
 			add_history(g_minishell.line);
 		g_minishell.tokens = lexer();
 		if (!g_minishell.tokens)
-		{
-			printf(GREY "Info: no tokens\n" WHITE);
 			continue ;
-		}
 		g_minishell.ast = parser();
 		if (g_minishell.parse_err.type)
 		{
 			handle_parse_err();
-			continue;
+			continue ;
 		}
 		start_exec();
 	}

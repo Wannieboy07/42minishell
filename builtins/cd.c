@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 15:26:20 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/04 16:25:26 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:59:07 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	cd_home(void)
 	update_envlst("OLDPWD", get_env_val("PWD"), false);
 	home = get_env_val("HOME");
 	if (!home)
-		return (ft_putstr_fd("\033[31m» \033[36mminishell:\033[0;97m cd: HOME not set\n", 2), 1);
+		return (ft_putstr_fd("\033[31m» \033[36mminishell:\033[0;97m", 2),
+			ft_putstr_fd("cd: HOME not set\n", 2), 1);
 	if (chdir(home) == ENO_SUCCESS)
 		return (update_envlst("PWD", home, false), 0);
 	return (1);

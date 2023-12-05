@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:10:45 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/04 16:27:32 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:58:10 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	exittoi(char *s)
 {
-	int		exit_s;
+	int				exit_s;
 	unsigned long	nmbr;
 
 	if (!ft_isnumber(s))

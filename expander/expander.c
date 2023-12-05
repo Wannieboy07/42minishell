@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:38:59 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:39:01 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:46:49 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*handle_dollar(char *str, size_t *i)
 	char	*env_val;
 
 	(*i)++;
-	if (ft_isdigit(str[*i]) || str[*i] == '0')
+	if (ft_isdigit(str[*i]) || str[*i] == '@')
 	{
 		(*i)++;
 		return (ft_strdup(""));
@@ -29,7 +29,7 @@ char	*handle_dollar(char *str, size_t *i)
 		(*i)++;
 		return (ft_itoa(g_minishell.exit_code));
 	}
-	else if (!ft_isalnum(str[*i]) || str[*i] != '_')
+	else if (!ft_isalnum(str[*i]) && str[*i] != '_')
 		return (ft_strdup("$"));
 	start = *i;
 	while (ft_isalnum(str[*i]) || str[*i] == '_')
