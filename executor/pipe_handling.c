@@ -6,7 +6,7 @@
 /*   By: lpeeters <lpeeters@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:01:55 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/12/03 21:23:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:45:30 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	exec_cmd(int fd, int *pfd, t_node *ast)
 static int	parent(int fd, int *pfd, pid_t pid)
 {
 	waitpid(pid, &g_minishell.exit_code, 0);
+	if (g_minishell.exit_code > 255)
+		g_minishell.exit_code %= 255;
 	if (fd == IN)
 	{
 		if (close(pfd[OUT]) < 0)
