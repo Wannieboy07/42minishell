@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:06:18 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/05 14:08:49 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:45:25 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	clean_ms(void)
 
 void	start_exec(void)
 {
-	handle_cmd_signals();
+	signal(SIGQUIT, sigquit_handler);
 	init_tree(g_minishell.ast);
 	if (g_minishell.heredoc_sigint)
 	{
@@ -48,7 +48,7 @@ int	minishell_loop(void)
 {
 	while (1)
 	{
-		handle_global_signals();
+		init_sighandlers();
 		g_minishell.line = readline(GREEN "» " B_CYAN "minishell$ " WHITE);
 		if (!g_minishell.line)
 			(clean_ms(), eof_handler());

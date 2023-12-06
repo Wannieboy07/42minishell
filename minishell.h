@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:38:07 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/05 13:08:29 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:44:54 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ void		clean_ms(void);
 /*=== Signal Handling ===*/
 
 void		eof_handler(void);
-void		handle_global_signals(void);
-void		handle_cmd_signals(void);
-void		exit_routine(void);
+void		init_sighandlers(void);
+void		sigquit_handler(int num);
+
 /*=== Error Handling ===*/
 
 int			err_msg(t_err err);
