@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:35:08 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:35:46 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:43:33 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	open_heredoc(t_io_node *io, int fd[2])
 bool	leave_node(int fd[2], int *pid)
 {
 	waitpid(*pid, pid, 0);
+	signal(SIGQUIT, sigquit_handler);
+	g_minishell.sigint_child = false;
 	close(fd[1]);
 	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 		return (true);

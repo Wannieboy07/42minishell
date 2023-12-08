@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 15:26:20 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/05 12:59:07 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:58:44 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	change_pwd(void)
 {
-	char	*cwd;
+	char	cwd[PATH_MAX];
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	if (!getcwd(cwd, PATH_MAX))
 		return (1);
 	return (update_envlst("PWD", cwd, false), 0);
 }
@@ -50,6 +49,6 @@ int	ms_cd(char *path)
 		return (cd_home());
 	if (chdir(path) != ENO_SUCCESS)
 		return (cd_err_msg(path));
-	update_envlst("OLPWD", get_env_val("PWD"), false);
+	update_envlst("OLDPWD", get_env_val("PWD"), false);
 	return (change_pwd());
 }
