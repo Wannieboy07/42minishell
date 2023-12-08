@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:14:40 by wmarien           #+#    #+#             */
-/*   Updated: 2023/12/01 17:08:38 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/08 12:35:52 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*extract_key(char *str)
 			return (garbage_collector(ft_substr(str, 0, i), false));
 		i++;
 	}
-	return (ft_strdup(str));
+	return (garbage_collector(ft_strdup(str), false));
 }
 
 char	*extract_value(char *str)
@@ -85,7 +85,7 @@ int	ms_env(void)
 	lst = g_minishell.env_lst;
 	while (lst)
 	{
-		if (lst->value != NULL)
+		if (lst->value)
 			printf("%s=%s\n", lst->key, lst->value);
 		lst = lst->next;
 	}

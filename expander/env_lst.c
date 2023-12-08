@@ -6,7 +6,7 @@
 /*   By: wmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:28:49 by wmarien           #+#    #+#             */
-/*   Updated: 2023/11/29 10:38:53 by wmarien          ###   ########.fr       */
+/*   Updated: 2023/12/08 12:33:57 by wmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_env	*envlst_new(char *key, char *value)
 	new->key = garbage_collector(ft_strdup(key), false);
 	if (value)
 		new->value = garbage_collector(ft_strdup(value), false);
+	else
+		new->value = NULL;
 	new->next = NULL;
 	return (new);
 }
